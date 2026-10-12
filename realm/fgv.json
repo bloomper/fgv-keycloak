@@ -1721,6 +1721,8 @@
     "port": "${SMTP_PORT:25}",
     "from": "${SMTP_FROM:noreply@localhost}"
   },
+  "loginTheme": "FGV",
+  "accountTheme": "FGV",
   "eventsEnabled": false,
   "eventsListeners": [
     "jboss-logging",
