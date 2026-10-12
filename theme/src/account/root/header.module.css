@@ -1,0 +1,55 @@
+/**
+ * This file has been claimed for ownership from @keycloakify/keycloak-account-ui version 260700.0.3.
+ * To relinquish ownership and restore this file to its original content, run the following command:
+ * 
+ * $ npx keycloakify own --path "account/root/header.module.css" --revert
+ */
+
+.brand {
+    height: 35px;
+    display: flex;
+    align-items: center;
+    width: auto;
+    min-width: max-content;
+}
+
+.brandLogo {
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: max-content;
+
+    color: rgb(24 24 27);
+}
+
+:global(html.pf-v5-theme-dark) .brandLogo {
+    color: rgb(244 244 245);
+}
+
+.brandLogo :global(svg) {
+    fill: currentColor;
+}
+
+.brandLogo :global(svg [stroke]) {
+    stroke: currentColor;
+}
+
+.brandLogo > :first-child {
+    height: 40px;
+    width: 40px;
+    flex: 0 0 auto;
+}
+
+.brandLogo > :last-child {
+    height: 28px;
+    width: auto;
+    flex: 0 0 auto;
+}
+
+.brandLogo > :first-child :global(svg),
+.brandLogo > :last-child :global(svg) {
+    height: 100%;
+    width: 100%;
+    display: block;
+}

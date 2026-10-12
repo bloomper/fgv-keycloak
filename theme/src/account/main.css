@@ -1,0 +1,207 @@
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: #f4f4f5;
+    color: #18181b;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.pf-v5-theme-dark body {
+    background: #09090b;
+    color: #f4f4f5;
+}
+
+:root {
+    --pf-v5-global--FontFamily--sans-serif: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+
+    --pf-v5-global--primary-color--100: #0f172a;
+    --pf-v5-global--link--Color: #0f172a;
+    --pf-v5-global--link--Color--hover: #020617;
+
+    --pf-v5-global--BackgroundColor--100: #ffffff;
+    --pf-v5-global--BackgroundColor--200: #fafafa;
+    --pf-v5-global--BorderColor--100: #e4e4e7;
+
+    --pf-v5-global--BorderRadius--sm: 0.75rem;
+    --pf-v5-global--BorderRadius--md: 0.75rem;
+    --pf-v5-global--BorderRadius--lg: 1rem;
+}
+
+.pf-v5-theme-dark {
+    --pf-v5-global--primary-color--100: #e4e4e7;
+    --pf-v5-global--link--Color: #e4e4e7;
+    --pf-v5-global--link--Color--hover: #ffffff;
+
+    --pf-v5-global--BackgroundColor--100: rgba(9, 9, 11, 0.4);
+    --pf-v5-global--BackgroundColor--200: rgba(9, 9, 11, 0.65);
+    --pf-v5-global--BorderColor--100: #27272a;
+}
+
+.pf-v5-c-masthead {
+    background: transparent;
+    border-bottom: 1px solid var(--pf-v5-global--BorderColor--100);
+    color: var(--pf-v5-global--Color--100, #18181b);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-masthead {
+    --pf-v5-c-masthead--BackgroundColor: #ffffff;
+    --pf-v5-c-masthead--Color: #18181b;
+
+    background-color: var(--pf-v5-c-masthead--BackgroundColor);
+    color: var(--pf-v5-c-masthead--Color);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-masthead__main,
+html:not(.pf-v5-theme-dark) .pf-v5-c-masthead__content {
+    background-color: transparent;
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-page__header .pf-v5-c-button,
+html:not(.pf-v5-theme-dark) .pf-v5-c-masthead .pf-v5-c-button {
+    color: #18181b;
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-page__header .pf-v5-c-button svg,
+html:not(.pf-v5-theme-dark) .pf-v5-c-masthead .pf-v5-c-button svg {
+    fill: currentColor;
+}
+
+.pf-v5-theme-dark .pf-v5-c-page__header,
+.pf-v5-theme-dark .pf-v5-c-masthead,
+.pf-v5-theme-dark .pf-v5-c-masthead__main,
+.pf-v5-theme-dark .pf-v5-c-masthead__content {
+    background-color: #000000;
+}
+
+.pf-v5-theme-dark .pf-v5-c-masthead {
+    border-bottom-color: var(--pf-v5-global--BorderColor--100);
+    color: #f4f4f5;
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-dropdown__toggle,
+html:not(.pf-v5-theme-dark) .pf-v5-c-menu-toggle {
+    color: #18181b;
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-dropdown__menu,
+html:not(.pf-v5-theme-dark) .pf-v5-c-menu {
+    color: #18181b;
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-dropdown__menu-item,
+html:not(.pf-v5-theme-dark) .pf-v5-c-menu__item {
+    color: #18181b;
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-page__sidebar {
+    background-color: #ffffff;
+    color: #18181b;
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav {
+    --pf-v5-c-nav--BackgroundColor: #ffffff;
+
+    --pf-v5-c-nav__link--Color: #18181b;
+    --pf-v5-c-nav__link--hover--Color: #18181b;
+
+    --pf-v5-c-nav__link--BackgroundColor: transparent;
+    --pf-v5-c-nav__link--hover--BackgroundColor: #f4f4f5;
+
+    --pf-v5-c-nav__link--m-current--Color: #18181b;
+    --pf-v5-c-nav__link--m-current--BackgroundColor: #e4e4e7;
+
+    --pf-v5-c-nav__section-title--Color: #18181b;
+    --pf-v5-c-nav__section-title--BackgroundColor: transparent;
+
+    --pf-v5-c-nav__item--hover--BackgroundColor: #f4f4f5;
+    --pf-v5-c-nav__item--m-current--BackgroundColor: #e4e4e7;
+
+    background-color: var(--pf-v5-c-nav--BackgroundColor);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item {
+    border-bottom: 1px solid var(--pf-v5-global--BorderColor--100);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__link {
+    color: var(--pf-v5-c-nav__link--Color);
+    transition: none;
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__link:hover {
+    background-color: var(--pf-v5-c-nav__link--hover--BackgroundColor);
+    color: var(--pf-v5-c-nav__link--hover--Color);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__link.pf-m-current {
+    background-color: var(--pf-v5-c-nav__link--m-current--BackgroundColor);
+    color: var(--pf-v5-c-nav__link--m-current--Color);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__section-title {
+    color: var(--pf-v5-c-nav__section-title--Color);
+    background-color: var(--pf-v5-c-nav__section-title--BackgroundColor);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item:hover {
+    background-color: var(--pf-v5-c-nav__item--hover--BackgroundColor);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item.pf-m-current {
+    background-color: var(--pf-v5-c-nav__item--m-current--BackgroundColor);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item.pf-m-expanded {
+    background-color: transparent;
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item.pf-m-expanded > .pf-v5-c-nav__link {
+    background-color: transparent;
+    color: var(--pf-v5-c-nav__link--Color);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item.pf-m-expanded:hover {
+    background-color: var(--pf-v5-c-nav__item--hover--BackgroundColor);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item.pf-m-expanded:hover > .pf-v5-c-nav__link {
+    background-color: transparent;
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item.pf-m-expandable > .pf-v5-c-nav__link {
+    background-color: transparent;
+    color: var(--pf-v5-c-nav__link--Color);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item.pf-m-expandable > .pf-v5-c-nav__link:focus,
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item.pf-m-expandable > .pf-v5-c-nav__link:focus-visible,
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item.pf-m-expandable:focus-within > .pf-v5-c-nav__link {
+    background-color: var(--pf-v5-c-nav__link--hover--BackgroundColor);
+    color: var(--pf-v5-c-nav__link--hover--Color);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item.pf-m-expandable:hover > .pf-v5-c-nav__link {
+    background-color: var(--pf-v5-c-nav__link--hover--BackgroundColor);
+    color: var(--pf-v5-c-nav__link--hover--Color);
+}
+
+html:not(.pf-v5-theme-dark) .pf-v5-c-nav__item.pf-m-expandable.pf-m-current > .pf-v5-c-nav__link {
+    background-color: var(--pf-v5-c-nav__link--m-current--BackgroundColor);
+    color: var(--pf-v5-c-nav__link--m-current--Color);
+}
+
+.pf-v5-c-page__main-section {
+    background: transparent;
+}
+
+.pf-v5-c-card {
+    border: 1px solid var(--pf-v5-global--BorderColor--100);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}

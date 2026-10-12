@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer components {
+    #kc-locale-dropdown ul {
+        @apply hidden;
+    }
+
+    #kc-locale-dropdown:focus-within ul {
+        @apply block;
+    }
+
+    #kc-current-locale-link {
+        @apply inline-flex items-center justify-between gap-2 rounded-xl border px-3 py-2 text-sm shadow-sm;
+        @apply min-w-32;
+
+        @apply border-zinc-300 bg-white text-zinc-900;
+        @apply hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-900/10;
+
+        @apply dark:border-zinc-800 dark:bg-zinc-950/40 dark:text-zinc-100;
+        @apply dark:hover:bg-zinc-900 dark:focus:ring-white/20;
+    }
+
+    #kc-current-locale-link::after {
+        content: "▾";
+        @apply text-zinc-500 dark:text-zinc-400;
+    }
+
+    #kc-locale-dropdown ul a {
+        @apply no-underline;
+    }
+
+    #kc-form-options {
+        @apply flex flex-nowrap items-center gap-3 text-xs mb-4;
+        @apply text-zinc-600 dark:text-zinc-400;
+    }
+
+    #kc-form-options .checkbox,
+    #kc-form-options .checkbox label {
+        @apply flex items-center gap-2 text-xs;
+        @apply text-zinc-600 dark:text-zinc-400;
+    }
+
+    #kc-form-options input[type="checkbox"] {
+        @apply h-4 w-4;
+        @apply accent-zinc-700 dark:accent-zinc-500;
+    }
+
+    #kc-reset-password a,
+    .kcFormOptionsWrapperClass a {
+        @apply text-xs no-underline hover:underline hover:underline-offset-4;
+        @apply text-zinc-700 hover:text-zinc-900;
+        @apply dark:text-zinc-400 dark:hover:text-zinc-100;
+    }
+}
