@@ -1,0 +1,11 @@
+.git
+.github
+.idea
+*.iml
+providers/.gradle
+providers/build
+theme/node_modules
+theme/dist
+theme/dist_keycloak
+theme/.keycloakify
+theme/storybook-static
