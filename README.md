@@ -36,14 +36,18 @@ Roles assigned in the admin console or through the admin REST API both count. Us
 such as migrated users, get no email. Set `pending-group` on both providers to use another group, e.g.
 `KC_SPI_REQUIRED_ACTION__FGV_APPROVAL__PENDING_GROUP`.
 
-Build the jar on its own with `./gradlew jar` in `providers/`. It needs JDK 21 or later and ends up in
-`providers/build/libs/`.
+Build the jar on its own with `./gradlew build` in `providers/`, which also runs the tests. It needs JDK 21 or
+later and the jar ends up in `providers/build/libs/`.
 
 ## Theme
 
-`theme/` is a [Keycloakify][1] project that provides the `FGV` login and account theme. Run `npm ci` in it,
+`theme/` is a [Keycloakify][1] project that provides the `FGV` login, account and email theme. Run `npm ci` in it,
 then `npm run storybook` to preview pages or `npm run build-keycloak-theme` to build the theme jar. Building the
 jar needs Maven.
+
+The email theme in `theme/src/email/` is a plain Keycloak theme that extends `base`. It replaces only
+`html/template.ftl`, the layout around every HTML email, so the texts and translations are Keycloak's own. The
+approval emails from `fgv-admin-notification` are plain text and don't use it.
 
 ## Realm
 
@@ -51,14 +55,28 @@ jar needs Maven.
 The client secrets and sample user passwords in it are public, so replace them in any shared environment.
 [spexregister-deploy][2] does that with `bin/configure-keycloak.sh`, which also selects the `FGV` theme.
 
+The realm's mail settings are read from the environment during that import:
+
+| Variable        | Default             | Purpose                                   |
+|-----------------|---------------------|-------------------------------------------|
+| `SMTP_HOST`     |                     | SMTP server                               |
+| `SMTP_PORT`     | `25`                | SMTP port                                 |
+| `SMTP_FROM`     | `noreply@localhost` | Sender address                            |
+| `SMTP_AUTH`     | `false`             | Log in with `SMTP_USER`/`SMTP_PASSWORD`   |
+| `SMTP_USER`     |                     | SMTP user                                 |
+| `SMTP_PASSWORD` |                     | SMTP password                             |
+| `SMTP_STARTTLS` | `false`             | Upgrade the connection with STARTTLS      |
+| `SMTP_SSL`      | `false`             | Connect with implicit TLS                 |
+
 ## Building the image
 
 ```shell
 docker build -t fgv-keycloak .
 ```
 
-The build needs only Docker. It compiles the providers and builds the theme in throwaway stages. The build
-argument `KEYCLOAK_VERSION` (default `26.7`) selects the tag of `quay.io/keycloak/keycloak` to extend.
+The build needs only Docker. It compiles and tests the providers and builds the theme in throwaway stages. The
+build argument `KEYCLOAK_VERSION` (default `26.8`) selects the tag of `quay.io/keycloak/keycloak` to extend. Keep
+it on the same minor version as `keycloakVersion` in `providers/build.gradle`.
 
 ## Published images
 

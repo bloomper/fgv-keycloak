@@ -1719,10 +1719,16 @@
   "smtpServer": {
     "host": "${SMTP_HOST:}",
     "port": "${SMTP_PORT:25}",
-    "from": "${SMTP_FROM:noreply@localhost}"
+    "from": "${SMTP_FROM:noreply@localhost}",
+    "auth": "${SMTP_AUTH:false}",
+    "user": "${SMTP_USER:}",
+    "password": "${SMTP_PASSWORD:}",
+    "starttls": "${SMTP_STARTTLS:false}",
+    "ssl": "${SMTP_SSL:false}"
   },
   "loginTheme": "FGV",
   "accountTheme": "FGV",
+  "emailTheme": "FGV",
   "eventsEnabled": false,
   "eventsListeners": [
     "jboss-logging",

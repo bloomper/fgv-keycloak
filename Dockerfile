@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 
-ARG KEYCLOAK_VERSION=26.7
+ARG KEYCLOAK_VERSION=26.8
 
 FROM --platform=$BUILDPLATFORM eclipse-temurin:25-jdk AS providers
 
@@ -8,7 +8,7 @@ WORKDIR /src
 
 COPY providers ./
 
-RUN ./gradlew --no-daemon -q jar
+RUN ./gradlew --no-daemon -q build
 
 FROM --platform=$BUILDPLATFORM node:22-bookworm AS theme
 
