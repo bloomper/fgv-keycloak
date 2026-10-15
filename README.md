@@ -55,6 +55,9 @@ later and the jar ends up in `providers/build/libs/`.
 then `npm run storybook` to preview pages or `npm run build-keycloak-theme` to build the theme jar. Building the
 jar needs Maven.
 
+The account theme extends `keycloak.v3` instead of `base`, which `postBuild` in `vite.config.ts` sets because
+Keycloakify can't. That gives it the authenticator icons Keycloak shows next to each passkey.
+
 The email theme in `theme/src/email/` is a plain Keycloak theme that extends `base`. It replaces only
 `html/template.ftl`, the layout around every HTML email, so the texts and translations are Keycloak's own. The
 approval emails from `fgv-admin-notification` are plain text and don't use it.
@@ -88,6 +91,7 @@ The realm also has:
 - consent required for `spexregister-mcp`, so users see which MCP client asks for access
 - the registration flow `fgv registration`, a copy of the built-in one with `fgv-turnstile` added, and a content
   security policy that lets the Turnstile widget load
+- the browser flow `fgv browser`, a copy of the built-in one that skips OTP when the user signed in with a passkey
 - login and admin events, kept for 30 days
 
 New users choose their password after verifying their email address, which is how Keycloak 26.8 handles
