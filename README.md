@@ -52,8 +52,9 @@ approval emails from `fgv-admin-notification` are plain text and don't use it.
 ## Realm
 
 `realm/fgv.json` is imported when Keycloak starts with `--import-realm` and the realm `fgv` doesn't exist yet.
-The client secrets and sample user passwords in it are public, so replace them in any shared environment.
-[spexregister-deploy][2] does that with `bin/configure-keycloak.sh`, which also selects the `FGV` theme.
+The client secrets in it are public, so replace them in any shared environment. [spexregister-deploy][2] does
+that with `bin/configure-keycloak.sh`, which also selects the `FGV` theme. The realm contains no users apart from
+the service account of `fgv-admin`. Spexregister Server creates sample users when it imports sample data.
 
 The realm's mail settings are read from the environment during that import:
 

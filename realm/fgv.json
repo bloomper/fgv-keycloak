@@ -507,71 +507,6 @@
   "webAuthnPolicyPasswordlessExtraOrigins": [],
   "users": [
     {
-      "id": "6c4f7d1a-0b4b-4081-abf2-132092b8f872",
-      "createdTimestamp": 1705744114960,
-      "username": "admin@fgv.nu",
-      "enabled": true,
-      "totp": false,
-      "emailVerified": true,
-      "email": "admin@fgv.nu",
-      "credentials": [
-        {
-          "id": "7c4b1912-d3e7-4e3d-b89b-da0157103357",
-          "type": "password",
-          "userLabel": "My password",
-          "createdDate": 1705745157313,
-          "secretData": "{\"value\":\"ZWeB2OxuofdvxBS/0BDDuUP4fLULOG8d8vmLchQ/m7g=\",\"salt\":\"6K+ZLRVGV5vKD5LCGw9qhg==\",\"additionalParameters\":{}}",
-          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
-        }
-      ],
-      "disableableCredentialTypes": [],
-      "requiredActions": [],
-      "realmRoles": [
-        "default-roles-fgv"
-      ],
-      "clientRoles": {
-        "spexregister": [
-          "EDITOR",
-          "USER",
-          "ADMIN"
-        ]
-      },
-      "notBefore": 0,
-      "groups": []
-    },
-    {
-      "id": "56656735-bcf5-4d33-bfb7-9a6e79947ab1",
-      "createdTimestamp": 1705744042845,
-      "username": "editor@fgv.nu",
-      "enabled": true,
-      "totp": false,
-      "emailVerified": true,
-      "email": "editor@fgv.nu",
-      "credentials": [
-        {
-          "id": "352d32ab-2dd2-460d-8e9b-1f75c94faa36",
-          "type": "password",
-          "userLabel": "My password",
-          "createdDate": 1705745170097,
-          "secretData": "{\"value\":\"CtyROYSNwz7qyu8JF6BiLfIISOOdbHMtTDQxSQIxRwo=\",\"salt\":\"Pqf2Y94jW5b3H5+1r4RMCg==\",\"additionalParameters\":{}}",
-          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
-        }
-      ],
-      "disableableCredentialTypes": [],
-      "requiredActions": [],
-      "realmRoles": [
-        "default-roles-fgv"
-      ],
-      "clientRoles": {
-        "spexregister": [
-          "EDITOR",
-          "USER"
-        ]
-      },
-      "notBefore": 0,
-      "groups": []
-    },
-    {
       "id": "4d6a91f0-2748-489d-9287-379ee5dc9968",
       "createdTimestamp": 1705741680708,
       "username": "service-account-fgv-admin",
@@ -591,38 +526,6 @@
           "manage-users",
           "view-users",
           "view-clients"
-        ]
-      },
-      "notBefore": 0,
-      "groups": []
-    },
-    {
-      "id": "281a329a-8ef2-402a-acd6-eaaf07fa6ca5",
-      "createdTimestamp": 1705222055768,
-      "username": "user@fgv.nu",
-      "enabled": true,
-      "totp": false,
-      "emailVerified": true,
-      "firstName": "User",
-      "email": "user@fgv.nu",
-      "credentials": [
-        {
-          "id": "c105d82e-bc96-4be5-9919-be3416f1a483",
-          "type": "password",
-          "userLabel": "My password",
-          "createdDate": 1705745181271,
-          "secretData": "{\"value\":\"A6mqLTwErI1r5LC1kVMNPeK2FWp1OhnCUIg9gV/a3xg=\",\"salt\":\"LbPVrkKLPtVE9alZeTNH9A==\",\"additionalParameters\":{}}",
-          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
-        }
-      ],
-      "disableableCredentialTypes": [],
-      "requiredActions": [],
-      "realmRoles": [
-        "default-roles-fgv"
-      ],
-      "clientRoles": {
-        "spexregister": [
-          "USER"
         ]
       },
       "notBefore": 0,
@@ -1066,7 +969,7 @@
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": false,
-      "publicClient": true,
+      "publicClient": false,
       "frontchannelLogout": true,
       "protocol": "openid-connect",
       "attributes": {
@@ -1116,7 +1019,7 @@
       "consentRequired": false,
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
-      "directAccessGrantsEnabled": true,
+      "directAccessGrantsEnabled": false,
       "serviceAccountsEnabled": false,
       "publicClient": true,
       "frontchannelLogout": true,
