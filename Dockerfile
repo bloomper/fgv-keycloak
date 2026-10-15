@@ -10,7 +10,7 @@ COPY providers ./
 
 RUN ./gradlew --no-daemon -q build
 
-FROM --platform=$BUILDPLATFORM node:22-bookworm AS theme
+FROM --platform=$BUILDPLATFORM node:25-bookworm AS theme
 
 RUN apt-get update -qq \
     && apt-get install -y -qq --no-install-recommends maven openjdk-17-jdk-headless \
