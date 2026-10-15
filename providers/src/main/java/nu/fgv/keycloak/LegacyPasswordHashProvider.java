@@ -26,7 +26,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import java.util.Objects;
 
 /**
  * @author Anders Jacobsson
@@ -67,10 +66,14 @@ public class LegacyPasswordHashProvider implements PasswordHashProvider {
         final PasswordCredentialData passwordCredentialData = passwordCredentialModel.getPasswordCredentialData();
         final PasswordSecretData secretData = passwordCredentialModel.getPasswordSecretData();
 
-        if (passwordCredentialData != null && secretData != null) {
-            return Objects.equals(hashPassword(plainPassword, secretData.getSalt(), passwordCredentialData.getHashIterations()), secretData.getValue());
+        if (passwordCredentialData == null || secretData == null || secretData.getValue() == null) {
+            return false;
         }
-        return false;
+
+        final String hashedPassword = hashPassword(plainPassword, secretData.getSalt(), passwordCredentialData.getHashIterations());
+
+        return hashedPassword != null
+                && MessageDigest.isEqual(hashedPassword.getBytes(StandardCharsets.US_ASCII), secretData.getValue().getBytes(StandardCharsets.US_ASCII));
     }
 
     private String hashPassword(final String plainPassword, final byte[] salt, final int iterations) {
