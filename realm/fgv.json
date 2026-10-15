@@ -14,7 +14,7 @@
   "ssoSessionIdleTimeoutRememberMe": 0,
   "ssoSessionMaxLifespanRememberMe": 0,
   "offlineSessionIdleTimeout": 2592000,
-  "offlineSessionMaxLifespanEnabled": false,
+  "offlineSessionMaxLifespanEnabled": true,
   "offlineSessionMaxLifespan": 5184000,
   "clientSessionIdleTimeout": 0,
   "clientSessionMaxLifespan": 0,
@@ -37,14 +37,15 @@
   "duplicateEmailsAllowed": false,
   "resetPasswordAllowed": true,
   "editUsernameAllowed": false,
-  "bruteForceProtected": false,
+  "bruteForceProtected": true,
   "permanentLockout": false,
   "maxFailureWaitSeconds": 900,
   "minimumQuickLoginWaitSeconds": 60,
   "waitIncrementSeconds": 60,
   "quickLoginCheckMilliSeconds": 1000,
   "maxDeltaTimeSeconds": 43200,
-  "failureFactor": 30,
+  "failureFactor": 10,
+  "passwordPolicy": "length(12) and maxLength(128) and notUsername and notEmail",
   "roles": {
     "realm": [
       {
@@ -471,40 +472,45 @@
     "sv": {
       "fgvApprovalPendingHeader": "Väntar på godkännande",
       "fgvApprovalPending": "Du får ett e-postmeddelande när en administratör har godkänt ditt konto.",
-      "registrationMessage": "Meddelande till administratören"
+      "registrationMessage": "Meddelande till administratören",
+      "recaptchaFailed": "Kontrollen av att du inte är en robot misslyckades. Försök igen."
     },
     "en": {
       "fgvApprovalPendingHeader": "Awaiting approval",
       "fgvApprovalPending": "You will receive an email once an administrator has approved your account.",
-      "registrationMessage": "Message to the administrator"
+      "registrationMessage": "Message to the administrator",
+      "recaptchaFailed": "Could not verify that you are not a robot. Please try again."
     }
   },
-  "webAuthnPolicyRpEntityName": "keycloak",
+  "webAuthnPolicyRpEntityName": "FGV",
   "webAuthnPolicySignatureAlgorithms": [
-    "ES256"
+    "ES256",
+    "RS256"
   ],
   "webAuthnPolicyRpId": "",
   "webAuthnPolicyAttestationConveyancePreference": "not specified",
   "webAuthnPolicyAuthenticatorAttachment": "not specified",
-  "webAuthnPolicyRequireResidentKey": "not specified",
+  "webAuthnPolicyResidentKey": "not specified",
   "webAuthnPolicyUserVerificationRequirement": "not specified",
   "webAuthnPolicyCreateTimeout": 0,
   "webAuthnPolicyAvoidSameAuthenticatorRegister": false,
   "webAuthnPolicyAcceptableAaguids": [],
   "webAuthnPolicyExtraOrigins": [],
-  "webAuthnPolicyPasswordlessRpEntityName": "keycloak",
+  "webAuthnPolicyPasswordlessRpEntityName": "FGV",
   "webAuthnPolicyPasswordlessSignatureAlgorithms": [
-    "ES256"
+    "ES256",
+    "RS256"
   ],
   "webAuthnPolicyPasswordlessRpId": "",
   "webAuthnPolicyPasswordlessAttestationConveyancePreference": "not specified",
   "webAuthnPolicyPasswordlessAuthenticatorAttachment": "not specified",
-  "webAuthnPolicyPasswordlessRequireResidentKey": "not specified",
-  "webAuthnPolicyPasswordlessUserVerificationRequirement": "not specified",
+  "webAuthnPolicyPasswordlessResidentKey": "required",
+  "webAuthnPolicyPasswordlessUserVerificationRequirement": "required",
   "webAuthnPolicyPasswordlessCreateTimeout": 0,
   "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister": false,
   "webAuthnPolicyPasswordlessAcceptableAaguids": [],
   "webAuthnPolicyPasswordlessExtraOrigins": [],
+  "webAuthnPolicyPasswordlessPasskeysEnabled": true,
   "users": [
     {
       "id": "4d6a91f0-2748-489d-9287-379ee5dc9968",
@@ -750,12 +756,8 @@
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "YGXDSS5oiZFf4fnTWfX4LImOToPlVOhF",
-      "redirectUris": [
-        "/*"
-      ],
-      "webOrigins": [
-        "/*"
-      ],
+      "redirectUris": [],
+      "webOrigins": [],
       "notBefore": 0,
       "bearerOnly": false,
       "consentRequired": false,
@@ -764,7 +766,7 @@
       "directAccessGrantsEnabled": false,
       "serviceAccountsEnabled": true,
       "publicClient": false,
-      "frontchannelLogout": true,
+      "frontchannelLogout": false,
       "protocol": "openid-connect",
       "attributes": {
         "oidc.ciba.grant.enabled": "false",
@@ -946,28 +948,26 @@
     {
       "id": "90e179a1-7165-4088-a147-9a455f8148ac",
       "clientId": "spexregister",
-      "name": "",
+      "name": "${SPEXREGISTER_NAME:Spexregister}",
       "description": "",
-      "rootUrl": "",
+      "rootUrl": "${SPEXREGISTER_URL:http://localhost:3000}",
       "adminUrl": "",
-      "baseUrl": "",
+      "baseUrl": "${SPEXREGISTER_URL:http://localhost:3000}/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "ip8dFYgp03sVytrrEeXgwHIgHAMtE350",
       "redirectUris": [
-        "/*"
+        "${SPEXREGISTER_URL:http://localhost:3000}/api/auth/callback/keycloak"
       ],
-      "webOrigins": [
-        "/*"
-      ],
+      "webOrigins": [],
       "notBefore": 0,
       "bearerOnly": false,
       "consentRequired": false,
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
-      "directAccessGrantsEnabled": true,
+      "directAccessGrantsEnabled": false,
       "serviceAccountsEnabled": false,
       "publicClient": false,
       "frontchannelLogout": true,
@@ -977,7 +977,9 @@
         "oauth2.device.authorization.grant.enabled": "false",
         "client.secret.creation.time": "1705741680",
         "backchannel.logout.session.required": "true",
-        "backchannel.logout.revoke.offline.tokens": "false"
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "${SPEXREGISTER_URL:http://localhost:3000}##${SPEXREGISTER_URL:http://localhost:3000}/"
       },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
@@ -1016,7 +1018,7 @@
       "webOrigins": [],
       "notBefore": 0,
       "bearerOnly": false,
-      "consentRequired": false,
+      "consentRequired": true,
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": false,
@@ -1034,6 +1036,21 @@
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "5b0e9f3c-7d21-4c8e-a6f4-2e9d1b7c3a58",
+          "name": "mcp audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "${SPEXREGISTER_MCP_URL:http://localhost:8080/api/mcp}",
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        }
+      ],
       "defaultClientScopes": [
         "web-origins",
         "acr",
@@ -1615,7 +1632,7 @@
     "referrerPolicy": "no-referrer",
     "xRobotsTag": "none",
     "xFrameOptions": "SAMEORIGIN",
-    "contentSecurityPolicy": "frame-src 'self'; frame-ancestors 'self'; object-src 'none';",
+    "contentSecurityPolicy": "frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'self'; object-src 'none';",
     "xXSSProtection": "1; mode=block",
     "strictTransportSecurity": "max-age=31536000; includeSubDomains"
   },
@@ -1632,13 +1649,14 @@
   "loginTheme": "FGV",
   "accountTheme": "FGV",
   "emailTheme": "FGV",
-  "eventsEnabled": false,
+  "eventsEnabled": true,
+  "eventsExpiration": 2592000,
   "eventsListeners": [
     "jboss-logging",
     "fgv-admin-notification"
   ],
   "enabledEventTypes": [],
-  "adminEventsEnabled": false,
+  "adminEventsEnabled": true,
   "adminEventsDetailsEnabled": false,
   "identityProviders": [],
   "identityProviderMappers": [],
@@ -1750,88 +1768,6 @@
         }
       }
     ],
-    "org.keycloak.keys.KeyProvider": [
-      {
-        "id": "6c54a31f-cd31-42e6-bf31-158910727a13",
-        "name": "aes-generated",
-        "providerId": "aes-generated",
-        "subComponents": {},
-        "config": {
-          "kid": [
-            "da694c4c-7098-41c4-912e-755689f10c07"
-          ],
-          "secret": [
-            "569zKY79lAKUsM56PS79Fg"
-          ],
-          "priority": [
-            "100"
-          ]
-        }
-      },
-      {
-        "id": "449b9119-91fb-4455-b9b2-e7bf4d21b819",
-        "name": "rsa-generated",
-        "providerId": "rsa-generated",
-        "subComponents": {},
-        "config": {
-          "privateKey": [
-            "MIIEowIBAAKCAQEA0EF5MsDLO2JBJ0zrKx1KUYMALiPoOqoHIUMdXKO9U+uDrJzYFFmbXZEVOQa3PpNMqHlkcaLnvQimz7AE48OIoyZcv64f2DKjkvqHP9dh0kwjIFol8s4YEBTl73vyAZ46TRecYE6O/RdRu24BOjPGwGRx1wNoJrmmOGfHIPbNWM8/fhG7GeUcgwcKK+BEOt92sOd++WW6UlJWKxnJIM4/ih+EAwgJmx3BgWZASRdgkR84Npf5pDrDErodG32v3qs1pWRTVtcIdODHnNLDT7JDXWxCj4oV9Z00WeSnk0tG5Ejo+mG+Zi141u2yHqPvLSZboOLccx+S2ypM2FYMciNGeQIDAQABAoIBAFXGCbWKK4p/WudlalydGT1+T6YxWtZCrmIYQvEjbXixgU+oX+TtzSxZ85xDtFh9Ea84JFMbbgfxFsdmr3Th1Zag18WI4YvJu45vSiJUwvD7M+KAzq11DfsdqGCdM51P/qI+7cTKxmDeaGbilXXT2nHmTO7qc8yzXQ9RSvY8QHJpV3ZyS8BsclvWP7Dy5VStQbTZM3LWjpY+PAi8YGPQAKmg0qwIALU7IpSUwCbt1gisbGz4XWgD59Zp+0F+BcjZDqTTz9seU+Pz80JpgD8z2AXQdZ2gQJRlJBEXFMqanfqHqUN4Bmj2XsSwOrrgB6mf5jd+/F3ZKsaYs/0G3HFrYHMCgYEA69schrHmfTHtpXLe+vgZhX7XWghyBvPuK8Ytho3Hv87xQ9h6bZynyoSizpjvDr34Oel4WusHIYI5AhYBC7MnGv3VgCHAG2wmXE89J9BwmEep5GK6LDKOQVlXxY7A/yFF+lRokaJ+k/exsJ9zkknJt6GiRLjzGccSd6XSwC4L0PsCgYEA4grlhB91TcsbSQb1ec35uf8728fG0CQDdBTTXPFvoDj2wZjrDKE/ZlQuHoUrvS9WnLcobVwZEBDMNDO27ZQJiA9EYx/wMB4JKLT34Vwiz0GDrurRdQQNCxSDUvK1/LGPMdxsdJerYzC9rGeDm/wHi79HsCe4PTxn0PhPby8P9BsCgYEAoTzq1H5cJuxyHXBZVdM0h1m+WVN6uJwcD5rs1paons0XjR06HSNCZiWks35Dt51RTC361JTmDBddZ7qpPllce4xaX70y+sxFsUeOdGCACOq9D2AbDEoHjE9KvMkp0YDquQbpcd5XkEp+FFP9i12cZEhAiaCyuMWqL1eSq0UPWO8CgYAIOBs2Xap3RK5eTml4n1u4PqafjDkXcmfJvcQdug20Br46NeQ+FlLm1qLCq1b2zxTYJ/TJXTLwGZxDPaomI17hWqTC8fNa3Iy6tTHaOO5vGNO/9XveRGJxB7LqvjaN1Kr/RiOPbcBmn+wVq8HmVxizJSZnKlqRp3Oi7pR813o+BwKBgDm44ZsrXYJDja4r/Uoblm+JoDGXPfMcOcFuuiH2vC/vuEliOCZvuJN53e7pnxqoRuIOY33dOOQcFH6butYa97o5HGET2JJ/xtjanrYfXKzYXcZnqG87V79ggHpW9g5/LUklxPYXyhn8OLSq2rPPY+TYxwXgGHQe+fI4l/EWM/Pu"
-          ],
-          "keyUse": [
-            "SIG"
-          ],
-          "certificate": [
-            "MIIClTCCAX0CBgGNBvzbZTANBgkqhkiG9w0BAQsFADAOMQwwCgYDVQQDDANmZ3YwHhcNMjQwMTE0MDc1OTExWhcNMzQwMTE0MDgwMDUxWjAOMQwwCgYDVQQDDANmZ3YwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDQQXkywMs7YkEnTOsrHUpRgwAuI+g6qgchQx1co71T64OsnNgUWZtdkRU5Brc+k0yoeWRxoue9CKbPsATjw4ijJly/rh/YMqOS+oc/12HSTCMgWiXyzhgQFOXve/IBnjpNF5xgTo79F1G7bgE6M8bAZHHXA2gmuaY4Z8cg9s1Yzz9+EbsZ5RyDBwor4EQ633aw5375ZbpSUlYrGckgzj+KH4QDCAmbHcGBZkBJF2CRHzg2l/mkOsMSuh0bfa/eqzWlZFNW1wh04Mec0sNPskNdbEKPihX1nTRZ5KeTS0bkSOj6Yb5mLXjW7bIeo+8tJlug4txzH5LbKkzYVgxyI0Z5AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAJmtWRLqiIUltQbbSvPZfVZgQ1L59uvUK8hmhIL2GSPswEjoF7d7lRTkVkfHYa4+JYShspQ75jpfAyQWPPPw1QeDFOC01lgQ1sHiyhH4kD7vlVOrmI7KtStJrB8+3v7VHBfv4ZCiN/M2WH96bSA5fLfUMW69Ld8u1epLcSkkvPmEzGHFdPNqfueUSMno24EOihqWGVbfu2vWNMTkEzPw7L3rY1TISoj/Y8PbZUj0z0JoKeVyr9VT56HRUXGt5FBR6MGxtiHgXrhbtj53EkXAlgrnvHM0p7gmzhMuaXits+ohgEAgCZHvxXiqLa46prUuUL/3mfNORt5NNul3tWavTow="
-          ],
-          "priority": [
-            "100"
-          ]
-        }
-      },
-      {
-        "id": "8fce98a1-b733-4a35-a815-acd37d296b8b",
-        "name": "rsa-enc-generated",
-        "providerId": "rsa-enc-generated",
-        "subComponents": {},
-        "config": {
-          "privateKey": [
-            "MIIEowIBAAKCAQEAhgV9huRaYLtrd+Y/G6p8p5Mmv894Yl/6bDJVG+QUOAg8wbm8pxfGV7uEA3kMLrsdLI+jyGudiFC+xz40MZeUrnW9LsMyu80NdHVO5U/Q+XKv709fzmLxnRKx//AlcGABKuCxIR3e6h2h8wezGwVXh9hgjj+DTiEScnwjbYGaGf4VIk2/r02iL9HrIUO75yEzvEwFC276OAJ279hThmBAN+eoAKHsjsLYK5fxpp4yx6BH8sL/53kQPCHj8RcEzSlb3KHLrvnx8JXR2+HQcqtkiMlfgU7PwjSr9gEXJ8wDXMmtcJ8A3SyzcdNt99EfkuBN8a7NogWbY2MjKsNvwT6XdwIDAQABAoIBAA0IWaWVbSh88T1umXJySL7u81Sxsy410R9WYapdqo2sV2QrUKobCMGdTYAc9E9TCMo9iZrCxEXuPC8Z4G92IxI4BtaWSseyb/2ELtDjyxmGyo8F8/YY7w/sMn0F+E4ON+7YfMEQq42upgIBHKyi/1kJdJJAoN8nHikd40AR209tns33+m4DcgesI728Vy6069aPWaZJhEUblXbIuWrnd1xfd8B5JIjaNZ/00+juks6iCmfDNam5tIMb36+wUZJSXXtjqvENbbOCQ3XNVhdkAK+r6NnzMJm0uyWMzn8oKO3SmlDYw3jAJaBmQ3uveSwiepyfDiagGJEHZbtt5DeLVBECgYEAvU/a97gmkBNKl1RPdGwh8DJ06kgXlSKhQo7NRuqyF35e+C+hTrfVCXe8MzhEp7DHC0voHJg/dslk6wD4JxMysWImximbA1WYqNm5Ym3Zy/mlUWKay6eur43b0dmmesrUIsHC8rUgC0zZTYwQGDOW6L0wQ3umv80b3xNjplmCJFkCgYEAtTuKWDbdzMYyl+SSEXNcWtFBBeO2F5JQB364iHcrwiNtcmZRCRecr6UZFohHo2IsJSkZk0tk5H4Com42WtQdzIMH16if76cAQSXL4jMrpx0TZ2wbq9sAjIYIln09MJmHoexQ0K0vtajbmkHHV1M/9zePgBSGf1AQSJjlSLmUYE8CgYEAqgWNKAv4fk8FH9I1pd7zwBDg1gS3QVafs/IixL1GAzmYu5ezbMpHh8BEg0/WwTBQI4IhzYSjAuEvRKxTMmzYi10Wa8S0FpOKjqM0DwWPpNTqN6SyV5OanMpwERFDpmaBjVGt72Lii6OSSkYvsjyrHQ3EyebExN/GV1vHlIAxFMkCgYAWAx1SiZd2/7u1ZzW2mORmw3O6W2YKhuLhhiqzqIXQFq18b6D4Eb4eN1dMvVC2L35dJRjOIyIl/ogjYm+HqKvV4zRYpUqHuSj2wLh6yOxMZ+OrdB4ISZlPeBgi7yM3e+5VZHaMYfyhe9jwa3zixmHGjSEI1XVgkUDpEGkI5EF5UQKBgAVS9HtAmp02eDOLm+mLQeTNGOLyyQ4sSWYqx+B3LNZ4SS5xCw0EaZUluvIsjkP2KVICoBNhjSz/PP2eQi3Zhz6nlTBUuV9tnPyLUk9Wowf4P6wOC9YNrMnPP7shhrgzGvD/on4EsbiUXngeuV6ZeQxEHkEE2IV/QX2hJZRKd0+S"
-          ],
-          "keyUse": [
-            "ENC"
-          ],
-          "certificate": [
-            "MIIClTCCAX0CBgGNBvzc0jANBgkqhkiG9w0BAQsFADAOMQwwCgYDVQQDDANmZ3YwHhcNMjQwMTE0MDc1OTExWhcNMzQwMTE0MDgwMDUxWjAOMQwwCgYDVQQDDANmZ3YwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCGBX2G5Fpgu2t35j8bqnynkya/z3hiX/psMlUb5BQ4CDzBubynF8ZXu4QDeQwuux0sj6PIa52IUL7HPjQxl5Sudb0uwzK7zQ10dU7lT9D5cq/vT1/OYvGdErH/8CVwYAEq4LEhHd7qHaHzB7MbBVeH2GCOP4NOIRJyfCNtgZoZ/hUiTb+vTaIv0eshQ7vnITO8TAULbvo4Anbv2FOGYEA356gAoeyOwtgrl/GmnjLHoEfywv/neRA8IePxFwTNKVvcocuu+fHwldHb4dByq2SIyV+BTs/CNKv2ARcnzANcya1wnwDdLLNx02330R+S4E3xrs2iBZtjYyMqw2/BPpd3AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAHifb/3FuJTc6h6XlJOeSZNOfjwYJvFSqP2b78eJLlqQS0PT1nS5L7pPdSybIizCGBhx6Z7OYf3pXtvVlaMy5mhly+sV4Nkgwox6OuGSI/w67hXcyZJRdBylWitvQwrN5cDNmLVc3umKFakcpP3vBsAoaPMKzyI8sh4Hc2GgejK8eQk8zNyLtQs8H97iIuUrvhUJNGLarO54eQehSGoSnyFNIBDHpZs31PZsEUmjHTV+7iDQMQW858MzxMR9vx/KGYCjB5HuP5hA19mS4R8jpv982oY/pNXpU00SDME0s7uT20JmRwQO908nu8v60A/Uw+xEYYkJrENFL5T1t76twh4="
-          ],
-          "priority": [
-            "100"
-          ],
-          "algorithm": [
-            "RSA-OAEP"
-          ]
-        }
-      },
-      {
-        "id": "f1a103e8-bc43-4368-81ed-6bc3bcb327a7",
-        "name": "hmac-generated",
-        "providerId": "hmac-generated",
-        "subComponents": {},
-        "config": {
-          "kid": [
-            "467fff6e-2e6d-4ebc-bb83-f94627243901"
-          ],
-          "secret": [
-            "_MEg-IUVqouN7Ktxec4-st6K3JhlT3lU0MZR3r9NmJcWrt0X3V2BzyaJsKjoyLt292PiI6wX4GLVtypRQ0oHiA"
-          ],
-          "priority": [
-            "100"
-          ],
-          "algorithm": [
-            "HS256"
-          ]
-        }
-      }
-    ],
     "org.keycloak.userprofile.UserProfileProvider": [
       {
         "id": "65cef874-5b7e-4ab5-b99a-24f28b4d16c3",
@@ -1895,10 +1831,19 @@
           "userSetupAllowed": false
         },
         {
-          "authenticator": "auth-otp-form",
+          "authenticatorConfig": "browser-conditional-credential",
+          "authenticator": "conditional-credential",
           "authenticatorFlow": false,
           "requirement": "REQUIRED",
           "priority": 20,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "auth-otp-form",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 30,
           "autheticatorFlow": false,
           "userSetupAllowed": false
         }
@@ -2304,6 +2249,67 @@
       ]
     },
     {
+      "id": "8e2f4a61-3c9d-4b7e-a5f0-1d6c9e3b7a24",
+      "alias": "fgv registration",
+      "description": "registration flow",
+      "providerId": "basic-flow",
+      "topLevel": true,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "registration-page-form",
+          "authenticatorFlow": true,
+          "requirement": "REQUIRED",
+          "priority": 10,
+          "autheticatorFlow": true,
+          "flowAlias": "fgv registration registration form",
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
+      "id": "c4a7e1d9-6b2f-4e83-9d5a-7f1b3c8e2a69",
+      "alias": "fgv registration registration form",
+      "description": "registration form",
+      "providerId": "form-flow",
+      "topLevel": false,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "fgv-turnstile",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 10,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "registration-user-creation",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 20,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "registration-password-action",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 50,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "registration-recaptcha-action",
+          "authenticatorFlow": false,
+          "requirement": "DISABLED",
+          "priority": 60,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
       "id": "7ea619f0-f622-4f24-830c-03a6d5a63e5d",
       "alias": "reset credentials",
       "description": "Reset credentials for a user if they forgot their password or something",
@@ -2365,6 +2371,13 @@
     }
   ],
   "authenticatorConfig": [
+    {
+      "id": "3a1f6c2e-5b7d-4e8a-9c0f-2d4b6e8a1c3f",
+      "alias": "browser-conditional-credential",
+      "config": {
+        "credentials": "webauthn-passwordless"
+      }
+    },
     {
       "id": "632404e2-8114-48f9-b14e-5d46c497380f",
       "alias": "create unique user config",
@@ -2473,7 +2486,7 @@
     }
   ],
   "browserFlow": "browser",
-  "registrationFlow": "registration",
+  "registrationFlow": "fgv registration",
   "directGrantFlow": "direct grant",
   "resetCredentialsFlow": "reset credentials",
   "clientAuthenticationFlow": "clients",

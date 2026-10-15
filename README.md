@@ -15,9 +15,19 @@ Keycloak image for FGV, published as `bloomper/fgv-keycloak`. It is the stock Ke
 | `legacy-fgv`             | Password hash   | Verifies passwords migrated from the previous register   |
 | `fgv-approval`           | Required action | Holds new users until an administrator approves them     |
 | `fgv-admin-notification` | Event listener  | Emails administrators and users during approval          |
+| `fgv-turnstile`          | Form action     | Requires a Cloudflare Turnstile challenge on registration |
 
 The event listener reads its recipients from
 `KC_SPI_EVENTS_LISTENER__FGV_ADMIN_NOTIFICATION__RECIPIENTS`.
+
+### Turnstile
+
+`fgv-turnstile` reads its keys from `KC_SPI_FORM_ACTION__FGV_TURNSTILE__SITE_KEY` and
+`KC_SPI_FORM_ACTION__FGV_TURNSTILE__SECRET_KEY`. Without them it logs a warning at start and lets every
+registration through. It uses Turnstile's reCAPTCHA compatibility mode, so the theme renders the widget where it
+would render reCAPTCHA, and failures show the message `recaptchaFailed`. Cloudflare's test site key
+`1x00000000000000000000AA` with the secret key `1x0000000000000000000000000000000AA` always passes, and
+`2x0000000000000000000000000000000AA` always fails.
 
 ### Approval
 
@@ -53,8 +63,36 @@ approval emails from `fgv-admin-notification` are plain text and don't use it.
 
 `realm/fgv.json` is imported when Keycloak starts with `--import-realm` and the realm `fgv` doesn't exist yet.
 The client secrets in it are public, so replace them in any shared environment. [spexregister-deploy][2] does
-that with `bin/configure-keycloak.sh`, which also selects the `FGV` theme. The realm contains no users apart from
-the service account of `fgv-admin`. Spexregister Server creates sample users when it imports sample data.
+that with `bin/configure-keycloak.sh`, which also selects the `FGV` theme. The realm contains no keys, so
+Keycloak generates new ones for every environment. The realm contains no users apart from the service account
+of `fgv-admin`. Spexregister Server creates sample users when it imports sample data.
+
+`realm/fgv.json` is also used by the integration tests in Spexregister Server
+(`src/integrationtest/resources/keycloak/fgv.json`), so keep the two copies identical.
+
+The clients' names and addresses are read from the environment during the import:
+
+| Variable               | Default                         | Purpose                                                          |
+|------------------------|---------------------------------|------------------------------------------------------------------|
+| `SPEXREGISTER_NAME`    | `Spexregister`                  | Name of `spexregister`, shown in the account console and on login |
+| `SPEXREGISTER_URL`     | `http://localhost:3000`         | Address of Spexregister Web, without a trailing slash            |
+| `SPEXREGISTER_MCP_URL` | `http://localhost:8080/api/mcp` | MCP endpoint, added as audience to tokens for `spexregister-mcp` |
+
+Only `SPEXREGISTER_URL/api/auth/callback/keycloak` is allowed as redirect URI, and the client requires PKCE.
+
+The realm also has:
+
+- brute force protection, and a password policy of at least 12 characters that differ from the email address
+- passkeys, which users add under *Signing in* in the account console and then sign in with instead of a
+  password. Signing in with a passkey skips OTP
+- consent required for `spexregister-mcp`, so users see which MCP client asks for access
+- the registration flow `fgv registration`, a copy of the built-in one with `fgv-turnstile` added, and a content
+  security policy that lets the Turnstile widget load
+- login and admin events, kept for 30 days
+
+New users choose their password after verifying their email address, which is how Keycloak 26.8 handles
+registration when email verification is on. The password policy applies only when a password is set, so users
+migrated with shorter passwords can still sign in.
 
 The realm's mail settings are read from the environment during that import:
 
