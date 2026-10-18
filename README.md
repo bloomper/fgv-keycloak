@@ -53,7 +53,7 @@ later and the jar ends up in `providers/build/libs/`.
 
 `theme/` is a [Keycloakify][1] project that provides the `FGV` login, account and email theme. Run `npm ci` in it,
 then `npm run storybook` to preview pages or `npm run build-keycloak-theme` to build the theme jar. Building the
-jar needs Maven.
+jar needs Maven. [`theme/README.md`](theme/README.md) describes the layout.
 
 The account theme extends `keycloak.v3` instead of `base`, which `postBuild` in `vite.config.ts` sets because
 Keycloakify can't. That gives it the authenticator icons Keycloak shows next to each passkey.
@@ -85,7 +85,10 @@ Only `SPEXREGISTER_URL/api/auth/callback/keycloak` is allowed as redirect URI, a
 
 The realm also has:
 
-- brute force protection, and a password policy of at least 12 characters that differ from the email address
+- brute force protection, and a password policy of 12 to 128 characters that differ from the username and email
+  address
+- the public client `spexregister-mcp` for MCP clients, with PKCE and redirect URIs on `localhost` and `127.0.0.1`
+- a limit of 60 days on offline sessions
 - passkeys, which users add under *Signing in* in the account console and then sign in with instead of a
   password. Signing in with a passkey skips OTP
 - consent required for `spexregister-mcp`, so users see which MCP client asks for access
