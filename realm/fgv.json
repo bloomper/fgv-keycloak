@@ -329,6 +329,15 @@
           "clientRole": true,
           "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
           "attributes": {}
+        },
+        {
+          "id": "2698db67-50b3-4934-9785-c1f9a6f67f48",
+          "name": "REVIVAL",
+          "description": "Nyuppsättning service: limited access, see fgv-revival-spec docs/product-spec.md section 11",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
+          "attributes": {}
         }
       ],
       "admin-cli": [],
@@ -432,7 +441,38 @@
           "containerId": "57fc07db-aaca-4e9a-89fd-291c1648c6ea",
           "attributes": {}
         }
-      ]
+      ],
+      "fgv-revival": [
+        {
+          "id": "350f1546-8972-484c-90b1-891aa41d9f28",
+          "name": "USER",
+          "description": "Access to Nyuppsättning",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "d1a663db-66f9-4fcb-93c8-51cda75a159c",
+          "attributes": {}
+        },
+        {
+          "id": "323f8cbf-b4a2-4b31-aea1-d1144f915856",
+          "name": "SUPER_ADMIN",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "d1a663db-66f9-4fcb-93c8-51cda75a159c",
+          "attributes": {}
+        },
+        {
+          "id": "84378ce9-9abc-470f-80b6-b4ec38564727",
+          "name": "OBSERVER",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "d1a663db-66f9-4fcb-93c8-51cda75a159c",
+          "attributes": {}
+        }
+      ],
+      "fgv-revival-mcp": [],
+      "fgv-revival-service": []
     }
   },
   "groups": [
@@ -536,6 +576,28 @@
       },
       "notBefore": 0,
       "groups": []
+    },
+    {
+      "id": "526371c9-ec5b-4402-a75b-c1f9ad3d8ae5",
+      "createdTimestamp": 1792441028000,
+      "username": "service-account-fgv-revival-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-revival-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "spexregister": [
+          "REVIVAL"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
     }
   ],
   "scopeMappings": [
@@ -563,6 +625,22 @@
           "ADMIN",
           "EDITOR",
           "USER"
+        ]
+      },
+      {
+        "client": "fgv-revival-service",
+        "roles": [
+          "REVIVAL"
+        ]
+      }
+    ],
+    "fgv-revival": [
+      {
+        "client": "fgv-revival-mcp",
+        "roles": [
+          "USER",
+          "SUPER_ADMIN",
+          "OBSERVER"
         ]
       }
     ]
@@ -1061,6 +1139,163 @@
       "optionalClientScopes": [
         "offline_access"
       ]
+    },
+    {
+      "id": "d1a663db-66f9-4fcb-93c8-51cda75a159c",
+      "clientId": "fgv-revival",
+      "name": "${FGV_REVIVAL_NAME:Nyuppsättning}",
+      "description": "",
+      "rootUrl": "${FGV_REVIVAL_URL:http://localhost:3001}",
+      "adminUrl": "",
+      "baseUrl": "${FGV_REVIVAL_URL:http://localhost:3001}/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "qxIP941iHaRoiDkyyTFkwmelDstNixz3",
+      "redirectUris": [
+        "${FGV_REVIVAL_URL:http://localhost:3001}/api/auth/callback/keycloak"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1792441028",
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "${FGV_REVIVAL_URL:http://localhost:3001}##${FGV_REVIVAL_URL:http://localhost:3001}/"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email",
+        "registration-message"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    },
+    {
+      "id": "397e854f-b5f9-49fb-a6b5-2112f928d3df",
+      "clientId": "fgv-revival-mcp",
+      "name": "Nyuppsättning MCP",
+      "description": "MCP clients acting on behalf of a signed-in user",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [
+        "http://localhost:*",
+        "http://127.0.0.1:*"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "de82f47a-48c3-400e-bf3c-a059782bd35f",
+          "name": "mcp audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "${FGV_REVIVAL_MCP_URL:http://localhost:8081/api/mcp}",
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        }
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "offline_access"
+      ]
+    },
+    {
+      "id": "91d9592a-d912-442f-97dc-659ca0aa3adf",
+      "clientId": "fgv-revival-service",
+      "name": "FGV Nyuppsättning service",
+      "description": "FGV Nyuppsättning server calling Spexregister's API",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "0mtInqqUtVD0h0XlHQYEGvYo400HhI9X",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1792441028"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": []
     }
   ],
   "clientScopes": [

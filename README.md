@@ -31,9 +31,11 @@ would render reCAPTCHA, and failures show the message `recaptchaFailed`. Cloudfl
 
 ### Approval
 
-A user is approved once an administrator has assigned them any role beyond the realm's default role. Until
-then `fgv-approval` stops them from logging in to every client in the realm except the account console, and
-shows a page saying the account is awaiting approval.
+A user is approved once an administrator has assigned them any role beyond the realm's default role, such as
+`USER` on `spexregister` or on `fgv-revival`. Approval has nothing to do with FGV membership: members and
+non-members alike get an account and are approved by being given access to an application. Until then
+`fgv-approval` stops them from logging in to every client in the realm except the account console, and shows a
+page saying the account is awaiting approval.
 
 `fgv-admin-notification` sends the emails around this, through the realm's SMTP settings:
 
@@ -41,9 +43,20 @@ shows a page saying the account is awaiting approval.
 |--------------------------------------------------|------------------------------|--------------------------------------------|
 | A user registers (and verifies their email)      | The configured `recipients`  | The user joins the group `pending-approval` |
 | An administrator assigns a pending user a role   | The user, in their language  | The user leaves the group                  |
+| An administrator gives an approved user their first role on an application | The user, in their language | Nothing else |
+
+An application is a client on which the user holds a client role and which has an absolute base URL, today
+`spexregister` and `fgv-revival`. The approval email lists every application the user can use, with its name and
+address. If there is none, for example after only a realm role, it just says the account can now be used.
+
+A user who is already approved gets an email naming an application when they get their first role on it, such as
+an existing Spexregister user given `fgv-revival: USER`. The listener tells a first role from another one by
+comparing the roles the user holds on the client with the roles the admin event added. Keycloak passes those to
+listeners even though the realm doesn't store admin event details, so nothing is stored on the user. Another role
+on an application the user already uses sends nothing, and neither do roles given through a group.
 
 Roles assigned in the admin console or through the admin REST API both count. Users who were never in the group,
-such as migrated users, get no email. Set `pending-group` on both providers to use another group, e.g.
+such as migrated users, get no approval email. Set `pending-group` on both providers to use another group, e.g.
 `KC_SPI_REQUIRED_ACTION__FGV_APPROVAL__PENDING_GROUP`.
 
 Build the jar on its own with `./gradlew build` in `providers/`, which also runs the tests. It needs JDK 21 or
@@ -65,10 +78,10 @@ approval emails from `fgv-admin-notification` are plain text and don't use it.
 ## Realm
 
 `realm/fgv.json` is imported when Keycloak starts with `--import-realm` and the realm `fgv` doesn't exist yet.
-The client secrets in it are public, so replace them in any shared environment. [spexregister-deploy][2] does
-that with `bin/configure-keycloak.sh`, which also selects the `FGV` theme. The realm contains no keys, so
-Keycloak generates new ones for every environment. The realm contains no users apart from the service account
-of `fgv-admin`. Spexregister Server creates sample users when it imports sample data.
+The client secrets in it are public, so replace them in any shared environment. [fgv-infra-deploy][2], which
+runs this image, does that with `bin/configure-keycloak.sh`, which also selects the `FGV` theme. The realm contains no keys, so
+Keycloak generates new ones for every environment. The realm contains no users apart from the service accounts
+of `fgv-admin` and `fgv-revival-service`. Spexregister Server creates sample users when it imports sample data.
 
 `realm/fgv.json` is also used by the integration tests in Spexregister Server
 (`src/integrationtest/resources/keycloak/fgv.json`), so keep the two copies identical.
@@ -80,8 +93,24 @@ The clients' names and addresses are read from the environment during the import
 | `SPEXREGISTER_NAME`    | `Spexregister`                  | Name of `spexregister`, shown in the account console and on login |
 | `SPEXREGISTER_URL`     | `http://localhost:3000`         | Address of Spexregister Web, without a trailing slash            |
 | `SPEXREGISTER_MCP_URL` | `http://localhost:8080/api/mcp` | MCP endpoint, added as audience to tokens for `spexregister-mcp` |
+| `FGV_REVIVAL_NAME`     | `Nyuppsättning`                 | Name of `fgv-revival`, shown on login and in the approval email  |
+| `FGV_REVIVAL_URL`      | `http://localhost:3001`         | Address of Nyuppsättning Web, without a trailing slash             |
+| `FGV_REVIVAL_MCP_URL`  | `http://localhost:8081/api/mcp` | MCP endpoint, added as audience to tokens for `fgv-revival-mcp`  |
 
-Only `SPEXREGISTER_URL/api/auth/callback/keycloak` is allowed as redirect URI, and the client requires PKCE.
+Only `SPEXREGISTER_URL/api/auth/callback/keycloak` is allowed as redirect URI, and the client requires PKCE. The
+same holds for `fgv-revival` and `FGV_REVIVAL_URL`.
+
+Nyuppsättning has three clients:
+
+| Client                | Type                                   | Roles and mappings                                         |
+|-----------------------|----------------------------------------|------------------------------------------------------------|
+| `fgv-revival`         | Confidential, for Nyuppsättning Web      | Client roles `USER` (access), `SUPER_ADMIN`, `OBSERVER`    |
+| `fgv-revival-mcp`     | Public, for MCP clients, like `spexregister-mcp` | Scope mapping to all three `fgv-revival` roles    |
+| `fgv-revival-service` | Confidential, service account only     | Service account role and scope mapping `spexregister: REVIVAL` |
+
+`REVIVAL` on `spexregister` is the narrow role Nyuppsättning's server uses to call Spexregister. It reads spexes, tasks
+and task categories. It is not an `authority` in Spexregister, so the service account is never imported as a
+Spexregister user.
 
 The realm also has:
 
@@ -142,6 +171,7 @@ FGV Keycloak is open source software released under the [Apache 2.0 license][3].
 
 [1]: https://keycloakify.dev
 
-[2]: https://github.com/bloomper/spexregister-deploy
+[2]: https://github.com/bloomper/fgv-infra-deploy
 
 [3]: https://www.apache.org/licenses/LICENSE-2.0.html
+
