@@ -96,6 +96,19 @@ class ApprovalPolicyTest {
     }
 
     @Test
+    void should_approve_user_whose_only_additional_role_is_fgv_revival_user() {
+        final RoleModel fgvRevivalUser = mock(RoleModel.class);
+        final ClientModel fgvRevival = client("fgv-revival");
+
+        when(fgvRevivalUser.isClientRole()).thenReturn(true);
+        when(fgvRevivalUser.getName()).thenReturn("USER");
+        when(fgvRevivalUser.getContainer()).thenReturn(fgvRevival);
+        when(user.getRoleMappingsStream()).thenReturn(Stream.of(defaultRole, fgvRevivalUser));
+
+        assertThat(policy.isApproved(realm, user), is(true));
+    }
+
+    @Test
     void should_mark_user_as_pending() {
         try (MockedStatic<KeycloakModelUtils> utils = mockStatic(KeycloakModelUtils.class)) {
             utils.when(() -> KeycloakModelUtils.findGroupByPath(session, realm, "/" + PENDING_GROUP)).thenReturn(group);
