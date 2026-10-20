@@ -609,6 +609,17 @@
     }
   ],
   "clientScopeMappings": {
+    "realm-management": [
+      {
+        "client": "fgv-admin",
+        "roles": [
+          "query-users",
+          "manage-users",
+          "view-users",
+          "view-clients"
+        ]
+      }
+    ],
     "account": [
       {
         "client": "account-console",
@@ -854,7 +865,7 @@
         "backchannel.logout.revoke.offline.tokens": "false"
       },
       "authenticationFlowBindingOverrides": {},
-      "fullScopeAllowed": true,
+      "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": -1,
       "protocolMappers": [
         {
@@ -1081,7 +1092,7 @@
       "id": "d883acad-6e98-46e6-a8de-af0e0704f282",
       "clientId": "spexregister-mcp",
       "name": "Spexregister MCP",
-      "description": "MCP clients acting on behalf of a signed-in user",
+      "description": "",
       "rootUrl": "",
       "adminUrl": "",
       "baseUrl": "",
@@ -1198,7 +1209,7 @@
       "id": "397e854f-b5f9-49fb-a6b5-2112f928d3df",
       "clientId": "fgv-revival-mcp",
       "name": "Nyuppsättning MCP",
-      "description": "MCP clients acting on behalf of a signed-in user",
+      "description": "",
       "rootUrl": "",
       "adminUrl": "",
       "baseUrl": "",
