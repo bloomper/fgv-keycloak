@@ -835,7 +835,7 @@
     {
       "id": "1e6adf07-5abb-4a4e-9c45-7cc6c0ed8d48",
       "clientId": "fgv-admin",
-      "name": "",
+      "name": "Admin service account",
       "description": "",
       "rootUrl": "",
       "adminUrl": "",
@@ -1271,8 +1271,8 @@
     {
       "id": "91d9592a-d912-442f-97dc-659ca0aa3adf",
       "clientId": "fgv-revival-service",
-      "name": "FGV Nyuppsättning service",
-      "description": "FGV Nyuppsättning server calling Spexregister's API",
+      "name": "Nyuppsättning service account",
+      "description": "",
       "rootUrl": "",
       "adminUrl": "",
       "baseUrl": "",
