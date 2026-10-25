@@ -333,7 +333,7 @@
         {
           "id": "2698db67-50b3-4934-9785-c1f9a6f67f48",
           "name": "REVIVAL",
-          "description": "Nyuppsättning service: limited access, see fgv-revival-spec docs/product-spec.md section 11",
+          "description": "Nyuppsättning's service account: limited access to Spexregister",
           "composite": false,
           "clientRole": true,
           "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",

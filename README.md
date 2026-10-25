@@ -81,10 +81,13 @@ approval emails from `fgv-admin-notification` are plain text and don't use it.
 The client secrets in it are public, so replace them in any shared environment. [fgv-infra-deploy][2], which
 runs this image, does that with `bin/configure-keycloak.sh`, which also selects the `FGV` theme. The realm contains no keys, so
 Keycloak generates new ones for every environment. The realm contains no users apart from the service accounts
-of `fgv-admin` and `fgv-revival-service`. Spexregister Server creates sample users when it imports sample data.
+of `fgv-admin` and `fgv-revival-service`. Spexregister Server and Nyuppsättning Server create sample users when they
+import sample data.
 
 `realm/fgv.json` is also used by the integration tests in Spexregister Server
-(`src/integrationtest/resources/keycloak/fgv.json`), so keep the two copies identical.
+(`src/integrationtest/resources/keycloak/fgv.json`) and Nyuppsättning Server
+(`src/integrationtest/resources/realm/fgv.json`, refreshed with `./gradlew syncRealm`), so keep the three copies
+identical.
 
 The clients' names and addresses are read from the environment during the import:
 
@@ -94,7 +97,7 @@ The clients' names and addresses are read from the environment during the import
 | `SPEXREGISTER_URL`     | `http://localhost:3000`         | Address of Spexregister Web, without a trailing slash            |
 | `SPEXREGISTER_MCP_URL` | `http://localhost:8080/api/mcp` | MCP endpoint, added as audience to tokens for `spexregister-mcp` |
 | `FGV_REVIVAL_NAME`     | `Nyuppsättning`                 | Name of `fgv-revival`, shown on login and in the approval email  |
-| `FGV_REVIVAL_URL`      | `http://localhost:3001`         | Address of Nyuppsättning Web, without a trailing slash             |
+| `FGV_REVIVAL_URL`      | `http://localhost:3001`         | Address of Nyuppsättning Web, without a trailing slash           |
 | `FGV_REVIVAL_MCP_URL`  | `http://localhost:8081/api/mcp` | MCP endpoint, added as audience to tokens for `fgv-revival-mcp`  |
 
 Only `SPEXREGISTER_URL/api/auth/callback/keycloak` is allowed as redirect URI, and the client requires PKCE. The
@@ -104,12 +107,13 @@ Nyuppsättning has three clients:
 
 | Client                | Type                                   | Roles and mappings                                         |
 |-----------------------|----------------------------------------|------------------------------------------------------------|
-| `fgv-revival`         | Confidential, for Nyuppsättning Web      | Client roles `USER` (access), `SUPER_ADMIN`, `OBSERVER`    |
+| `fgv-revival`         | Confidential, for Nyuppsättning Web    | Client roles `USER` (access), `SUPER_ADMIN`, `OBSERVER`    |
 | `fgv-revival-mcp`     | Public, for MCP clients, like `spexregister-mcp` | Scope mapping to all three `fgv-revival` roles    |
 | `fgv-revival-service` | Confidential, service account only     | Service account role and scope mapping `spexregister: REVIVAL` |
 
-`REVIVAL` on `spexregister` is the narrow role Nyuppsättning's server uses to call Spexregister. It reads spexes, tasks
-and task categories. It is not an `authority` in Spexregister, so the service account is never imported as a
+`REVIVAL` on `spexregister` is the narrow role Nyuppsättning's server uses to call Spexregister. It reads spex, tasks,
+task categories and spexare, and writes what the sync of a settled revival records, but deletes nothing. Spexregister
+Server's GraphQL API guide lists exactly what it may do. It is not an `authority` in Spexregister, so the service account is never imported as a
 Spexregister user.
 
 The realm also has:
