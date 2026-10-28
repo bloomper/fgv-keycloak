@@ -32,6 +32,8 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "react-i18next"
         update-types: ["version-update:semver-major"]
+      - dependency-name: "i18next-fetch-backend"
+        update-types: ["version-update:semver-major"]
       - dependency-name: "react-router-dom"
         update-types: ["version-update:semver-major"]
       - dependency-name: "react"
@@ -44,6 +46,11 @@ updates:
         update-types: ["version-update:semver-major"]
       # typescript-eslint does not yet support TypeScript 7
       - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      # eslint-plugin-react does not yet support ESLint 10
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@eslint/js"
         update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
