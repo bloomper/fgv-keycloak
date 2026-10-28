@@ -21,6 +21,30 @@ updates:
         update-types:
           - "minor"
           - "patch"
+    # Versions below are dictated by the peer dependencies of @keycloakify/keycloak-account-ui
+    # and @keycloakify/keycloak-ui-shared; bump them together with those packages
+    ignore:
+      - dependency-name: "@keycloak/keycloak-admin-client"
+      - dependency-name: "react-hook-form"
+      - dependency-name: "@patternfly/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "i18next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-i18next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-router-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react-dom"
+        update-types: ["version-update:semver-major"]
+      # typescript-eslint does not yet support TypeScript 7
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
