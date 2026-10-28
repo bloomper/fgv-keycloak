@@ -24,7 +24,11 @@
 
     #kc-current-locale-link::after {
         content: "▾";
-        @apply text-zinc-500 dark:text-zinc-400;
+        @apply text-zinc-500;
+    }
+
+    #kc-current-locale-link:where(.dark, .dark *)::after {
+        @apply text-zinc-400;
     }
 
     #kc-locale-dropdown ul a {
