@@ -28,7 +28,7 @@
         "@patternfly/react-table": "^5.4.16",
         "@tailwindcss/vite": "^4.3.3",
         "i18next": "^25.7.3",
-        "i18next-fetch-backend": "^7.0.0",
+        "i18next-fetch-backend": "^8.0.0",
         "keycloakify": "^11.16.4",
         "lodash-es": "^4.18.1",
         "oidc-spa": "~10.2.17",
