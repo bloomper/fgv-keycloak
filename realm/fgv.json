@@ -338,6 +338,15 @@
           "clientRole": true,
           "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
           "attributes": {}
+        },
+        {
+          "id": "af9e477e-c511-4641-9144-8961b3e34fdc",
+          "name": "MEDIA",
+          "description": "Spexify's and Spexflix's service accounts: read spex",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
+          "attributes": {}
         }
       ],
       "admin-cli": [],
@@ -472,7 +481,85 @@
         }
       ],
       "fgv-revival-mcp": [],
-      "fgv-revival-service": []
+      "fgv-revival-service": [],
+      "fgv-spexify": [
+        {
+          "id": "e118750a-0d67-4dee-bdca-491ae06843a9",
+          "name": "USER",
+          "description": "Access to Spexify",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+          "attributes": {}
+        },
+        {
+          "id": "3577bb0e-2d56-46af-b91a-b67d283fa9b2",
+          "name": "EDITOR",
+          "description": "Uploads and edits songs",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+          "attributes": {}
+        },
+        {
+          "id": "7d9593ca-9b9b-4273-b835-fd701e9bc6bc",
+          "name": "ADMIN",
+          "description": "Administers Spexify",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+          "attributes": {}
+        },
+        {
+          "id": "8c0e9915-86f4-4439-9869-3b7afac540bf",
+          "name": "SPEXFLIX",
+          "description": "Spexflix's service account: reads published tracks",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+          "attributes": {}
+        }
+      ],
+      "fgv-spexflix": [
+        {
+          "id": "f038a186-b52e-44be-86dc-14bc04d79cc3",
+          "name": "USER",
+          "description": "Access to Spexflix",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
+          "attributes": {}
+        },
+        {
+          "id": "f099da50-d96b-4e9d-991c-512d2667b8bb",
+          "name": "EDITOR",
+          "description": "Uploads and edits videos",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
+          "attributes": {}
+        },
+        {
+          "id": "44fcba89-321b-420f-be69-63ae5e9f0076",
+          "name": "ADMIN",
+          "description": "Administers Spexflix",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
+          "attributes": {}
+        },
+        {
+          "id": "2093ae26-6c60-4067-b2fa-fa219edb0401",
+          "name": "SPEXIFY",
+          "description": "Spexify's service account: reads chapter links",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
+          "attributes": {}
+        }
+      ],
+      "fgv-spexify-service": [],
+      "fgv-spexflix-service": []
     }
   },
   "groups": [
@@ -598,6 +685,60 @@
       },
       "notBefore": 0,
       "groups": []
+    },
+    {
+      "id": "c0be9d63-4446-4794-88e1-6a2608a9d819",
+      "createdTimestamp": 1792441028000,
+      "username": "service-account-fgv-spexify-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-spexify-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "realm-management": [
+          "view-users",
+          "view-clients"
+        ],
+        "spexregister": [
+          "MEDIA"
+        ],
+        "fgv-spexflix": [
+          "SPEXIFY"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "50e8a88b-020f-4aee-a801-8f4a8dfa5fad",
+      "createdTimestamp": 1792441028000,
+      "username": "service-account-fgv-spexflix-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-spexflix-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "spexregister": [
+          "MEDIA"
+        ],
+        "fgv-spexify": [
+          "SPEXFLIX"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
     }
   ],
   "scopeMappings": [
@@ -615,6 +756,13 @@
         "roles": [
           "query-users",
           "manage-users",
+          "view-users",
+          "view-clients"
+        ]
+      },
+      {
+        "client": "fgv-spexify-service",
+        "roles": [
           "view-users",
           "view-clients"
         ]
@@ -643,6 +791,18 @@
         "roles": [
           "REVIVAL"
         ]
+      },
+      {
+        "client": "fgv-spexify-service",
+        "roles": [
+          "MEDIA"
+        ]
+      },
+      {
+        "client": "fgv-spexflix-service",
+        "roles": [
+          "MEDIA"
+        ]
       }
     ],
     "fgv-revival": [
@@ -652,6 +812,34 @@
           "USER",
           "SUPER_ADMIN",
           "OBSERVER"
+        ]
+      }
+    ],
+    "fgv-spexify": [
+      {
+        "client": "fgv-spexflix-service",
+        "roles": [
+          "SPEXFLIX"
+        ]
+      },
+      {
+        "client": "fgv-spexflix",
+        "roles": [
+          "USER"
+        ]
+      }
+    ],
+    "fgv-spexflix": [
+      {
+        "client": "fgv-spexify-service",
+        "roles": [
+          "SPEXIFY"
+        ]
+      },
+      {
+        "client": "fgv-spexify",
+        "roles": [
+          "USER"
         ]
       }
     ]
@@ -1281,6 +1469,194 @@
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "0mtInqqUtVD0h0XlHQYEGvYo400HhI9X",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1792441028"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+      "clientId": "fgv-spexify",
+      "name": "${SPEXIFY_NAME:Spexify}",
+      "description": "",
+      "rootUrl": "${SPEXIFY_URL:http://localhost:3002}",
+      "adminUrl": "",
+      "baseUrl": "${SPEXIFY_URL:http://localhost:3002}/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "ueoxQHfOq1bmlqQNwbtdmX8Mn2uHFMhX",
+      "redirectUris": [
+        "${SPEXIFY_URL:http://localhost:3002}/api/auth/callback/keycloak"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1792441028",
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "${SPEXIFY_URL:http://localhost:3002}##${SPEXIFY_URL:http://localhost:3002}/"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email",
+        "registration-message"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    },
+    {
+      "id": "72a2e95e-219d-42ee-896d-a4fc81ce03d4",
+      "clientId": "fgv-spexify-service",
+      "name": "Spexify service account",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "lmkCTrPk84nT9VXkMwUHRVOXkpPjD82S",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1792441028"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
+      "clientId": "fgv-spexflix",
+      "name": "${SPEXFLIX_NAME:Spexflix}",
+      "description": "",
+      "rootUrl": "${SPEXFLIX_URL:http://localhost:3003}",
+      "adminUrl": "",
+      "baseUrl": "${SPEXFLIX_URL:http://localhost:3003}/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "x7s1bUg1CdPxrzraXiLuQObbWa26grch",
+      "redirectUris": [
+        "${SPEXFLIX_URL:http://localhost:3003}/api/auth/callback/keycloak"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1792441028",
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "${SPEXFLIX_URL:http://localhost:3003}##${SPEXFLIX_URL:http://localhost:3003}/"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email",
+        "registration-message"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    },
+    {
+      "id": "1d804612-87f4-4c23-93ed-8d3c4c2435ac",
+      "clientId": "fgv-spexflix-service",
+      "name": "Spexflix service account",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "AwyoK1RihRmXIU8HM3UjsXhjkKiPrzG4",
       "redirectUris": [],
       "webOrigins": [],
       "notBefore": 0,
