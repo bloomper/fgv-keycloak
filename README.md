@@ -99,9 +99,14 @@ The clients' names and addresses are read from the environment during the import
 | `FGV_REVIVAL_NAME`     | `Nyuppsättning`                 | Name of `fgv-revival`, shown on login and in the approval email  |
 | `FGV_REVIVAL_URL`      | `http://localhost:3001`         | Address of Nyuppsättning Web, without a trailing slash           |
 | `FGV_REVIVAL_MCP_URL`  | `http://localhost:8081/api/mcp` | MCP endpoint, added as audience to tokens for `fgv-revival-mcp`  |
+| `SPEXIFY_NAME`         | `Spexify`                       | Name of `fgv-spexify`, shown on login and in the approval email  |
+| `SPEXIFY_URL`          | `http://localhost:3002`         | Address of Spexify Web, without a trailing slash                 |
+| `SPEXFLIX_NAME`        | `Spexflix`                      | Name of `fgv-spexflix`, shown on login and in the approval email |
+| `SPEXFLIX_URL`         | `http://localhost:3003`         | Address of Spexflix Web, without a trailing slash                |
 
 Only `SPEXREGISTER_URL/api/auth/callback/keycloak` is allowed as redirect URI, and the client requires PKCE. The
-same holds for `fgv-revival` and `FGV_REVIVAL_URL`.
+same holds for `fgv-revival` and `FGV_REVIVAL_URL`, `fgv-spexify` and `SPEXIFY_URL`, and `fgv-spexflix` and
+`SPEXFLIX_URL`.
 
 Nyuppsättning has three clients:
 
@@ -115,6 +120,20 @@ Nyuppsättning has three clients:
 task categories and spexare, and writes what the sync of a settled revival records, but deletes nothing. Spexregister
 Server's GraphQL API guide lists exactly what it may do. It is not an `authority` in Spexregister, so the service account is never imported as a
 Spexregister user.
+
+Spexify (music) and Spexflix (video) have two clients each:
+
+| Client                 | Type                                | Roles and mappings                                                        |
+|------------------------|-------------------------------------|---------------------------------------------------------------------------|
+| `fgv-spexify`          | Confidential, for Spexify Web       | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXFLIX` for Spexflix's service account; scope mapping `fgv-spexflix: USER` |
+| `fgv-spexify-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA`, `fgv-spexflix: SPEXIFY` |
+| `fgv-spexflix`         | Confidential, for Spexflix Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIFY` for Spexify's service account; scope mapping `fgv-spexify: USER` |
+| `fgv-spexflix-service` | Confidential, service account only  | Service account roles and scope mappings `spexregister: MEDIA`, `fgv-spexify: SPEXFLIX` |
+
+`EDITOR` and `ADMIN` are given in addition to `USER`. The two web clients have a `sub` mapper, since the realm has no `basic` scope and the servers identify users by their Keycloak id. Each web client's tokens carry the other application's `USER`
+role, so that a page links to the other application only for users who can open it. Spexify's service account reads
+users and clients, because Subsonic apps log in with app passwords, not Keycloak, and Spexify checks that their owners
+still have `USER`. `MEDIA` on `spexregister` reads spex and nothing else.
 
 The realm also has:
 
