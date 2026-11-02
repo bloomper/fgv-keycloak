@@ -658,7 +658,8 @@
           "query-users",
           "manage-users",
           "view-users",
-          "view-clients"
+          "view-clients",
+          "manage-events"
         ]
       },
       "notBefore": 0,
@@ -757,7 +758,8 @@
           "query-users",
           "manage-users",
           "view-users",
-          "view-clients"
+          "view-clients",
+          "manage-events"
         ]
       },
       {
