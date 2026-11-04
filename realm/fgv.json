@@ -805,6 +805,24 @@
         "roles": [
           "MEDIA"
         ]
+      },
+      {
+        "client": "fgv-revival",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexify",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexflix",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-revival": [
@@ -814,6 +832,24 @@
           "USER",
           "SUPER_ADMIN",
           "OBSERVER"
+        ]
+      },
+      {
+        "client": "spexregister",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexify",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexflix",
+        "roles": [
+          "USER"
         ]
       }
     ],
@@ -829,6 +865,18 @@
         "roles": [
           "USER"
         ]
+      },
+      {
+        "client": "spexregister",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-revival",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-spexflix": [
@@ -840,6 +888,18 @@
       },
       {
         "client": "fgv-spexify",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "spexregister",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-revival",
         "roles": [
           "USER"
         ]

@@ -125,15 +125,20 @@ Spexify (music) and Spexflix (video) have two clients each:
 
 | Client                 | Type                                | Roles and mappings                                                        |
 |------------------------|-------------------------------------|---------------------------------------------------------------------------|
-| `fgv-spexify`          | Confidential, for Spexify Web       | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXFLIX` for Spexflix's service account; scope mapping `fgv-spexflix: USER` |
+| `fgv-spexify`          | Confidential, for Spexify Web       | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXFLIX` for Spexflix's service account |
 | `fgv-spexify-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA`, `fgv-spexflix: SPEXIFY` |
-| `fgv-spexflix`         | Confidential, for Spexflix Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIFY` for Spexify's service account; scope mapping `fgv-spexify: USER` |
+| `fgv-spexflix`         | Confidential, for Spexflix Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIFY` for Spexify's service account |
 | `fgv-spexflix-service` | Confidential, service account only  | Service account roles and scope mappings `spexregister: MEDIA`, `fgv-spexify: SPEXFLIX` |
 
-`EDITOR` and `ADMIN` are given in addition to `USER`. The two web clients have a `sub` mapper, since the realm has no `basic` scope and the servers identify users by their Keycloak id. Each web client's tokens carry the other application's `USER`
-role, so that a page links to the other application only for users who can open it. Spexify's service account reads
+`EDITOR` and `ADMIN` are given in addition to `USER`. The two web clients have a `sub` mapper, since the realm has no `basic` scope and the servers identify users by their Keycloak id. Spexify's service account reads
 users and clients, because Subsonic apps log in with app passwords, not Keycloak, and Spexify checks that their owners
 still have `USER`. `MEDIA` on `spexregister` reads spex and nothing else.
+
+The four web clients, `spexregister`, `fgv-revival`, `fgv-spexify` and `fgv-spexflix`, each have a scope mapping to the
+`USER` role of the other three, so a web client's tokens say which of the other applications the user can open. The
+application switcher in each web's header lists only those, and Spexify and Spexflix link tracks and videos to each
+other only for users of both. Keycloak also adds those clients to the token's `aud`. No server checks the audience of
+its web API, and each reads only its own client's roles, so a token gains nothing it could use elsewhere.
 
 The realm also has:
 
