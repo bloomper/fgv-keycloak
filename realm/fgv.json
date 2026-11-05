@@ -559,7 +559,83 @@
         }
       ],
       "fgv-spexify-service": [],
-      "fgv-spexflix-service": []
+      "fgv-spexflix-service": [],
+      "fgv-spexgram": [
+        {
+          "id": "824c53c9-a28b-4317-8e5d-cfff48834b1f",
+          "name": "USER",
+          "description": "Access to Spexgram",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "17c4c979-ab8a-47d3-8924-4afc6e34f445",
+          "attributes": {}
+        },
+        {
+          "id": "6a65f044-2d71-43e4-9610-683b6a652ad6",
+          "name": "EDITOR",
+          "description": "Uploads and edits albums",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "17c4c979-ab8a-47d3-8924-4afc6e34f445",
+          "attributes": {}
+        },
+        {
+          "id": "082abda3-ae5e-411a-93ef-8e970b647053",
+          "name": "ADMIN",
+          "description": "Administers Spexgram",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "17c4c979-ab8a-47d3-8924-4afc6e34f445",
+          "attributes": {}
+        },
+        {
+          "id": "4afe7248-b33c-48d1-91cd-2f48dab2bc60",
+          "name": "SPEXIPEDIA",
+          "description": "Spexipedia's service account: reads signed addresses of chosen items",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "17c4c979-ab8a-47d3-8924-4afc6e34f445",
+          "attributes": {}
+        }
+      ],
+      "fgv-archive": [
+        {
+          "id": "567bc481-4330-45ce-b8c2-433f40c3206d",
+          "name": "USER",
+          "description": "Access to Spexarkivet",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
+          "attributes": {}
+        },
+        {
+          "id": "ac1d1117-993d-4d3d-8e64-5ddae6e6b841",
+          "name": "EDITOR",
+          "description": "Uploads and edits manuscripts and arrangements",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
+          "attributes": {}
+        },
+        {
+          "id": "e8af2b8f-e443-4391-857f-f00b8066b81a",
+          "name": "ADMIN",
+          "description": "Administers Spexarkivet",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
+          "attributes": {}
+        },
+        {
+          "id": "5245aed3-3d50-40b8-8b9f-8d53643445f2",
+          "name": "LINKS",
+          "description": "Other applications' service accounts: read which numbers have arrangements",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
+          "attributes": {}
+        }
+      ]
     }
   },
   "groups": [
@@ -740,6 +816,56 @@
       },
       "notBefore": 0,
       "groups": []
+    },
+    {
+      "id": "6e2a97ca-8b4c-4923-a06d-875caa5141a8",
+      "createdTimestamp": 1792441028000,
+      "username": "service-account-fgv-spexgram-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-spexgram-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "spexregister": [
+          "MEDIA"
+        ],
+        "realm-management": [
+          "view-users"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "e24edd33-d140-4826-b677-658a5b77f361",
+      "createdTimestamp": 1792441028000,
+      "username": "service-account-fgv-archive-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-archive-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "spexregister": [
+          "MEDIA"
+        ],
+        "realm-management": [
+          "view-users"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
     }
   ],
   "scopeMappings": [
@@ -767,6 +893,18 @@
         "roles": [
           "view-users",
           "view-clients"
+        ]
+      },
+      {
+        "client": "fgv-spexgram-service",
+        "roles": [
+          "view-users"
+        ]
+      },
+      {
+        "client": "fgv-archive-service",
+        "roles": [
+          "view-users"
         ]
       }
     ],
@@ -805,6 +943,18 @@
         "roles": [
           "MEDIA"
         ]
+      },
+      {
+        "client": "fgv-spexgram-service",
+        "roles": [
+          "MEDIA"
+        ]
+      },
+      {
+        "client": "fgv-archive-service",
+        "roles": [
+          "MEDIA"
+        ]
       }
     ],
     "fgv-revival": [
@@ -829,6 +979,18 @@
         "roles": [
           "USER"
         ]
+      },
+      {
+        "client": "fgv-spexgram",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-archive",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-spexflix": [
@@ -840,6 +1002,58 @@
       },
       {
         "client": "fgv-spexify",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexgram",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-archive",
+        "roles": [
+          "USER"
+        ]
+      }
+    ],
+    "fgv-spexgram": [
+      {
+        "client": "fgv-spexify",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexflix",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-archive",
+        "roles": [
+          "USER"
+        ]
+      }
+    ],
+    "fgv-archive": [
+      {
+        "client": "fgv-spexify",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexflix",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexgram",
         "roles": [
           "USER"
         ]
@@ -1685,6 +1899,220 @@
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "AwyoK1RihRmXIU8HM3UjsXhjkKiPrzG4",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1792441028"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "17c4c979-ab8a-47d3-8924-4afc6e34f445",
+      "clientId": "fgv-spexgram",
+      "name": "${SPEXGRAM_NAME:Spexgram}",
+      "description": "",
+      "rootUrl": "${SPEXGRAM_URL:http://localhost:3004}",
+      "adminUrl": "",
+      "baseUrl": "${SPEXGRAM_URL:http://localhost:3004}/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "PVre43vTpUXrHwWVKhsSBa0XZ2zETMdn",
+      "redirectUris": [
+        "${SPEXGRAM_URL:http://localhost:3004}/api/auth/callback/keycloak"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1792441028",
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "${SPEXGRAM_URL:http://localhost:3004}##${SPEXGRAM_URL:http://localhost:3004}/"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email",
+        "registration-message"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ],
+      "protocolMappers": [
+        {
+          "id": "6e90b187-d57e-48cf-91e7-f249c9da6e10",
+          "name": "sub",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "28f0655a-420b-429a-a3eb-6c2c869b9396",
+      "clientId": "fgv-spexgram-service",
+      "name": "Spexgram service account",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "WVeHjb1L3xOtvZfa7u5qtXRITYtj29wO",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1792441028"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
+      "clientId": "fgv-archive",
+      "name": "${ARCHIVE_NAME:Spexarkivet}",
+      "description": "",
+      "rootUrl": "${ARCHIVE_URL:http://localhost:3005}",
+      "adminUrl": "",
+      "baseUrl": "${ARCHIVE_URL:http://localhost:3005}/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "j76LuTOtT1y9FCDeAu7ZxSOyEqisxJ3n",
+      "redirectUris": [
+        "${ARCHIVE_URL:http://localhost:3005}/api/auth/callback/keycloak"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1792441028",
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "${ARCHIVE_URL:http://localhost:3005}##${ARCHIVE_URL:http://localhost:3005}/"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email",
+        "registration-message"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ],
+      "protocolMappers": [
+        {
+          "id": "69d29b67-acde-498f-8b7c-38e107c76979",
+          "name": "sub",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "4b206adc-2a25-41f9-829a-a5441fc4d24a",
+      "clientId": "fgv-archive-service",
+      "name": "Spexarkivet service account",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "e3wn80TUT2Pte8vWruKZBTQDpT514Wya",
       "redirectUris": [],
       "webOrigins": [],
       "notBefore": 0,

@@ -103,10 +103,14 @@ The clients' names and addresses are read from the environment during the import
 | `SPEXIFY_URL`          | `http://localhost:3002`         | Address of Spexify Web, without a trailing slash                 |
 | `SPEXFLIX_NAME`        | `Spexflix`                      | Name of `fgv-spexflix`, shown on login and in the approval email |
 | `SPEXFLIX_URL`         | `http://localhost:3003`         | Address of Spexflix Web, without a trailing slash                |
+| `SPEXGRAM_NAME`        | `Spexgram`                      | Name of `fgv-spexgram`, shown on login and in the approval email |
+| `SPEXGRAM_URL`         | `http://localhost:3004`         | Address of Spexgram Web, without a trailing slash                |
+| `ARCHIVE_NAME`         | `Spexarkivet`                   | Name of `fgv-archive`, shown on login and in the approval email  |
+| `ARCHIVE_URL`          | `http://localhost:3005`         | Address of Spexarkivet Web, without a trailing slash             |
 
 Only `SPEXREGISTER_URL/api/auth/callback/keycloak` is allowed as redirect URI, and the client requires PKCE. The
 same holds for `fgv-revival` and `FGV_REVIVAL_URL`, `fgv-spexify` and `SPEXIFY_URL`, and `fgv-spexflix` and
-`SPEXFLIX_URL`.
+`SPEXFLIX_URL`, `fgv-spexgram` and `SPEXGRAM_URL`, and `fgv-archive` and `ARCHIVE_URL`.
 
 Nyuppsättning has three clients:
 
@@ -134,6 +138,18 @@ Spexify (music) and Spexflix (video) have two clients each:
 role, so that a page links to the other application only for users who can open it. Spexify's service account reads
 users and clients, because Subsonic apps log in with app passwords, not Keycloak, and Spexify checks that their owners
 still have `USER`. `MEDIA` on `spexregister` reads spex and nothing else.
+
+Spexgram (photos and short videos) and Spexarkivet (manuscripts and sheet music) have two clients each:
+
+| Client                 | Type                                | Roles and mappings                                                        |
+|------------------------|-------------------------------------|---------------------------------------------------------------------------|
+| `fgv-spexgram`         | Confidential, for Spexgram Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIPEDIA` for Spexipedia's service account (later); scope mappings `fgv-spexify`, `fgv-spexflix`, `fgv-archive: USER` |
+| `fgv-spexgram-service` | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users`, `spexregister: MEDIA` |
+| `fgv-archive`          | Confidential, for Spexarkivet Web   | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `LINKS` for other applications' service accounts (later); scope mappings `fgv-spexify`, `fgv-spexflix`, `fgv-spexgram: USER` |
+| `fgv-archive-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users`, `spexregister: MEDIA` |
+
+Their service accounts read the email addresses of editors, for notifications. Spexify and Spexflix also carry the
+`USER` roles of Spexgram and Spexarkivet. Spexgram shows public albums without login; that needs nothing in Keycloak.
 
 The realm also has:
 
