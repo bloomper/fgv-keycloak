@@ -144,11 +144,11 @@ Spexgram (photos and short videos) and Spexarkivet (manuscripts and sheet music)
 | Client                 | Type                                | Roles and mappings                                                        |
 |------------------------|-------------------------------------|---------------------------------------------------------------------------|
 | `fgv-spexgram`         | Confidential, for Spexgram Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIPEDIA` for Spexipedia's service account (later); scope mappings `fgv-spexify`, `fgv-spexflix`, `fgv-archive: USER` |
-| `fgv-spexgram-service` | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users`, `spexregister: MEDIA` |
+| `fgv-spexgram-service` | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA` |
 | `fgv-archive`          | Confidential, for Spexarkivet Web   | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `LINKS` for other applications' service accounts (later); scope mappings `fgv-spexify`, `fgv-spexflix`, `fgv-spexgram: USER` |
-| `fgv-archive-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users`, `spexregister: MEDIA` |
+| `fgv-archive-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA` |
 
-Their service accounts read the email addresses of editors, for notifications. Spexify and Spexflix also carry the
+Their service accounts read users and clients, to find the email addresses of editors for notifications. Spexify and Spexflix also carry the
 `USER` roles of Spexgram and Spexarkivet. Spexgram shows public albums without login; that needs nothing in Keycloak.
 
 The realm also has:
