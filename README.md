@@ -116,7 +116,7 @@ Nyuppsättning has three clients:
 
 | Client                | Type                                   | Roles and mappings                                         |
 |-----------------------|----------------------------------------|------------------------------------------------------------|
-| `fgv-revival`         | Confidential, for Nyuppsättning Web    | Client roles `USER` (access), `SUPER_ADMIN`, `OBSERVER`    |
+| `fgv-revival`         | Confidential, for Nyuppsättning Web    | Client roles `USER` (access), `SUPER_ADMIN`, `OBSERVER`; scope mappings to the other web clients' `USER` |
 | `fgv-revival-mcp`     | Public, for MCP clients, like `spexregister-mcp` | Scope mapping to all three `fgv-revival` roles    |
 | `fgv-revival-service` | Confidential, service account only     | Service account role and scope mapping `spexregister: REVIVAL` |
 
@@ -129,13 +129,14 @@ Spexify (music) and Spexflix (video) have two clients each:
 
 | Client                 | Type                                | Roles and mappings                                                        |
 |------------------------|-------------------------------------|---------------------------------------------------------------------------|
-| `fgv-spexify`          | Confidential, for Spexify Web       | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXFLIX` for Spexflix's service account; scope mapping `fgv-spexflix: USER` |
+| `fgv-spexify`          | Confidential, for Spexify Web       | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXFLIX` for Spexflix's service account; scope mappings to the other web clients' `USER` |
 | `fgv-spexify-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA`, `fgv-spexflix: SPEXIFY` |
-| `fgv-spexflix`         | Confidential, for Spexflix Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIFY` for Spexify's service account; scope mapping `fgv-spexify: USER` |
+| `fgv-spexflix`         | Confidential, for Spexflix Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIFY` for Spexify's service account; scope mappings to the other web clients' `USER` |
 | `fgv-spexflix-service` | Confidential, service account only  | Service account roles and scope mappings `spexregister: MEDIA`, `fgv-spexify: SPEXFLIX` |
 
-`EDITOR` and `ADMIN` are given in addition to `USER`. The two web clients have a `sub` mapper, since the realm has no `basic` scope and the servers identify users by their Keycloak id. Each web client's tokens carry the other application's `USER`
-role, so that a page links to the other application only for users who can open it. Spexify's service account reads
+`EDITOR` and `ADMIN` are given in addition to `USER`. The two web clients have a `sub` mapper, since the realm has no `basic` scope and the servers identify users by their Keycloak id. Each web client's tokens carry the other web clients' `USER`
+roles (`spexregister`, `fgv-revival`, `fgv-spexify`, `fgv-spexflix`, `fgv-spexgram` and `fgv-archive` are all mapped to
+each other), so that a page and the application switcher link to another application only for users who can open it. Spexify's service account reads
 users and clients, because Subsonic apps log in with app passwords, not Keycloak, and Spexify checks that their owners
 still have `USER`. `MEDIA` on `spexregister` reads spex and nothing else.
 
@@ -143,9 +144,9 @@ Spexgram (photos and short videos) and Spexarkivet (manuscripts and sheet music)
 
 | Client                 | Type                                | Roles and mappings                                                        |
 |------------------------|-------------------------------------|---------------------------------------------------------------------------|
-| `fgv-spexgram`         | Confidential, for Spexgram Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIPEDIA` for Spexipedia's service account (later); scope mappings `fgv-spexify`, `fgv-spexflix`, `fgv-archive: USER` |
+| `fgv-spexgram`         | Confidential, for Spexgram Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIPEDIA` for Spexipedia's service account (later); scope mappings to the other web clients' `USER` |
 | `fgv-spexgram-service` | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA` |
-| `fgv-archive`          | Confidential, for Spexarkivet Web   | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `LINKS` for other applications' service accounts (later); scope mappings `fgv-spexify`, `fgv-spexflix`, `fgv-spexgram: USER` |
+| `fgv-archive`          | Confidential, for Spexarkivet Web   | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `LINKS` for other applications' service accounts (later); scope mappings to the other web clients' `USER` |
 | `fgv-archive-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA` |
 
 Their service accounts read users and clients, to find the email addresses of editors for notifications. Spexify and Spexflix also carry the

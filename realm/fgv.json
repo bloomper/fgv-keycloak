@@ -959,6 +959,36 @@
         "roles": [
           "MEDIA"
         ]
+      },
+      {
+        "client": "fgv-revival",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexify",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexflix",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexgram",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-archive",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-revival": [
@@ -968,6 +998,36 @@
           "USER",
           "SUPER_ADMIN",
           "OBSERVER"
+        ]
+      },
+      {
+        "client": "spexregister",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexify",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexflix",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexgram",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-archive",
+        "roles": [
+          "USER"
         ]
       }
     ],
@@ -992,6 +1052,18 @@
       },
       {
         "client": "fgv-archive",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "spexregister",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-revival",
         "roles": [
           "USER"
         ]
@@ -1021,6 +1093,18 @@
         "roles": [
           "USER"
         ]
+      },
+      {
+        "client": "spexregister",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-revival",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-spexgram": [
@@ -1041,6 +1125,18 @@
         "roles": [
           "USER"
         ]
+      },
+      {
+        "client": "spexregister",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-revival",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-archive": [
@@ -1058,6 +1154,18 @@
       },
       {
         "client": "fgv-spexgram",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "spexregister",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-revival",
         "roles": [
           "USER"
         ]
