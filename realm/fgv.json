@@ -602,7 +602,7 @@
         {
           "id": "567bc481-4330-45ce-b8c2-433f40c3206d",
           "name": "USER",
-          "description": "Access to Spexarkivet",
+          "description": "Access to Spexarkiv",
           "composite": false,
           "clientRole": true,
           "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
@@ -620,7 +620,7 @@
         {
           "id": "e8af2b8f-e443-4391-857f-f00b8066b81a",
           "name": "ADMIN",
-          "description": "Administers Spexarkivet",
+          "description": "Administers Spexarkiv",
           "composite": false,
           "clientRole": true,
           "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
@@ -2151,7 +2151,7 @@
     {
       "id": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
       "clientId": "fgv-archive",
-      "name": "${ARCHIVE_NAME:Spexarkivet}",
+      "name": "${ARCHIVE_NAME:Spexarkiv}",
       "description": "",
       "rootUrl": "${ARCHIVE_URL:http://localhost:3005}",
       "adminUrl": "",
@@ -2218,7 +2218,7 @@
     {
       "id": "4b206adc-2a25-41f9-829a-a5441fc4d24a",
       "clientId": "fgv-archive-service",
-      "name": "Spexarkivet service account",
+      "name": "Spexarkiv service account",
       "description": "",
       "rootUrl": "",
       "adminUrl": "",
