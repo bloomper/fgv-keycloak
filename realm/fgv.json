@@ -80,6 +80,9 @@
             "account": [
               "view-profile",
               "manage-account"
+            ],
+            "fgv-spexipedia": [
+              "USER"
             ]
           }
         },
@@ -347,6 +350,24 @@
           "clientRole": true,
           "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
           "attributes": {}
+        },
+        {
+          "id": "1ca23164-752a-4c77-8fba-35e04f49e368",
+          "name": "SPEXIPEDIA",
+          "description": "Spexipedia's service account: base data for the switch, and published spexare's names and nicknames",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
+          "attributes": {}
+        },
+        {
+          "id": "4f25f979-00ce-4f3d-9b54-f887eb2021fc",
+          "name": "NOTIFY",
+          "description": "Services that tell Spexregister to pull their change feed (/api/sync/notify)",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
+          "attributes": {}
         }
       ],
       "admin-cli": [],
@@ -518,6 +539,33 @@
           "clientRole": true,
           "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
           "attributes": {}
+        },
+        {
+          "id": "db58703b-455e-4ba9-abbc-89f737120cbf",
+          "name": "SPEXIPEDIA",
+          "description": "Spexipedia's service account: reads which published tracks and albums link to numbers, recordings and spex",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+          "attributes": {}
+        },
+        {
+          "id": "9ed9f4c7-0ad2-4e40-9bd1-88888a4a2346",
+          "name": "ARCHIVE",
+          "description": "Spexarkivet's service account: reads which published tracks link to numbers",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+          "attributes": {}
+        },
+        {
+          "id": "4f7b18c2-6d6f-49c8-97f9-9373955413b7",
+          "name": "NOTIFY",
+          "description": "Spexipedia's service account: tells Spexify to pull the change feed",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+          "attributes": {}
         }
       ],
       "fgv-spexflix": [
@@ -552,6 +600,24 @@
           "id": "2093ae26-6c60-4067-b2fa-fa219edb0401",
           "name": "SPEXIFY",
           "description": "Spexify's service account: reads chapter links",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
+          "attributes": {}
+        },
+        {
+          "id": "2047774a-c7ea-4d6e-9797-a33bbd7894b1",
+          "name": "SPEXIPEDIA",
+          "description": "Spexipedia's service account: reads which published videos belong to a spex",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
+          "attributes": {}
+        },
+        {
+          "id": "372d0b24-f365-4858-9952-331370809d5e",
+          "name": "NOTIFY",
+          "description": "Spexipedia's service account: tells Spexflix to pull the change feed",
           "composite": false,
           "clientRole": true,
           "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
@@ -596,6 +662,15 @@
           "clientRole": true,
           "containerId": "17c4c979-ab8a-47d3-8924-4afc6e34f445",
           "attributes": {}
+        },
+        {
+          "id": "e66789aa-491a-4669-9fb0-9394c37c4adf",
+          "name": "NOTIFY",
+          "description": "Spexipedia's service account: tells Spexgram to pull the change feed",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "17c4c979-ab8a-47d3-8924-4afc6e34f445",
+          "attributes": {}
         }
       ],
       "fgv-archive": [
@@ -633,6 +708,73 @@
           "composite": false,
           "clientRole": true,
           "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
+          "attributes": {}
+        },
+        {
+          "id": "c02eb139-5fbf-4f59-a8ed-39719f6f2bc6",
+          "name": "NOTIFY",
+          "description": "Spexipedia's service account: tells Spexarkivet to pull the change feed",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
+          "attributes": {}
+        }
+      ],
+      "fgv-spexipedia-service": [],
+      "spexregister-service": [],
+      "fgv-spexipedia": [
+        {
+          "id": "7d5ccb0c-e70e-46ee-8b2f-2ef4ff61b2ba",
+          "name": "USER",
+          "description": "Access to Spexipedia: names of published spexare, member-only articles, writing articles",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        },
+        {
+          "id": "6495661c-b3a2-41a3-9f20-1ccc3800c067",
+          "name": "AUTHOR",
+          "description": "Writes the texts and images of spex pages; publishes articles",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        },
+        {
+          "id": "5e97f612-c0ba-42cd-bc9a-7b6572877985",
+          "name": "EDITOR",
+          "description": "Edits base data, characters, scenes, numbers and recordings",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        },
+        {
+          "id": "229d42fd-6e05-4078-8a4d-8d3a8548d43e",
+          "name": "ADMIN",
+          "description": "Administers Spexipedia",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        },
+        {
+          "id": "4f2185e7-d747-4ef8-a6f3-fd049a4f8191",
+          "name": "SYNC",
+          "description": "Service accounts of applications that keep a copy of base data: reads the change feed",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        },
+        {
+          "id": "9817a0f0-6d0b-46d3-b2a1-0a2f929bcb32",
+          "name": "REVIVAL",
+          "description": "Nyuppsättning's service account: creates revivals",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
           "attributes": {}
         }
       ]
@@ -758,6 +900,9 @@
       "clientRoles": {
         "spexregister": [
           "REVIVAL"
+        ],
+        "fgv-spexipedia": [
+          "REVIVAL"
         ]
       },
       "notBefore": 0,
@@ -787,6 +932,12 @@
         ],
         "fgv-spexflix": [
           "SPEXIFY"
+        ],
+        "fgv-spexipedia": [
+          "SYNC"
+        ],
+        "fgv-archive": [
+          "LINKS"
         ]
       },
       "notBefore": 0,
@@ -812,6 +963,9 @@
         ],
         "fgv-spexify": [
           "SPEXFLIX"
+        ],
+        "fgv-spexipedia": [
+          "SYNC"
         ]
       },
       "notBefore": 0,
@@ -838,6 +992,9 @@
         "realm-management": [
           "view-users",
           "view-clients"
+        ],
+        "fgv-spexipedia": [
+          "SYNC"
         ]
       },
       "notBefore": 0,
@@ -864,6 +1021,73 @@
         "realm-management": [
           "view-users",
           "view-clients"
+        ],
+        "fgv-spexipedia": [
+          "SYNC"
+        ],
+        "fgv-spexify": [
+          "ARCHIVE"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "d83d6f1b-cb26-4d72-b8fc-a87ac19d8c0e",
+      "createdTimestamp": 1794560400000,
+      "username": "service-account-fgv-spexipedia-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-spexipedia-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "spexregister": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ],
+        "fgv-spexgram": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ],
+        "fgv-spexify": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ],
+        "fgv-spexflix": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ],
+        "fgv-archive": [
+          "LINKS",
+          "NOTIFY"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "beddb672-06db-4883-b206-922aeb43cdb2",
+      "createdTimestamp": 1794560400000,
+      "username": "service-account-spexregister-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "spexregister-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "fgv-spexipedia": [
+          "SYNC"
         ]
       },
       "notBefore": 0,
@@ -989,6 +1213,19 @@
         "roles": [
           "USER"
         ]
+      },
+      {
+        "client": "fgv-spexipedia-service",
+        "roles": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-revival": [
@@ -1026,6 +1263,12 @@
       },
       {
         "client": "fgv-archive",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
         "roles": [
           "USER"
         ]
@@ -1067,6 +1310,25 @@
         "roles": [
           "USER"
         ]
+      },
+      {
+        "client": "fgv-spexipedia-service",
+        "roles": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ]
+      },
+      {
+        "client": "fgv-archive-service",
+        "roles": [
+          "ARCHIVE"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-spexflix": [
@@ -1105,6 +1367,19 @@
         "roles": [
           "USER"
         ]
+      },
+      {
+        "client": "fgv-spexipedia-service",
+        "roles": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-spexgram": [
@@ -1137,6 +1412,19 @@
         "roles": [
           "USER"
         ]
+      },
+      {
+        "client": "fgv-spexipedia-service",
+        "roles": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-archive": [
@@ -1166,6 +1454,100 @@
       },
       {
         "client": "fgv-revival",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia-service",
+        "roles": [
+          "LINKS",
+          "NOTIFY"
+        ]
+      },
+      {
+        "client": "fgv-spexify-service",
+        "roles": [
+          "LINKS"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
+        "roles": [
+          "USER"
+        ]
+      }
+    ],
+    "fgv-spexipedia": [
+      {
+        "client": "spexregister-service",
+        "roles": [
+          "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-spexify-service",
+        "roles": [
+          "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-spexflix-service",
+        "roles": [
+          "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-spexgram-service",
+        "roles": [
+          "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-archive-service",
+        "roles": [
+          "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-revival-service",
+        "roles": [
+          "REVIVAL"
+        ]
+      },
+      {
+        "client": "spexregister",
+        "roles": [
+          "USER",
+          "EDITOR"
+        ]
+      },
+      {
+        "client": "fgv-revival",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexify",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexflix",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexgram",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-archive",
         "roles": [
           "USER"
         ]
@@ -2253,6 +2635,153 @@
       "defaultClientScopes": [
         "roles",
         "kc-admin-api"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+      "clientId": "fgv-spexipedia",
+      "name": "${SPEXIPEDIA_NAME:Spexipedia}",
+      "description": "",
+      "rootUrl": "${SPEXIPEDIA_URL:http://localhost:3006}",
+      "adminUrl": "",
+      "baseUrl": "${SPEXIPEDIA_URL:http://localhost:3006}/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "jktyDPjNEQBNQF2omc0Bt9NQ3JwNKgAC",
+      "redirectUris": [
+        "${SPEXIPEDIA_URL:http://localhost:3006}/api/auth/callback/keycloak"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400",
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "${SPEXIPEDIA_URL:http://localhost:3006}##${SPEXIPEDIA_URL:http://localhost:3006}/"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email",
+        "registration-message"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ],
+      "protocolMappers": [
+        {
+          "id": "74ac6ec0-d68b-4eae-a6c3-db42d4b09b00",
+          "name": "sub",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c03ff204-e5f5-48c6-81ae-65a32fb83290",
+      "clientId": "fgv-spexipedia-service",
+      "name": "Spexipedia service account",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "UQOfUoJvWufXMhqf4ZzcPvsVfjPEDNia",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "c1e84581-7eef-43b1-9800-f96a228d63e5",
+      "clientId": "spexregister-service",
+      "name": "Spexregister service account",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "28EUGtXnuosWwBS9fA8IHnkCgLCjY7As",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
       ],
       "optionalClientScopes": []
     }

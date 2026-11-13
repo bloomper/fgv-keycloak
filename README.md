@@ -81,7 +81,7 @@ approval emails from `fgv-admin-notification` are plain text and don't use it.
 The client secrets in it are public, so replace them in any shared environment. [fgv-infra-deploy][2], which
 runs this image, does that with `bin/configure-keycloak.sh`, which also selects the `FGV` theme. The realm contains no keys, so
 Keycloak generates new ones for every environment. The realm contains no users apart from the service accounts
-of `fgv-admin` and `fgv-revival-service`. Spexregister Server and Nyuppsättning Server create sample users when they
+of `fgv-admin` and the applications' `*-service` clients. Spexregister Server and Nyuppsättning Server create sample users when they
 import sample data.
 
 `realm/fgv.json` is also used by the integration tests in Spexregister Server
@@ -107,10 +107,13 @@ The clients' names and addresses are read from the environment during the import
 | `SPEXGRAM_URL`         | `http://localhost:3004`         | Address of Spexgram Web, without a trailing slash                |
 | `ARCHIVE_NAME`         | `Spexarkiv`                   | Name of `fgv-archive`, shown on login and in the approval email  |
 | `ARCHIVE_URL`          | `http://localhost:3005`         | Address of Spexarkiv Web, without a trailing slash             |
+| `SPEXIPEDIA_NAME`      | `Spexipedia`                    | Name of `fgv-spexipedia`, shown on login and in the approval email |
+| `SPEXIPEDIA_URL`       | `http://localhost:3006`         | Address of Spexipedia Web, without a trailing slash              |
 
 Only `SPEXREGISTER_URL/api/auth/callback/keycloak` is allowed as redirect URI, and the client requires PKCE. The
 same holds for `fgv-revival` and `FGV_REVIVAL_URL`, `fgv-spexify` and `SPEXIFY_URL`, and `fgv-spexflix` and
-`SPEXFLIX_URL`, `fgv-spexgram` and `SPEXGRAM_URL`, and `fgv-archive` and `ARCHIVE_URL`.
+`SPEXFLIX_URL`, `fgv-spexgram` and `SPEXGRAM_URL`, `fgv-archive` and `ARCHIVE_URL`, and `fgv-spexipedia` and
+`SPEXIPEDIA_URL`.
 
 Nyuppsättning has three clients:
 
@@ -118,7 +121,7 @@ Nyuppsättning has three clients:
 |-----------------------|----------------------------------------|------------------------------------------------------------|
 | `fgv-revival`         | Confidential, for Nyuppsättning Web    | Client roles `USER` (access), `SUPER_ADMIN`, `OBSERVER`; scope mappings to the other web clients' `USER` |
 | `fgv-revival-mcp`     | Public, for MCP clients, like `spexregister-mcp` | Scope mapping to all three `fgv-revival` roles    |
-| `fgv-revival-service` | Confidential, service account only     | Service account role and scope mapping `spexregister: REVIVAL` |
+| `fgv-revival-service` | Confidential, service account only     | Service account roles and scope mappings `spexregister: REVIVAL`, `fgv-spexipedia: REVIVAL` |
 
 `REVIVAL` on `spexregister` is the narrow role Nyuppsättning's server uses to call Spexregister. It reads spex, tasks,
 task categories and spexare, and writes what the sync of a settled revival records, but deletes nothing. Spexregister
@@ -129,10 +132,10 @@ Spexify (music) and Spexflix (video) have two clients each:
 
 | Client                 | Type                                | Roles and mappings                                                        |
 |------------------------|-------------------------------------|---------------------------------------------------------------------------|
-| `fgv-spexify`          | Confidential, for Spexify Web       | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXFLIX` for Spexflix's service account; scope mappings to the other web clients' `USER` |
-| `fgv-spexify-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA`, `fgv-spexflix: SPEXIFY` |
-| `fgv-spexflix`         | Confidential, for Spexflix Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIFY` for Spexify's service account; scope mappings to the other web clients' `USER` |
-| `fgv-spexflix-service` | Confidential, service account only  | Service account roles and scope mappings `spexregister: MEDIA`, `fgv-spexify: SPEXFLIX` |
+| `fgv-spexify`          | Confidential, for Spexify Web       | Client roles `USER` (access), `EDITOR`, `ADMIN`, and for other services' accounts `SPEXFLIX`, `ARCHIVE`, `SPEXIPEDIA` and `NOTIFY`; scope mappings to the other web clients' `USER` |
+| `fgv-spexify-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA`, `fgv-spexflix: SPEXIFY`, `fgv-spexipedia: SYNC`, `fgv-archive: LINKS` |
+| `fgv-spexflix`         | Confidential, for Spexflix Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and for other services' accounts `SPEXIFY`, `SPEXIPEDIA` and `NOTIFY`; scope mappings to the other web clients' `USER` |
+| `fgv-spexflix-service` | Confidential, service account only  | Service account roles and scope mappings `spexregister: MEDIA`, `fgv-spexify: SPEXFLIX`, `fgv-spexipedia: SYNC` |
 
 `EDITOR` and `ADMIN` are given in addition to `USER`. The two web clients have a `sub` mapper, since the realm has no `basic` scope and the servers identify users by their Keycloak id. Each web client's tokens carry the other web clients' `USER`
 roles (`spexregister`, `fgv-revival`, `fgv-spexify`, `fgv-spexflix`, `fgv-spexgram` and `fgv-archive` are all mapped to
@@ -144,10 +147,40 @@ Spexgram (photos and short videos) and Spexarkiv (manuscripts and sheet music) h
 
 | Client                 | Type                                | Roles and mappings                                                        |
 |------------------------|-------------------------------------|---------------------------------------------------------------------------|
-| `fgv-spexgram`         | Confidential, for Spexgram Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIPEDIA` for Spexipedia's service account (later); scope mappings to the other web clients' `USER` |
-| `fgv-spexgram-service` | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA` |
-| `fgv-archive`          | Confidential, for Spexarkiv Web   | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `LINKS` for other applications' service accounts (later); scope mappings to the other web clients' `USER` |
-| `fgv-archive-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA` |
+| `fgv-spexgram`         | Confidential, for Spexgram Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIPEDIA` and `NOTIFY` for Spexipedia's service account; scope mappings to the other web clients' `USER` |
+| `fgv-spexgram-service` | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA`, `fgv-spexipedia: SYNC` |
+| `fgv-archive`          | Confidential, for Spexarkiv Web   | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `LINKS` and `NOTIFY` for Spexify's and Spexipedia's service accounts; scope mappings to the other web clients' `USER` |
+| `fgv-archive-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA`, `fgv-spexipedia: SYNC`, `fgv-spexify: ARCHIVE` |
+
+Spexipedia (the encyclopedia, and the source of base data: spex, revivals, categories, tasks, characters and numbers)
+has two clients, and Spexregister gets a service account of its own for its copy of base data:
+
+| Client                   | Type                                | Roles and mappings                                                      |
+|--------------------------|-------------------------------------|-------------------------------------------------------------------------|
+| `fgv-spexipedia`         | Confidential, for Spexipedia Web    | Client roles `USER` (access; a composite of `default-roles-fgv`, so every approved user has it), `AUTHOR`, `EDITOR`, `ADMIN`, and for other services' accounts `SYNC` (the change feed of base data) and `REVIVAL` (creating revivals); scope mappings to the other web clients' `USER` |
+| `fgv-spexipedia-service` | Confidential, service account only  | Service account roles and scope mappings `spexregister: SPEXIPEDIA, NOTIFY`, `fgv-spexgram: SPEXIPEDIA, NOTIFY`, `fgv-spexify: SPEXIPEDIA, NOTIFY`, `fgv-spexflix: SPEXIPEDIA, NOTIFY`, `fgv-archive: LINKS, NOTIFY` |
+| `spexregister-service`   | Confidential, service account only  | Service account role and scope mapping `fgv-spexipedia: SYNC`           |
+
+`spexregister` also carries `fgv-spexipedia: EDITOR`, so that its spex pages link editors to Spexipedia.
+
+Who calls whom, and with which role. Each role permits what one caller needs and nothing more, so that leaked service
+credentials do little damage:
+
+| Caller                   | Called         | Role                     | For                                                               |
+|--------------------------|----------------|--------------------------|-------------------------------------------------------------------|
+| `fgv-spexipedia-service` | Spexregister   | `spexregister: SPEXIPEDIA` | Base data for the switch; names and nicknames of published spexare on spex pages; picking credits |
+| `fgv-spexipedia-service` | Spexgram       | `fgv-spexgram: SPEXIPEDIA` | Signed addresses of chosen photos, for logged-in users          |
+| `fgv-spexipedia-service` | Spexify        | `fgv-spexify: SPEXIPEDIA`  | Published tracks and albums linked to numbers, recordings and spex |
+| `fgv-spexipedia-service` | Spexflix       | `fgv-spexflix: SPEXIPEDIA` | Published videos of a spex                                     |
+| `fgv-spexipedia-service` | Spexarkivet    | `fgv-archive: LINKS`     | Numbers with published arrangements, and manuscripts of a spex    |
+| `fgv-spexipedia-service` | Every consumer | `NOTIFY` on its client   | `POST /api/sync/notify` after a change to base data               |
+| `spexregister-service`, `fgv-spexify-service`, `fgv-spexflix-service`, `fgv-spexgram-service`, `fgv-archive-service` | Spexipedia | `fgv-spexipedia: SYNC` | The change feed of base data (`baseDataChanges`) |
+| `fgv-revival-service`    | Spexipedia     | `fgv-spexipedia: REVIVAL` | Creating revivals                                                 |
+| `fgv-spexify-service`    | Spexarkivet    | `fgv-archive: LINKS`     | *Sheet music in Spexarkivet* on tracks                            |
+| `fgv-archive-service`    | Spexify        | `fgv-spexify: ARCHIVE`   | *Listen in Spexify* on arrangements                               |
+| `fgv-spexify-service`, `fgv-spexflix-service` | each other | `SPEXFLIX`, `SPEXIFY` | Chapter links between videos and tracks              |
+
+Reading base data needs no role: Spexipedia's base data is public.
 
 Their service accounts read users and clients, to find the email addresses of editors for notifications. Spexify and Spexflix also carry the
 `USER` roles of Spexgram and Spexarkiv. Spexgram shows public albums without login; that needs nothing in Keycloak.
