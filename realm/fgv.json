@@ -343,15 +343,6 @@
           "attributes": {}
         },
         {
-          "id": "af9e477e-c511-4641-9144-8961b3e34fdc",
-          "name": "MEDIA",
-          "description": "Spexify's and Spexflix's service accounts: read spex",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
-          "attributes": {}
-        },
-        {
           "id": "1ca23164-752a-4c77-8fba-35e04f49e368",
           "name": "SPEXIPEDIA",
           "description": "Spexipedia's service account: base data for the switch, and published spexare's names and nicknames",
@@ -927,9 +918,6 @@
           "view-users",
           "view-clients"
         ],
-        "spexregister": [
-          "MEDIA"
-        ],
         "fgv-spexflix": [
           "SPEXIFY"
         ],
@@ -958,9 +946,6 @@
         "default-roles-fgv"
       ],
       "clientRoles": {
-        "spexregister": [
-          "MEDIA"
-        ],
         "fgv-spexify": [
           "SPEXFLIX"
         ],
@@ -986,9 +971,6 @@
         "default-roles-fgv"
       ],
       "clientRoles": {
-        "spexregister": [
-          "MEDIA"
-        ],
         "realm-management": [
           "view-users",
           "view-clients"
@@ -1015,9 +997,6 @@
         "default-roles-fgv"
       ],
       "clientRoles": {
-        "spexregister": [
-          "MEDIA"
-        ],
         "realm-management": [
           "view-users",
           "view-clients"
@@ -1158,30 +1137,6 @@
         "client": "fgv-revival-service",
         "roles": [
           "REVIVAL"
-        ]
-      },
-      {
-        "client": "fgv-spexify-service",
-        "roles": [
-          "MEDIA"
-        ]
-      },
-      {
-        "client": "fgv-spexflix-service",
-        "roles": [
-          "MEDIA"
-        ]
-      },
-      {
-        "client": "fgv-spexgram-service",
-        "roles": [
-          "MEDIA"
-        ]
-      },
-      {
-        "client": "fgv-archive-service",
-        "roles": [
-          "MEDIA"
         ]
       },
       {

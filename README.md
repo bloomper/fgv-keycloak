@@ -133,24 +133,24 @@ Spexify (music) and Spexflix (video) have two clients each:
 | Client                 | Type                                | Roles and mappings                                                        |
 |------------------------|-------------------------------------|---------------------------------------------------------------------------|
 | `fgv-spexify`          | Confidential, for Spexify Web       | Client roles `USER` (access), `EDITOR`, `ADMIN`, and for other services' accounts `SPEXFLIX`, `ARCHIVE`, `SPEXIPEDIA` and `NOTIFY`; scope mappings to the other web clients' `USER` |
-| `fgv-spexify-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA`, `fgv-spexflix: SPEXIFY`, `fgv-spexipedia: SYNC`, `fgv-archive: LINKS` |
+| `fgv-spexify-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `fgv-spexflix: SPEXIFY`, `fgv-spexipedia: SYNC`, `fgv-archive: LINKS` |
 | `fgv-spexflix`         | Confidential, for Spexflix Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and for other services' accounts `SPEXIFY`, `SPEXIPEDIA` and `NOTIFY`; scope mappings to the other web clients' `USER` |
-| `fgv-spexflix-service` | Confidential, service account only  | Service account roles and scope mappings `spexregister: MEDIA`, `fgv-spexify: SPEXFLIX`, `fgv-spexipedia: SYNC` |
+| `fgv-spexflix-service` | Confidential, service account only  | Service account roles and scope mappings `fgv-spexify: SPEXFLIX`, `fgv-spexipedia: SYNC` |
 
 `EDITOR` and `ADMIN` are given in addition to `USER`. The two web clients have a `sub` mapper, since the realm has no `basic` scope and the servers identify users by their Keycloak id. Each web client's tokens carry the other web clients' `USER`
 roles (`spexregister`, `fgv-revival`, `fgv-spexify`, `fgv-spexflix`, `fgv-spexgram` and `fgv-archive` are all mapped to
 each other), so that a page and the application switcher link to another application only for users who can open it. Spexify's service account reads
 users and clients, because Subsonic apps log in with app passwords, not Keycloak, and Spexify checks that their owners
-still have `USER`. `MEDIA` on `spexregister` reads spex and nothing else.
+still have `USER`.
 
 Spexgram (photos and short videos) and Spexarkiv (manuscripts and sheet music) have two clients each:
 
 | Client                 | Type                                | Roles and mappings                                                        |
 |------------------------|-------------------------------------|---------------------------------------------------------------------------|
 | `fgv-spexgram`         | Confidential, for Spexgram Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIPEDIA` and `NOTIFY` for Spexipedia's service account; scope mappings to the other web clients' `USER` |
-| `fgv-spexgram-service` | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA`, `fgv-spexipedia: SYNC` |
+| `fgv-spexgram-service` | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `fgv-spexipedia: SYNC` |
 | `fgv-archive`          | Confidential, for Spexarkiv Web   | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `LINKS` and `NOTIFY` for Spexify's and Spexipedia's service accounts; scope mappings to the other web clients' `USER` |
-| `fgv-archive-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `spexregister: MEDIA`, `fgv-spexipedia: SYNC`, `fgv-spexify: ARCHIVE` |
+| `fgv-archive-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `fgv-spexipedia: SYNC`, `fgv-spexify: ARCHIVE` |
 
 Spexipedia (the encyclopedia, and the source of base data: spex, revivals, categories, tasks, characters and numbers)
 has two clients, and Spexregister gets a service account of its own for its copy of base data:
