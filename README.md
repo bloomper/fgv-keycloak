@@ -166,10 +166,14 @@ has three clients, and Spexregister gets a service account of its own for its co
 
 | Client                   | Type                                | Roles and mappings                                                      |
 |--------------------------|-------------------------------------|-------------------------------------------------------------------------|
-| `fgv-spexipedia`         | Confidential, for Spexipedia Web    | Client roles `USER` (access; a composite of `default-roles-fgv`, so every approved user has it), `AUTHOR`, `EDITOR`, `ADMIN`, and for other services' accounts `SYNC` (the change feed of base data) and `REVIVAL` (creating revivals); scope mappings to the other web clients' `USER` |
-| `fgv-spexipedia-service` | Confidential, service account only  | Service account roles and scope mappings `fgv-spexregister: SPEXIPEDIA, NOTIFY`, `fgv-spexgram: SPEXIPEDIA, NOTIFY`, `fgv-spexify: SPEXIPEDIA, NOTIFY`, `fgv-spexflix: SPEXIPEDIA, NOTIFY`, `fgv-archive: LINKS, NOTIFY` |
+| `fgv-spexipedia`         | Confidential, for Spexipedia Web    | Client roles `USER` (access; a composite of `default-roles-fgv`, so every approved user has it), `AUTHOR`, `EDITOR`, `ADMIN`, and for other services' accounts `SYNC` (the change feed of base data), `REVIVAL` (creating revivals) and `IMPORT` (the import API); scope mappings to the other web clients' `USER` |
+| `fgv-spexipedia-service` | Confidential, service account only  | Service account roles and scope mappings `fgv-spexregister: SPEXIPEDIA, NOTIFY`, `fgv-spexgram: SPEXIPEDIA, NOTIFY, IMPORT`, `fgv-spexify: SPEXIPEDIA, NOTIFY, IMPORT`, `fgv-spexflix: SPEXIPEDIA, NOTIFY, IMPORT`, `fgv-archive: LINKS, NOTIFY, IMPORT` |
 | `fgv-spexipedia-mcp`     | Public, for MCP clients, like `fgv-revival-mcp` | Scope mapping to `fgv-spexipedia: USER, AUTHOR, EDITOR, ADMIN`; the base data tools that were Spexregister's |
 | `fgv-spexregister-service`   | Confidential, service account only  | Service account role and scope mapping `fgv-spexipedia: SYNC`           |
+| `fgv-content-migration`  | Confidential, service account only  | Service account roles and scope mappings `IMPORT` on `fgv-spexipedia`, `fgv-archive`, `fgv-spexify`, `fgv-spexflix` and `fgv-spexgram`, and `fgv-spexipedia: SYNC`; used by the throw-away `fgv-content-migration` |
+
+`fgv-archive`, `fgv-spexify`, `fgv-spexflix` and `fgv-spexgram` also carry `IMPORT`, like `fgv-spexipedia`: the import
+API that the migration and Spexipedia's spex packages use (Spexipedia's spec, `docs/content-import.md`).
 
 `fgv-spexregister` also carries `fgv-spexipedia: EDITOR`, so that its spex pages link editors to Spexipedia.
 
@@ -184,6 +188,8 @@ credentials do little damage:
 | `fgv-spexipedia-service` | Spexflix       | `fgv-spexflix: SPEXIPEDIA` | Published videos of a spex                                     |
 | `fgv-spexipedia-service` | Spexarkivet    | `fgv-archive: LINKS`     | Numbers with published arrangements, and manuscripts of a spex    |
 | `fgv-spexipedia-service` | Every consumer | `NOTIFY` on its client   | `POST /api/sync/notify` after a change to base data               |
+| `fgv-spexipedia-service` | Spexarkivet, Spexify, Spexflix, Spexgram | `IMPORT` on their clients | Applying spex packages                         |
+| `fgv-content-migration`  | Spexipedia, Spexarkivet, Spexify, Spexflix, Spexgram | `IMPORT` on their clients, `fgv-spexipedia: SYNC` | The migration of FGV's file archive and the MediaWiki |
 | `fgv-spexregister-service`, `fgv-spexify-service`, `fgv-spexflix-service`, `fgv-spexgram-service`, `fgv-archive-service` | Spexipedia | `fgv-spexipedia: SYNC` | The change feed of base data (`baseDataChanges`) |
 | `fgv-revival-service`    | Spexipedia     | `fgv-spexipedia: REVIVAL` | Creating revivals                                                 |
 | `fgv-spexify-service`    | Spexarkivet    | `fgv-archive: LINKS`     | *Sheet music in Spexarkivet* on tracks                            |
