@@ -80,6 +80,9 @@
             "account": [
               "view-profile",
               "manage-account"
+            ],
+            "fgv-spexipedia": [
+              "USER"
             ]
           }
         },
@@ -302,7 +305,7 @@
         }
       ],
       "security-admin-console": [],
-      "spexregister": [
+      "fgv-spexregister": [
         {
           "id": "1bcdab42-e3d7-48ce-b975-8473d72d452f",
           "name": "EDITOR",
@@ -340,9 +343,18 @@
           "attributes": {}
         },
         {
-          "id": "af9e477e-c511-4641-9144-8961b3e34fdc",
-          "name": "MEDIA",
-          "description": "Spexify's and Spexflix's service accounts: read spex",
+          "id": "1ca23164-752a-4c77-8fba-35e04f49e368",
+          "name": "SPEXIPEDIA",
+          "description": "Spexipedia's service account: base data for the switch, and published spexare's names and nicknames",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
+          "attributes": {}
+        },
+        {
+          "id": "4f25f979-00ce-4f3d-9b54-f887eb2021fc",
+          "name": "NOTIFY",
+          "description": "Services that tell Spexregister to pull their change feed (/api/sync/notify)",
           "composite": false,
           "clientRole": true,
           "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
@@ -518,6 +530,33 @@
           "clientRole": true,
           "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
           "attributes": {}
+        },
+        {
+          "id": "db58703b-455e-4ba9-abbc-89f737120cbf",
+          "name": "SPEXIPEDIA",
+          "description": "Spexipedia's service account: reads which published tracks and albums link to numbers, recordings and spex",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+          "attributes": {}
+        },
+        {
+          "id": "9ed9f4c7-0ad2-4e40-9bd1-88888a4a2346",
+          "name": "ARCHIVE",
+          "description": "Spexarkivet's service account: reads which published tracks link to numbers",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+          "attributes": {}
+        },
+        {
+          "id": "4f7b18c2-6d6f-49c8-97f9-9373955413b7",
+          "name": "NOTIFY",
+          "description": "Spexipedia's service account: tells Spexify to pull the change feed",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+          "attributes": {}
         }
       ],
       "fgv-spexflix": [
@@ -552,6 +591,24 @@
           "id": "2093ae26-6c60-4067-b2fa-fa219edb0401",
           "name": "SPEXIFY",
           "description": "Spexify's service account: reads chapter links",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
+          "attributes": {}
+        },
+        {
+          "id": "2047774a-c7ea-4d6e-9797-a33bbd7894b1",
+          "name": "SPEXIPEDIA",
+          "description": "Spexipedia's service account: reads which published videos belong to a spex",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
+          "attributes": {}
+        },
+        {
+          "id": "372d0b24-f365-4858-9952-331370809d5e",
+          "name": "NOTIFY",
+          "description": "Spexipedia's service account: tells Spexflix to pull the change feed",
           "composite": false,
           "clientRole": true,
           "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
@@ -596,6 +653,15 @@
           "clientRole": true,
           "containerId": "17c4c979-ab8a-47d3-8924-4afc6e34f445",
           "attributes": {}
+        },
+        {
+          "id": "e66789aa-491a-4669-9fb0-9394c37c4adf",
+          "name": "NOTIFY",
+          "description": "Spexipedia's service account: tells Spexgram to pull the change feed",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "17c4c979-ab8a-47d3-8924-4afc6e34f445",
+          "attributes": {}
         }
       ],
       "fgv-archive": [
@@ -634,8 +700,79 @@
           "clientRole": true,
           "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
           "attributes": {}
+        },
+        {
+          "id": "c02eb139-5fbf-4f59-a8ed-39719f6f2bc6",
+          "name": "NOTIFY",
+          "description": "Spexipedia's service account: tells Spexarkivet to pull the change feed",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
+          "attributes": {}
         }
-      ]
+      ],
+      "fgv-spexipedia-service": [],
+      "fgv-spexipedia-mcp": [],
+      "fgv-spexregister-service": [],
+      "fgv-spexipedia": [
+        {
+          "id": "7d5ccb0c-e70e-46ee-8b2f-2ef4ff61b2ba",
+          "name": "USER",
+          "description": "Access to Spexipedia: names of published spexare, member-only articles, writing articles",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        },
+        {
+          "id": "6495661c-b3a2-41a3-9f20-1ccc3800c067",
+          "name": "AUTHOR",
+          "description": "Writes the texts and images of spex pages; publishes articles",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        },
+        {
+          "id": "5e97f612-c0ba-42cd-bc9a-7b6572877985",
+          "name": "EDITOR",
+          "description": "Edits base data, characters, scenes, numbers and recordings",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        },
+        {
+          "id": "229d42fd-6e05-4078-8a4d-8d3a8548d43e",
+          "name": "ADMIN",
+          "description": "Administers Spexipedia",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        },
+        {
+          "id": "4f2185e7-d747-4ef8-a6f3-fd049a4f8191",
+          "name": "SYNC",
+          "description": "Service accounts of applications that keep a copy of base data: reads the change feed",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        },
+        {
+          "id": "9817a0f0-6d0b-46d3-b2a1-0a2f929bcb32",
+          "name": "REVIVAL",
+          "description": "Nyuppsättning's service account: creates revivals",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        }
+      ],
+      "fgv-archive-mcp": [],
+      "fgv-spexify-mcp": [],
+      "fgv-spexflix-mcp": []
     }
   },
   "groups": [
@@ -756,7 +893,10 @@
         "default-roles-fgv"
       ],
       "clientRoles": {
-        "spexregister": [
+        "fgv-spexregister": [
+          "REVIVAL"
+        ],
+        "fgv-spexipedia": [
           "REVIVAL"
         ]
       },
@@ -782,11 +922,14 @@
           "view-users",
           "view-clients"
         ],
-        "spexregister": [
-          "MEDIA"
-        ],
         "fgv-spexflix": [
           "SPEXIFY"
+        ],
+        "fgv-spexipedia": [
+          "SYNC"
+        ],
+        "fgv-archive": [
+          "LINKS"
         ]
       },
       "notBefore": 0,
@@ -807,11 +950,11 @@
         "default-roles-fgv"
       ],
       "clientRoles": {
-        "spexregister": [
-          "MEDIA"
-        ],
         "fgv-spexify": [
           "SPEXFLIX"
+        ],
+        "fgv-spexipedia": [
+          "SYNC"
         ]
       },
       "notBefore": 0,
@@ -832,12 +975,12 @@
         "default-roles-fgv"
       ],
       "clientRoles": {
-        "spexregister": [
-          "MEDIA"
-        ],
         "realm-management": [
           "view-users",
           "view-clients"
+        ],
+        "fgv-spexipedia": [
+          "SYNC"
         ]
       },
       "notBefore": 0,
@@ -858,12 +1001,76 @@
         "default-roles-fgv"
       ],
       "clientRoles": {
-        "spexregister": [
-          "MEDIA"
-        ],
         "realm-management": [
           "view-users",
           "view-clients"
+        ],
+        "fgv-spexipedia": [
+          "SYNC"
+        ],
+        "fgv-spexify": [
+          "ARCHIVE"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "d83d6f1b-cb26-4d72-b8fc-a87ac19d8c0e",
+      "createdTimestamp": 1794560400000,
+      "username": "service-account-fgv-spexipedia-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-spexipedia-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "fgv-spexregister": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ],
+        "fgv-spexgram": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ],
+        "fgv-spexify": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ],
+        "fgv-spexflix": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ],
+        "fgv-archive": [
+          "LINKS",
+          "NOTIFY"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "beddb672-06db-4883-b206-922aeb43cdb2",
+      "createdTimestamp": 1794560400000,
+      "username": "service-account-fgv-spexregister-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-spexregister-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "fgv-spexipedia": [
+          "SYNC"
         ]
       },
       "notBefore": 0,
@@ -921,9 +1128,9 @@
         ]
       }
     ],
-    "spexregister": [
+    "fgv-spexregister": [
       {
-        "client": "spexregister-mcp",
+        "client": "fgv-spexregister-mcp",
         "roles": [
           "ADMIN",
           "EDITOR",
@@ -934,30 +1141,6 @@
         "client": "fgv-revival-service",
         "roles": [
           "REVIVAL"
-        ]
-      },
-      {
-        "client": "fgv-spexify-service",
-        "roles": [
-          "MEDIA"
-        ]
-      },
-      {
-        "client": "fgv-spexflix-service",
-        "roles": [
-          "MEDIA"
-        ]
-      },
-      {
-        "client": "fgv-spexgram-service",
-        "roles": [
-          "MEDIA"
-        ]
-      },
-      {
-        "client": "fgv-archive-service",
-        "roles": [
-          "MEDIA"
         ]
       },
       {
@@ -989,6 +1172,19 @@
         "roles": [
           "USER"
         ]
+      },
+      {
+        "client": "fgv-spexipedia-service",
+        "roles": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-revival": [
@@ -1001,7 +1197,7 @@
         ]
       },
       {
-        "client": "spexregister",
+        "client": "fgv-spexregister",
         "roles": [
           "USER"
         ]
@@ -1026,6 +1222,12 @@
       },
       {
         "client": "fgv-archive",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
         "roles": [
           "USER"
         ]
@@ -1057,7 +1259,7 @@
         ]
       },
       {
-        "client": "spexregister",
+        "client": "fgv-spexregister",
         "roles": [
           "USER"
         ]
@@ -1066,6 +1268,33 @@
         "client": "fgv-revival",
         "roles": [
           "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia-service",
+        "roles": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ]
+      },
+      {
+        "client": "fgv-archive-service",
+        "roles": [
+          "ARCHIVE"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexify-mcp",
+        "roles": [
+          "USER",
+          "EDITOR",
+          "ADMIN"
         ]
       }
     ],
@@ -1095,7 +1324,7 @@
         ]
       },
       {
-        "client": "spexregister",
+        "client": "fgv-spexregister",
         "roles": [
           "USER"
         ]
@@ -1104,6 +1333,27 @@
         "client": "fgv-revival",
         "roles": [
           "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia-service",
+        "roles": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexflix-mcp",
+        "roles": [
+          "USER",
+          "EDITOR",
+          "ADMIN"
         ]
       }
     ],
@@ -1127,13 +1377,26 @@
         ]
       },
       {
-        "client": "spexregister",
+        "client": "fgv-spexregister",
         "roles": [
           "USER"
         ]
       },
       {
         "client": "fgv-revival",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia-service",
+        "roles": [
+          "SPEXIPEDIA",
+          "NOTIFY"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
         "roles": [
           "USER"
         ]
@@ -1159,13 +1422,124 @@
         ]
       },
       {
-        "client": "spexregister",
+        "client": "fgv-spexregister",
         "roles": [
           "USER"
         ]
       },
       {
         "client": "fgv-revival",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia-service",
+        "roles": [
+          "LINKS",
+          "NOTIFY"
+        ]
+      },
+      {
+        "client": "fgv-spexify-service",
+        "roles": [
+          "LINKS"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-archive-mcp",
+        "roles": [
+          "USER",
+          "EDITOR",
+          "ADMIN"
+        ]
+      }
+    ],
+    "fgv-spexipedia": [
+      {
+        "client": "fgv-spexipedia-mcp",
+        "roles": [
+          "USER",
+          "AUTHOR",
+          "EDITOR",
+          "ADMIN"
+        ]
+      },
+      {
+        "client": "fgv-spexregister-service",
+        "roles": [
+          "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-spexify-service",
+        "roles": [
+          "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-spexflix-service",
+        "roles": [
+          "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-spexgram-service",
+        "roles": [
+          "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-archive-service",
+        "roles": [
+          "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-revival-service",
+        "roles": [
+          "REVIVAL"
+        ]
+      },
+      {
+        "client": "fgv-spexregister",
+        "roles": [
+          "USER",
+          "EDITOR"
+        ]
+      },
+      {
+        "client": "fgv-revival",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexify",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexflix",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexgram",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-archive",
         "roles": [
           "USER"
         ]
@@ -1553,7 +1927,7 @@
     },
     {
       "id": "90e179a1-7165-4088-a147-9a455f8148ac",
-      "clientId": "spexregister",
+      "clientId": "fgv-spexregister",
       "name": "${SPEXREGISTER_NAME:Spexregister}",
       "description": "",
       "rootUrl": "${SPEXREGISTER_URL:http://localhost:3000}",
@@ -1607,7 +1981,7 @@
     },
     {
       "id": "d883acad-6e98-46e6-a8de-af0e0704f282",
-      "clientId": "spexregister-mcp",
+      "clientId": "fgv-spexregister-mcp",
       "name": "Spexregister MCP",
       "description": "",
       "rootUrl": "",
@@ -1671,18 +2045,18 @@
     {
       "id": "d1a663db-66f9-4fcb-93c8-51cda75a159c",
       "clientId": "fgv-revival",
-      "name": "${FGV_REVIVAL_NAME:Nyuppsättning}",
+      "name": "${REVIVAL_NAME:Nyuppsättning}",
       "description": "",
-      "rootUrl": "${FGV_REVIVAL_URL:http://localhost:3001}",
+      "rootUrl": "${REVIVAL_URL:http://localhost:3001}",
       "adminUrl": "",
-      "baseUrl": "${FGV_REVIVAL_URL:http://localhost:3001}/",
+      "baseUrl": "${REVIVAL_URL:http://localhost:3001}/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "qxIP941iHaRoiDkyyTFkwmelDstNixz3",
       "redirectUris": [
-        "${FGV_REVIVAL_URL:http://localhost:3001}/api/auth/callback/keycloak"
+        "${REVIVAL_URL:http://localhost:3001}/api/auth/callback/keycloak"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -1702,7 +2076,7 @@
         "backchannel.logout.revoke.offline.tokens": "false",
         "client.secret.creation.time": "1792441028",
         "pkce.code.challenge.method": "S256",
-        "post.logout.redirect.uris": "${FGV_REVIVAL_URL:http://localhost:3001}##${FGV_REVIVAL_URL:http://localhost:3001}/"
+        "post.logout.redirect.uris": "${REVIVAL_URL:http://localhost:3001}##${REVIVAL_URL:http://localhost:3001}/"
       },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
@@ -1767,7 +2141,7 @@
           "protocolMapper": "oidc-audience-mapper",
           "consentRequired": false,
           "config": {
-            "included.custom.audience": "${FGV_REVIVAL_MCP_URL:http://localhost:8081/api/mcp}",
+            "included.custom.audience": "${REVIVAL_MCP_URL:http://localhost:8081/api/mcp}",
             "id.token.claim": "false",
             "access.token.claim": "true",
             "introspection.token.claim": "true"
@@ -2255,6 +2629,479 @@
         "kc-admin-api"
       ],
       "optionalClientScopes": []
+    },
+    {
+      "id": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+      "clientId": "fgv-spexipedia",
+      "name": "${SPEXIPEDIA_NAME:Spexipedia}",
+      "description": "",
+      "rootUrl": "${SPEXIPEDIA_URL:http://localhost:3006}",
+      "adminUrl": "",
+      "baseUrl": "${SPEXIPEDIA_URL:http://localhost:3006}/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "jktyDPjNEQBNQF2omc0Bt9NQ3JwNKgAC",
+      "redirectUris": [
+        "${SPEXIPEDIA_URL:http://localhost:3006}/api/auth/callback/keycloak"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400",
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "${SPEXIPEDIA_URL:http://localhost:3006}##${SPEXIPEDIA_URL:http://localhost:3006}/"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email",
+        "registration-message"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ],
+      "protocolMappers": [
+        {
+          "id": "74ac6ec0-d68b-4eae-a6c3-db42d4b09b00",
+          "name": "sub",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c03ff204-e5f5-48c6-81ae-65a32fb83290",
+      "clientId": "fgv-spexipedia-service",
+      "name": "Spexipedia service account",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "UQOfUoJvWufXMhqf4ZzcPvsVfjPEDNia",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "a6f1c2d8-3b74-4e9a-8c51-7d2e9f0b4a63",
+      "clientId": "fgv-spexipedia-mcp",
+      "name": "Spexipedia MCP",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [
+        "http://localhost:*",
+        "http://127.0.0.1:*"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "e3b97d10-5c2f-4a86-9e04-1f8a6c2d7b95",
+          "name": "mcp audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "${SPEXIPEDIA_MCP_URL:http://localhost:8088/api/mcp}",
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        }
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "offline_access"
+      ]
+    },
+    {
+      "id": "c1e84581-7eef-43b1-9800-f96a228d63e5",
+      "clientId": "fgv-spexregister-service",
+      "name": "Spexregister service account",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "28EUGtXnuosWwBS9fA8IHnkCgLCjY7As",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "b8d4e2a1-6c3f-4f7a-9e15-2a7c0d9f3b48",
+      "clientId": "fgv-archive-mcp",
+      "name": "Spexarkiv MCP",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [
+        "http://localhost:*",
+        "http://127.0.0.1:*"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "c5a7f3e9-2b1d-4e8c-a6f4-9d3b7e1c5a20",
+          "name": "mcp audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "${ARCHIVE_MCP_URL:http://localhost:8087/api/mcp}",
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        },
+        {
+          "id": "e2f6b9d3-7a4c-4b1e-8f52-6c0a3d9e7b14",
+          "name": "sub",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "offline_access"
+      ]
+    },
+    {
+      "id": "c7d3e1a4-5b2f-4e8a-9c61-3f0d8b7a2e95",
+      "clientId": "fgv-spexify-mcp",
+      "name": "Spexify MCP",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [
+        "http://localhost:*",
+        "http://127.0.0.1:*"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "e4a9b2c6-8d1f-4a3e-b7c5-2f6e9d0a1b84",
+          "name": "mcp audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "${SPEXIFY_MCP_URL:http://localhost:8082/api/mcp}",
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        }
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "offline_access"
+      ]
+    },
+    {
+      "id": "61afe5c9-e7f9-4c57-917d-22f026659822",
+      "clientId": "fgv-spexflix-mcp",
+      "name": "Spexflix MCP",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [
+        "http://localhost:*",
+        "http://127.0.0.1:*"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "978b0f8e-7987-48c2-9bea-052474c9255c",
+          "name": "mcp audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "${SPEXFLIX_MCP_URL:http://localhost:8083/api/mcp}",
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        }
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "offline_access"
+      ]
+    },
+    {
+      "id": "5b2c7e94-1d3a-4f68-9a0e-8c4d2f7b6e13",
+      "clientId": "fgv-spexgram-mcp",
+      "name": "Spexgram MCP",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [
+        "http://localhost:*",
+        "http://127.0.0.1:*"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "protocolMappers": [
+        {
+          "id": "c8e41a07-6f9d-4b25-8e3c-2a7d95b1f604",
+          "name": "mcp audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "${SPEXGRAM_MCP_URL:http://localhost:8085/api/mcp}",
+            "id.token.claim": "false",
+            "access.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        }
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "offline_access"
+      ]
     }
   ],
   "clientScopes": [

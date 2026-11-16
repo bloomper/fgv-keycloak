@@ -65,7 +65,7 @@ class ApprovalPolicyTest {
 
     @Test
     void should_apply_to_ordinary_client() {
-        assertThat(policy.appliesTo(client("spexregister")), is(true));
+        assertThat(policy.appliesTo(client("fgv-spexregister")), is(true));
     }
 
     @Test
