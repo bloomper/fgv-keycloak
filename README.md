@@ -96,9 +96,9 @@ The clients' names and addresses are read from the environment during the import
 | `SPEXREGISTER_NAME`    | `Spexregister`                  | Name of `spexregister`, shown in the account console and on login |
 | `SPEXREGISTER_URL`     | `http://localhost:3000`         | Address of Spexregister Web, without a trailing slash            |
 | `SPEXREGISTER_MCP_URL` | `http://localhost:8080/api/mcp` | MCP endpoint, added as audience to tokens for `spexregister-mcp` |
-| `FGV_REVIVAL_NAME`     | `Nyuppsättning`                 | Name of `fgv-revival`, shown on login and in the approval email  |
-| `FGV_REVIVAL_URL`      | `http://localhost:3001`         | Address of Nyuppsättning Web, without a trailing slash           |
-| `FGV_REVIVAL_MCP_URL`  | `http://localhost:8081/api/mcp` | MCP endpoint, added as audience to tokens for `fgv-revival-mcp`  |
+| `REVIVAL_NAME`     | `Nyuppsättning`                 | Name of `fgv-revival`, shown on login and in the approval email  |
+| `REVIVAL_URL`      | `http://localhost:3001`         | Address of Nyuppsättning Web, without a trailing slash           |
+| `REVIVAL_MCP_URL`  | `http://localhost:8081/api/mcp` | MCP endpoint, added as audience to tokens for `fgv-revival-mcp`  |
 | `SPEXIFY_NAME`         | `Spexify`                       | Name of `fgv-spexify`, shown on login and in the approval email  |
 | `SPEXIFY_URL`          | `http://localhost:3002`         | Address of Spexify Web, without a trailing slash                 |
 | `SPEXFLIX_NAME`        | `Spexflix`                      | Name of `fgv-spexflix`, shown on login and in the approval email |
@@ -111,7 +111,7 @@ The clients' names and addresses are read from the environment during the import
 | `SPEXIPEDIA_URL`       | `http://localhost:3006`         | Address of Spexipedia Web, without a trailing slash              |
 
 Only `SPEXREGISTER_URL/api/auth/callback/keycloak` is allowed as redirect URI, and the client requires PKCE. The
-same holds for `fgv-revival` and `FGV_REVIVAL_URL`, `fgv-spexify` and `SPEXIFY_URL`, and `fgv-spexflix` and
+same holds for `fgv-revival` and `REVIVAL_URL`, `fgv-spexify` and `SPEXIFY_URL`, and `fgv-spexflix` and
 `SPEXFLIX_URL`, `fgv-spexgram` and `SPEXGRAM_URL`, `fgv-archive` and `ARCHIVE_URL`, and `fgv-spexipedia` and
 `SPEXIPEDIA_URL`.
 

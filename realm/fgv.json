@@ -2008,18 +2008,18 @@
     {
       "id": "d1a663db-66f9-4fcb-93c8-51cda75a159c",
       "clientId": "fgv-revival",
-      "name": "${FGV_REVIVAL_NAME:Nyuppsättning}",
+      "name": "${REVIVAL_NAME:Nyuppsättning}",
       "description": "",
-      "rootUrl": "${FGV_REVIVAL_URL:http://localhost:3001}",
+      "rootUrl": "${REVIVAL_URL:http://localhost:3001}",
       "adminUrl": "",
-      "baseUrl": "${FGV_REVIVAL_URL:http://localhost:3001}/",
+      "baseUrl": "${REVIVAL_URL:http://localhost:3001}/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "qxIP941iHaRoiDkyyTFkwmelDstNixz3",
       "redirectUris": [
-        "${FGV_REVIVAL_URL:http://localhost:3001}/api/auth/callback/keycloak"
+        "${REVIVAL_URL:http://localhost:3001}/api/auth/callback/keycloak"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -2039,7 +2039,7 @@
         "backchannel.logout.revoke.offline.tokens": "false",
         "client.secret.creation.time": "1792441028",
         "pkce.code.challenge.method": "S256",
-        "post.logout.redirect.uris": "${FGV_REVIVAL_URL:http://localhost:3001}##${FGV_REVIVAL_URL:http://localhost:3001}/"
+        "post.logout.redirect.uris": "${REVIVAL_URL:http://localhost:3001}##${REVIVAL_URL:http://localhost:3001}/"
       },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
@@ -2104,7 +2104,7 @@
           "protocolMapper": "oidc-audience-mapper",
           "consentRequired": false,
           "config": {
-            "included.custom.audience": "${FGV_REVIVAL_MCP_URL:http://localhost:8081/api/mcp}",
+            "included.custom.audience": "${REVIVAL_MCP_URL:http://localhost:8081/api/mcp}",
             "id.token.claim": "false",
             "access.token.claim": "true",
             "introspection.token.claim": "true"
