@@ -85,7 +85,7 @@ class AdminNotificationEventListenerProviderTest {
     private final RoleModel defaultRole = mock(RoleModel.class);
     private final GroupModel group = mock(GroupModel.class);
     private final ClientModel revival = application("revival-id", "fgv-revival", "Nyuppsättning", "https://revival.example.org/");
-    private final ClientModel spexregister = application("spexregister-id", "spexregister", "Spexregister", "https://register.example.org/");
+    private final ClientModel spexregister = application("fgv-spexregister-id", "fgv-spexregister", "Spexregister", "https://register.example.org/");
     private final ClientModel revivalMcp = application("revival-mcp-id", "fgv-revival-mcp", "Nyuppsättning MCP", "");
     private final AdminNotificationEventListenerProvider provider =
             new AdminNotificationEventListenerProvider(session, List.of(ADMIN), new ApprovalPolicy(PENDING_GROUP));
@@ -253,7 +253,7 @@ class AdminNotificationEventListenerProviderTest {
     @Test
     void should_list_every_application_in_swedish() throws Exception {
         final RoleModel revivalUser = clientRole("revival-user", revival);
-        holds(clientRole("spexregister-user", spexregister), revivalUser);
+        holds(clientRole("fgv-spexregister-user", spexregister), revivalUser);
         when(user.isMemberOf(group)).thenReturn(true);
 
         try (MockedStatic<KeycloakModelUtils> utils = pendingGroupExists()) {
@@ -269,7 +269,7 @@ class AdminNotificationEventListenerProviderTest {
     @Test
     void should_list_every_application_in_english() throws Exception {
         final RoleModel revivalUser = clientRole("revival-user", revival);
-        holds(clientRole("spexregister-user", spexregister), revivalUser);
+        holds(clientRole("fgv-spexregister-user", spexregister), revivalUser);
         when(user.isMemberOf(group)).thenReturn(true);
         when(context.resolveLocale(user)).thenReturn(Locale.ENGLISH);
 
@@ -302,7 +302,7 @@ class AdminNotificationEventListenerProviderTest {
     @Test
     void should_tell_approved_user_about_first_role_on_another_application() throws Exception {
         final RoleModel revivalUser = clientRole("revival-user", revival);
-        holds(clientRole("spexregister-user", spexregister), revivalUser);
+        holds(clientRole("fgv-spexregister-user", spexregister), revivalUser);
 
         try (MockedStatic<KeycloakModelUtils> utils = pendingGroupExists()) {
             provider.onEvent(clientRoleMappingEvent(revival, revivalUser), false);
@@ -316,7 +316,7 @@ class AdminNotificationEventListenerProviderTest {
     @Test
     void should_tell_approved_user_about_new_application_in_english() throws Exception {
         final RoleModel revivalUser = clientRole("revival-user", revival);
-        holds(clientRole("spexregister-user", spexregister), revivalUser);
+        holds(clientRole("fgv-spexregister-user", spexregister), revivalUser);
         when(context.resolveLocale(user)).thenReturn(Locale.ENGLISH);
 
         try (MockedStatic<KeycloakModelUtils> utils = pendingGroupExists()) {
@@ -331,7 +331,7 @@ class AdminNotificationEventListenerProviderTest {
     void should_send_one_email_when_two_roles_on_a_new_application_are_added_at_once() throws Exception {
         final RoleModel revivalUser = clientRole("revival-user", revival);
         final RoleModel revivalAdmin = clientRole("revival-admin", revival);
-        holds(clientRole("spexregister-user", spexregister), revivalUser, revivalAdmin);
+        holds(clientRole("fgv-spexregister-user", spexregister), revivalUser, revivalAdmin);
 
         try (MockedStatic<KeycloakModelUtils> utils = pendingGroupExists()) {
             provider.onEvent(clientRoleMappingEvent(revival, revivalUser, revivalAdmin), false);
@@ -354,8 +354,8 @@ class AdminNotificationEventListenerProviderTest {
 
     @Test
     void should_not_email_existing_spexregister_user_given_another_spexregister_role() {
-        final RoleModel editor = clientRole("spexregister-editor", spexregister);
-        holds(clientRole("spexregister-user", spexregister), editor);
+        final RoleModel editor = clientRole("fgv-spexregister-editor", spexregister);
+        holds(clientRole("fgv-spexregister-user", spexregister), editor);
 
         try (MockedStatic<KeycloakModelUtils> utils = pendingGroupExists()) {
             provider.onEvent(clientRoleMappingEvent(spexregister, editor), false);
@@ -367,7 +367,7 @@ class AdminNotificationEventListenerProviderTest {
     @Test
     void should_not_email_about_client_without_base_url() {
         final RoleModel mcpRole = clientRole("revival-mcp-role", revivalMcp);
-        holds(clientRole("spexregister-user", spexregister), mcpRole);
+        holds(clientRole("fgv-spexregister-user", spexregister), mcpRole);
 
         try (MockedStatic<KeycloakModelUtils> utils = pendingGroupExists()) {
             provider.onEvent(clientRoleMappingEvent(revivalMcp, mcpRole), false);
@@ -392,7 +392,7 @@ class AdminNotificationEventListenerProviderTest {
     @Test
     void should_not_email_when_representation_is_missing_or_unreadable() {
         final RoleModel revivalUser = clientRole("revival-user", revival);
-        holds(clientRole("spexregister-user", spexregister), revivalUser);
+        holds(clientRole("fgv-spexregister-user", spexregister), revivalUser);
         final AdminEvent missing = roleMappingEvent(ResourceType.CLIENT_ROLE_MAPPING, "users/user-id/role-mappings/clients/revival-id");
         final AdminEvent unreadable = roleMappingEvent(ResourceType.CLIENT_ROLE_MAPPING, "users/user-id/role-mappings/clients/revival-id");
         unreadable.setRepresentation("not json");
@@ -411,7 +411,7 @@ class AdminNotificationEventListenerProviderTest {
                 "${FGV_TEST_UNSET_NAME:Nyuppsättning}", "${FGV_TEST_UNSET_URL:https://revival.example.org}/");
         when(realm.getClientById("placeholder-id")).thenReturn(placeholders);
         final RoleModel revivalUser = clientRole("revival-user", placeholders);
-        holds(clientRole("spexregister-user", spexregister), revivalUser);
+        holds(clientRole("fgv-spexregister-user", spexregister), revivalUser);
 
         try (MockedStatic<KeycloakModelUtils> utils = pendingGroupExists()) {
             provider.onEvent(clientRoleMappingEvent(placeholders, revivalUser), false);

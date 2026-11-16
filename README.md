@@ -32,7 +32,7 @@ would render reCAPTCHA, and failures show the message `recaptchaFailed`. Cloudfl
 ### Approval
 
 A user is approved once an administrator has assigned them any role beyond the realm's default role, such as
-`USER` on `spexregister` or on `fgv-revival`. Approval has nothing to do with FGV membership: members and
+`USER` on `fgv-spexregister` or on `fgv-revival`. Approval has nothing to do with FGV membership: members and
 non-members alike get an account and are approved by being given access to an application. Until then
 `fgv-approval` stops them from logging in to every client in the realm except the account console, and shows a
 page saying the account is awaiting approval.
@@ -46,7 +46,7 @@ page saying the account is awaiting approval.
 | An administrator gives an approved user their first role on an application | The user, in their language | Nothing else |
 
 An application is a client on which the user holds a client role and which has an absolute base URL, today
-`spexregister` and `fgv-revival`. The approval email lists every application the user can use, with its name and
+`fgv-spexregister` and `fgv-revival`. The approval email lists every application the user can use, with its name and
 address. If there is none, for example after only a realm role, it just says the account can now be used.
 
 A user who is already approved gets an email naming an application when they get their first role on it, such as
@@ -93,9 +93,9 @@ The clients' names and addresses are read from the environment during the import
 
 | Variable               | Default                         | Purpose                                                          |
 |------------------------|---------------------------------|------------------------------------------------------------------|
-| `SPEXREGISTER_NAME`    | `Spexregister`                  | Name of `spexregister`, shown in the account console and on login |
+| `SPEXREGISTER_NAME`    | `Spexregister`                  | Name of `fgv-spexregister`, shown in the account console and on login |
 | `SPEXREGISTER_URL`     | `http://localhost:3000`         | Address of Spexregister Web, without a trailing slash            |
-| `SPEXREGISTER_MCP_URL` | `http://localhost:8080/api/mcp` | MCP endpoint, added as audience to tokens for `spexregister-mcp` |
+| `SPEXREGISTER_MCP_URL` | `http://localhost:8080/api/mcp` | MCP endpoint, added as audience to tokens for `fgv-spexregister-mcp` |
 | `REVIVAL_NAME`     | `Nyuppsättning`                 | Name of `fgv-revival`, shown on login and in the approval email  |
 | `REVIVAL_URL`      | `http://localhost:3001`         | Address of Nyuppsättning Web, without a trailing slash           |
 | `REVIVAL_MCP_URL`  | `http://localhost:8081/api/mcp` | MCP endpoint, added as audience to tokens for `fgv-revival-mcp`  |
@@ -125,10 +125,10 @@ Nyuppsättning has three clients:
 | Client                | Type                                   | Roles and mappings                                         |
 |-----------------------|----------------------------------------|------------------------------------------------------------|
 | `fgv-revival`         | Confidential, for Nyuppsättning Web    | Client roles `USER` (access), `SUPER_ADMIN`, `OBSERVER`; scope mappings to the other web clients' `USER` |
-| `fgv-revival-mcp`     | Public, for MCP clients, like `spexregister-mcp` | Scope mapping to all three `fgv-revival` roles    |
-| `fgv-revival-service` | Confidential, service account only     | Service account roles and scope mappings `spexregister: REVIVAL`, `fgv-spexipedia: REVIVAL` |
+| `fgv-revival-mcp`     | Public, for MCP clients, like `fgv-spexregister-mcp` | Scope mapping to all three `fgv-revival` roles    |
+| `fgv-revival-service` | Confidential, service account only     | Service account roles and scope mappings `fgv-spexregister: REVIVAL`, `fgv-spexipedia: REVIVAL` |
 
-`REVIVAL` on `spexregister` is the narrow role Nyuppsättning's server uses to call Spexregister. It reads spex, tasks,
+`REVIVAL` on `fgv-spexregister` is the narrow role Nyuppsättning's server uses to call Spexregister. It reads spex, tasks,
 task categories and spexare, and writes what the sync of a settled revival records, but deletes nothing. Spexregister
 Server's GraphQL API guide lists exactly what it may do. It is not an `authority` in Spexregister, so the service account is never imported as a
 Spexregister user.
@@ -145,7 +145,7 @@ Spexify (music) and Spexflix (video) have three clients each:
 | `fgv-spexflix-mcp`    | Public, for MCP clients, like `fgv-revival-mcp` | Scope mapping to `fgv-spexflix: USER, EDITOR, ADMIN`; read-only video and playlist tools |
 
 `EDITOR` and `ADMIN` are given in addition to `USER`. The two web clients have a `sub` mapper, since the realm has no `basic` scope and the servers identify users by their Keycloak id. Each web client's tokens carry the other web clients' `USER`
-roles (`spexregister`, `fgv-revival`, `fgv-spexify`, `fgv-spexflix`, `fgv-spexgram` and `fgv-archive` are all mapped to
+roles (`fgv-spexregister`, `fgv-revival`, `fgv-spexify`, `fgv-spexflix`, `fgv-spexgram` and `fgv-archive` are all mapped to
 each other), so that a page and the application switcher link to another application only for users who can open it. Spexify's service account reads
 users and clients, because Subsonic apps log in with app passwords, not Keycloak, and Spexify checks that their owners
 still have `USER`.
@@ -167,24 +167,24 @@ has three clients, and Spexregister gets a service account of its own for its co
 | Client                   | Type                                | Roles and mappings                                                      |
 |--------------------------|-------------------------------------|-------------------------------------------------------------------------|
 | `fgv-spexipedia`         | Confidential, for Spexipedia Web    | Client roles `USER` (access; a composite of `default-roles-fgv`, so every approved user has it), `AUTHOR`, `EDITOR`, `ADMIN`, and for other services' accounts `SYNC` (the change feed of base data) and `REVIVAL` (creating revivals); scope mappings to the other web clients' `USER` |
-| `fgv-spexipedia-service` | Confidential, service account only  | Service account roles and scope mappings `spexregister: SPEXIPEDIA, NOTIFY`, `fgv-spexgram: SPEXIPEDIA, NOTIFY`, `fgv-spexify: SPEXIPEDIA, NOTIFY`, `fgv-spexflix: SPEXIPEDIA, NOTIFY`, `fgv-archive: LINKS, NOTIFY` |
+| `fgv-spexipedia-service` | Confidential, service account only  | Service account roles and scope mappings `fgv-spexregister: SPEXIPEDIA, NOTIFY`, `fgv-spexgram: SPEXIPEDIA, NOTIFY`, `fgv-spexify: SPEXIPEDIA, NOTIFY`, `fgv-spexflix: SPEXIPEDIA, NOTIFY`, `fgv-archive: LINKS, NOTIFY` |
 | `fgv-spexipedia-mcp`     | Public, for MCP clients, like `fgv-revival-mcp` | Scope mapping to `fgv-spexipedia: USER, AUTHOR, EDITOR, ADMIN`; the base data tools that were Spexregister's |
-| `spexregister-service`   | Confidential, service account only  | Service account role and scope mapping `fgv-spexipedia: SYNC`           |
+| `fgv-spexregister-service`   | Confidential, service account only  | Service account role and scope mapping `fgv-spexipedia: SYNC`           |
 
-`spexregister` also carries `fgv-spexipedia: EDITOR`, so that its spex pages link editors to Spexipedia.
+`fgv-spexregister` also carries `fgv-spexipedia: EDITOR`, so that its spex pages link editors to Spexipedia.
 
 Who calls whom, and with which role. Each role permits what one caller needs and nothing more, so that leaked service
 credentials do little damage:
 
 | Caller                   | Called         | Role                     | For                                                               |
 |--------------------------|----------------|--------------------------|-------------------------------------------------------------------|
-| `fgv-spexipedia-service` | Spexregister   | `spexregister: SPEXIPEDIA` | Base data for the switch; names and nicknames of published spexare on spex pages; picking credits |
+| `fgv-spexipedia-service` | Spexregister   | `fgv-spexregister: SPEXIPEDIA` | Base data for the switch; names and nicknames of published spexare on spex pages; picking credits |
 | `fgv-spexipedia-service` | Spexgram       | `fgv-spexgram: SPEXIPEDIA` | Signed addresses of chosen photos, for logged-in users          |
 | `fgv-spexipedia-service` | Spexify        | `fgv-spexify: SPEXIPEDIA`  | Published tracks and albums linked to numbers, recordings and spex |
 | `fgv-spexipedia-service` | Spexflix       | `fgv-spexflix: SPEXIPEDIA` | Published videos of a spex                                     |
 | `fgv-spexipedia-service` | Spexarkivet    | `fgv-archive: LINKS`     | Numbers with published arrangements, and manuscripts of a spex    |
 | `fgv-spexipedia-service` | Every consumer | `NOTIFY` on its client   | `POST /api/sync/notify` after a change to base data               |
-| `spexregister-service`, `fgv-spexify-service`, `fgv-spexflix-service`, `fgv-spexgram-service`, `fgv-archive-service` | Spexipedia | `fgv-spexipedia: SYNC` | The change feed of base data (`baseDataChanges`) |
+| `fgv-spexregister-service`, `fgv-spexify-service`, `fgv-spexflix-service`, `fgv-spexgram-service`, `fgv-archive-service` | Spexipedia | `fgv-spexipedia: SYNC` | The change feed of base data (`baseDataChanges`) |
 | `fgv-revival-service`    | Spexipedia     | `fgv-spexipedia: REVIVAL` | Creating revivals                                                 |
 | `fgv-spexify-service`    | Spexarkivet    | `fgv-archive: LINKS`     | *Sheet music in Spexarkivet* on tracks                            |
 | `fgv-archive-service`    | Spexify        | `fgv-spexify: ARCHIVE`   | *Listen in Spexify* on arrangements                               |
@@ -199,7 +199,7 @@ The realm also has:
 
 - brute force protection, and a password policy of 12 to 128 characters that differ from the username and email
   address
-- the public clients `spexregister-mcp`, `fgv-revival-mcp`, `fgv-spexipedia-mcp`, `fgv-spexify-mcp`,
+- the public clients `fgv-spexregister-mcp`, `fgv-revival-mcp`, `fgv-spexipedia-mcp`, `fgv-spexify-mcp`,
   `fgv-spexflix-mcp`, `fgv-spexgram-mcp` and `fgv-archive-mcp` for MCP clients, with PKCE and redirect URIs on
   `localhost` and `127.0.0.1`
 - a limit of 60 days on offline sessions

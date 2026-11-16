@@ -305,7 +305,7 @@
         }
       ],
       "security-admin-console": [],
-      "spexregister": [
+      "fgv-spexregister": [
         {
           "id": "1bcdab42-e3d7-48ce-b975-8473d72d452f",
           "name": "EDITOR",
@@ -713,7 +713,7 @@
       ],
       "fgv-spexipedia-service": [],
       "fgv-spexipedia-mcp": [],
-      "spexregister-service": [],
+      "fgv-spexregister-service": [],
       "fgv-spexipedia": [
         {
           "id": "7d5ccb0c-e70e-46ee-8b2f-2ef4ff61b2ba",
@@ -893,7 +893,7 @@
         "default-roles-fgv"
       ],
       "clientRoles": {
-        "spexregister": [
+        "fgv-spexregister": [
           "REVIVAL"
         ],
         "fgv-spexipedia": [
@@ -1030,7 +1030,7 @@
         "default-roles-fgv"
       ],
       "clientRoles": {
-        "spexregister": [
+        "fgv-spexregister": [
           "SPEXIPEDIA",
           "NOTIFY"
         ],
@@ -1057,11 +1057,11 @@
     {
       "id": "beddb672-06db-4883-b206-922aeb43cdb2",
       "createdTimestamp": 1794560400000,
-      "username": "service-account-spexregister-service",
+      "username": "service-account-fgv-spexregister-service",
       "enabled": true,
       "totp": false,
       "emailVerified": false,
-      "serviceAccountClientId": "spexregister-service",
+      "serviceAccountClientId": "fgv-spexregister-service",
       "credentials": [],
       "disableableCredentialTypes": [],
       "requiredActions": [],
@@ -1128,9 +1128,9 @@
         ]
       }
     ],
-    "spexregister": [
+    "fgv-spexregister": [
       {
-        "client": "spexregister-mcp",
+        "client": "fgv-spexregister-mcp",
         "roles": [
           "ADMIN",
           "EDITOR",
@@ -1197,7 +1197,7 @@
         ]
       },
       {
-        "client": "spexregister",
+        "client": "fgv-spexregister",
         "roles": [
           "USER"
         ]
@@ -1259,7 +1259,7 @@
         ]
       },
       {
-        "client": "spexregister",
+        "client": "fgv-spexregister",
         "roles": [
           "USER"
         ]
@@ -1324,7 +1324,7 @@
         ]
       },
       {
-        "client": "spexregister",
+        "client": "fgv-spexregister",
         "roles": [
           "USER"
         ]
@@ -1377,7 +1377,7 @@
         ]
       },
       {
-        "client": "spexregister",
+        "client": "fgv-spexregister",
         "roles": [
           "USER"
         ]
@@ -1422,7 +1422,7 @@
         ]
       },
       {
-        "client": "spexregister",
+        "client": "fgv-spexregister",
         "roles": [
           "USER"
         ]
@@ -1472,7 +1472,7 @@
         ]
       },
       {
-        "client": "spexregister-service",
+        "client": "fgv-spexregister-service",
         "roles": [
           "SYNC"
         ]
@@ -1508,7 +1508,7 @@
         ]
       },
       {
-        "client": "spexregister",
+        "client": "fgv-spexregister",
         "roles": [
           "USER",
           "EDITOR"
@@ -1927,7 +1927,7 @@
     },
     {
       "id": "90e179a1-7165-4088-a147-9a455f8148ac",
-      "clientId": "spexregister",
+      "clientId": "fgv-spexregister",
       "name": "${SPEXREGISTER_NAME:Spexregister}",
       "description": "",
       "rootUrl": "${SPEXREGISTER_URL:http://localhost:3000}",
@@ -1981,7 +1981,7 @@
     },
     {
       "id": "d883acad-6e98-46e6-a8de-af0e0704f282",
-      "clientId": "spexregister-mcp",
+      "clientId": "fgv-spexregister-mcp",
       "name": "Spexregister MCP",
       "description": "",
       "rootUrl": "",
@@ -2802,7 +2802,7 @@
     },
     {
       "id": "c1e84581-7eef-43b1-9800-f96a228d63e5",
-      "clientId": "spexregister-service",
+      "clientId": "fgv-spexregister-service",
       "name": "Spexregister service account",
       "description": "",
       "rootUrl": "",

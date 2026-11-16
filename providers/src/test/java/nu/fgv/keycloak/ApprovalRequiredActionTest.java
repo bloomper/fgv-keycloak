@@ -57,7 +57,7 @@ class ApprovalRequiredActionTest {
         when(context.getRealm()).thenReturn(realm);
         when(context.getUser()).thenReturn(user);
         when(authenticationSession.getClient()).thenReturn(client);
-        when(client.getClientId()).thenReturn("spexregister");
+        when(client.getClientId()).thenReturn("fgv-spexregister");
         when(realm.getDefaultRole()).thenReturn(defaultRole);
         when(user.getRoleMappingsStream()).thenAnswer(_ -> Stream.of(defaultRole));
     }
