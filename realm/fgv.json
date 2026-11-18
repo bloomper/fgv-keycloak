@@ -557,6 +557,15 @@
           "clientRole": true,
           "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
           "attributes": {}
+        },
+        {
+          "id": "2d8b0357-c09b-586c-b2ae-78e228b2fe10",
+          "name": "IMPORT",
+          "description": "Imports content through the import API (service accounts only)",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
+          "attributes": {}
         }
       ],
       "fgv-spexflix": [
@@ -613,6 +622,15 @@
           "clientRole": true,
           "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
           "attributes": {}
+        },
+        {
+          "id": "3cb41620-150b-504e-9dcf-3b49a6b41113",
+          "name": "IMPORT",
+          "description": "Imports content through the import API (service accounts only)",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "583cbfdc-9f42-4bfe-8f41-0052ee5a9b0d",
+          "attributes": {}
         }
       ],
       "fgv-spexify-service": [],
@@ -662,6 +680,15 @@
           "clientRole": true,
           "containerId": "17c4c979-ab8a-47d3-8924-4afc6e34f445",
           "attributes": {}
+        },
+        {
+          "id": "cc75f27a-90fb-5615-8dbe-a64d1896b06f",
+          "name": "IMPORT",
+          "description": "Imports content through the import API (service accounts only)",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "17c4c979-ab8a-47d3-8924-4afc6e34f445",
+          "attributes": {}
         }
       ],
       "fgv-archive": [
@@ -705,6 +732,15 @@
           "id": "c02eb139-5fbf-4f59-a8ed-39719f6f2bc6",
           "name": "NOTIFY",
           "description": "Spexipedia's service account: tells Spexarkivet to pull the change feed",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
+          "attributes": {}
+        },
+        {
+          "id": "969b6d3b-58c7-5035-9358-27ebbffdbe91",
+          "name": "IMPORT",
+          "description": "Imports content through the import API (service accounts only)",
           "composite": false,
           "clientRole": true,
           "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
@@ -764,6 +800,15 @@
           "id": "9817a0f0-6d0b-46d3-b2a1-0a2f929bcb32",
           "name": "REVIVAL",
           "description": "Nyuppsättning's service account: creates revivals",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
+          "attributes": {}
+        },
+        {
+          "id": "6b1d6ec0-fe96-5327-84db-e335da7fbeb5",
+          "name": "IMPORT",
+          "description": "Imports content through the import API (service accounts only)",
           "composite": false,
           "clientRole": true,
           "containerId": "0aa271af-a84c-4c4a-a5d4-5d02eeb8f70d",
@@ -1036,19 +1081,58 @@
         ],
         "fgv-spexgram": [
           "SPEXIPEDIA",
-          "NOTIFY"
+          "NOTIFY",
+          "IMPORT"
         ],
         "fgv-spexify": [
           "SPEXIPEDIA",
-          "NOTIFY"
+          "NOTIFY",
+          "IMPORT"
         ],
         "fgv-spexflix": [
           "SPEXIPEDIA",
-          "NOTIFY"
+          "NOTIFY",
+          "IMPORT"
         ],
         "fgv-archive": [
           "LINKS",
-          "NOTIFY"
+          "NOTIFY",
+          "IMPORT"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "2bfe13bb-5555-5240-be57-2ea6042e99f9",
+      "createdTimestamp": 1794560400000,
+      "username": "service-account-fgv-content-migration",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-content-migration",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "fgv-spexipedia": [
+          "IMPORT",
+          "SYNC"
+        ],
+        "fgv-archive": [
+          "IMPORT"
+        ],
+        "fgv-spexify": [
+          "IMPORT"
+        ],
+        "fgv-spexflix": [
+          "IMPORT"
+        ],
+        "fgv-spexgram": [
+          "IMPORT"
         ]
       },
       "notBefore": 0,
@@ -1274,7 +1358,8 @@
         "client": "fgv-spexipedia-service",
         "roles": [
           "SPEXIPEDIA",
-          "NOTIFY"
+          "NOTIFY",
+          "IMPORT"
         ]
       },
       {
@@ -1295,6 +1380,12 @@
           "USER",
           "EDITOR",
           "ADMIN"
+        ]
+      },
+      {
+        "client": "fgv-content-migration",
+        "roles": [
+          "IMPORT"
         ]
       }
     ],
@@ -1339,7 +1430,8 @@
         "client": "fgv-spexipedia-service",
         "roles": [
           "SPEXIPEDIA",
-          "NOTIFY"
+          "NOTIFY",
+          "IMPORT"
         ]
       },
       {
@@ -1354,6 +1446,12 @@
           "USER",
           "EDITOR",
           "ADMIN"
+        ]
+      },
+      {
+        "client": "fgv-content-migration",
+        "roles": [
+          "IMPORT"
         ]
       }
     ],
@@ -1392,13 +1490,20 @@
         "client": "fgv-spexipedia-service",
         "roles": [
           "SPEXIPEDIA",
-          "NOTIFY"
+          "NOTIFY",
+          "IMPORT"
         ]
       },
       {
         "client": "fgv-spexipedia",
         "roles": [
           "USER"
+        ]
+      },
+      {
+        "client": "fgv-content-migration",
+        "roles": [
+          "IMPORT"
         ]
       }
     ],
@@ -1437,7 +1542,8 @@
         "client": "fgv-spexipedia-service",
         "roles": [
           "LINKS",
-          "NOTIFY"
+          "NOTIFY",
+          "IMPORT"
         ]
       },
       {
@@ -1458,6 +1564,12 @@
           "USER",
           "EDITOR",
           "ADMIN"
+        ]
+      },
+      {
+        "client": "fgv-content-migration",
+        "roles": [
+          "IMPORT"
         ]
       }
     ],
@@ -1542,6 +1654,13 @@
         "client": "fgv-archive",
         "roles": [
           "USER"
+        ]
+      },
+      {
+        "client": "fgv-content-migration",
+        "roles": [
+          "IMPORT",
+          "SYNC"
         ]
       }
     ]
@@ -2710,6 +2829,46 @@
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "UQOfUoJvWufXMhqf4ZzcPvsVfjPEDNia",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "216af7c5-4986-5639-a557-8a113c87ff4c",
+      "clientId": "fgv-content-migration",
+      "name": "Content migration",
+      "description": "Throw-away migration of FGV's file archive and the MediaWiki into the applications",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "dlCpuid22WqJrX6kfTkjFDyM1ttSfIFl",
       "redirectUris": [],
       "webOrigins": [],
       "notBefore": 0,
