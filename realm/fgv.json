@@ -720,6 +720,15 @@
           "attributes": {}
         },
         {
+          "id": "8d0f3c2a-6b1e-4f7a-9c55-2e4b7a1d9f63",
+          "name": "SPEXIFY",
+          "description": "Spexify's service account: read the open, published arrangements of numbers and their files",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "ca0ec03d-ee2b-4662-9fff-5451b23f06a5",
+          "attributes": {}
+        },
+        {
           "id": "5245aed3-3d50-40b8-8b9f-8d53643445f2",
           "name": "LINKS",
           "description": "Other applications' service accounts: read which numbers have arrangements",
@@ -974,7 +983,8 @@
           "SYNC"
         ],
         "fgv-archive": [
-          "LINKS"
+          "LINKS",
+          "SPEXIFY"
         ]
       },
       "notBefore": 0,
@@ -1549,7 +1559,8 @@
       {
         "client": "fgv-spexify-service",
         "roles": [
-          "LINKS"
+          "LINKS",
+          "SPEXIFY"
         ]
       },
       {
