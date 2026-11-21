@@ -541,15 +541,6 @@
           "attributes": {}
         },
         {
-          "id": "9ed9f4c7-0ad2-4e40-9bd1-88888a4a2346",
-          "name": "ARCHIVE",
-          "description": "Spexarkivet's service account: reads which published tracks link to numbers",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "122c172e-1fbc-4566-8d09-60cfe9721c33",
-          "attributes": {}
-        },
-        {
           "id": "4f7b18c2-6d6f-49c8-97f9-9373955413b7",
           "name": "NOTIFY",
           "description": "Spexipedia's service account: tells Spexify to pull the change feed",
@@ -983,7 +974,6 @@
           "SYNC"
         ],
         "fgv-archive": [
-          "LINKS",
           "SPEXIFY"
         ]
       },
@@ -1062,9 +1052,6 @@
         ],
         "fgv-spexipedia": [
           "SYNC"
-        ],
-        "fgv-spexify": [
-          "ARCHIVE"
         ]
       },
       "notBefore": 0,
@@ -1373,12 +1360,6 @@
         ]
       },
       {
-        "client": "fgv-archive-service",
-        "roles": [
-          "ARCHIVE"
-        ]
-      },
-      {
         "client": "fgv-spexipedia",
         "roles": [
           "USER"
@@ -1559,7 +1540,6 @@
       {
         "client": "fgv-spexify-service",
         "roles": [
-          "LINKS",
           "SPEXIFY"
         ]
       },

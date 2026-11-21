@@ -137,8 +137,8 @@ Spexify (music) and Spexflix (video) have three clients each:
 
 | Client                 | Type                                | Roles and mappings                                                        |
 |------------------------|-------------------------------------|---------------------------------------------------------------------------|
-| `fgv-spexify`          | Confidential, for Spexify Web       | Client roles `USER` (access), `EDITOR`, `ADMIN`, and for other services' accounts `SPEXFLIX`, `ARCHIVE`, `SPEXIPEDIA` and `NOTIFY`; scope mappings to the other web clients' `USER` |
-| `fgv-spexify-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `fgv-spexflix: SPEXIFY`, `fgv-spexipedia: SYNC`, `fgv-archive: LINKS` |
+| `fgv-spexify`          | Confidential, for Spexify Web       | Client roles `USER` (access), `EDITOR`, `ADMIN`, and for other services' accounts `SPEXFLIX`, `SPEXIPEDIA`, `NOTIFY` and `IMPORT`; scope mappings to the other web clients' `USER` |
+| `fgv-spexify-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `fgv-spexflix: SPEXIFY`, `fgv-spexipedia: SYNC`, `fgv-archive: SPEXIFY` |
 | `fgv-spexify-mcp`     | Public, for MCP clients, like `fgv-revival-mcp` | Scope mapping to `fgv-spexify: USER, EDITOR, ADMIN`; read-only catalog tools |
 | `fgv-spexflix`         | Confidential, for Spexflix Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and for other services' accounts `SPEXIFY`, `SPEXIPEDIA` and `NOTIFY`; scope mappings to the other web clients' `USER` |
 | `fgv-spexflix-service` | Confidential, service account only  | Service account roles and scope mappings `fgv-spexify: SPEXFLIX`, `fgv-spexipedia: SYNC` |
@@ -157,8 +157,8 @@ Spexgram (photos and short videos) and Spexarkiv (manuscripts and sheet music) h
 | `fgv-spexgram`         | Confidential, for Spexgram Web      | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `SPEXIPEDIA` and `NOTIFY` for Spexipedia's service account; scope mappings to the other web clients' `USER` |
 | `fgv-spexgram-service` | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `fgv-spexipedia: SYNC` |
 | `fgv-spexgram-mcp`    | Public, for MCP clients, like `fgv-revival-mcp` | No scope mapping: its tools show only public albums, whatever the user's roles |
-| `fgv-archive`          | Confidential, for Spexarkiv Web   | Client roles `USER` (access), `EDITOR`, `ADMIN`, and `LINKS` and `NOTIFY` for Spexify's and Spexipedia's service accounts; scope mappings to the other web clients' `USER` |
-| `fgv-archive-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `fgv-spexipedia: SYNC`, `fgv-spexify: ARCHIVE` |
+| `fgv-archive`          | Confidential, for Spexarkiv Web   | Client roles `USER` (access), `EDITOR`, `ADMIN`, and for other services' accounts `LINKS`, `NOTIFY` and `IMPORT` (Spexipedia) and `SPEXIFY` (Spexify); scope mappings to the other web clients' `USER` |
+| `fgv-archive-service`  | Confidential, service account only  | Service account roles and scope mappings `realm-management: view-users, view-clients`, `fgv-spexipedia: SYNC` |
 | `fgv-archive-mcp`     | Public, for MCP clients, like `fgv-revival-mcp` | Scope mapping to `fgv-archive: USER, EDITOR, ADMIN`, and a `sub` mapper; read-only search and material tools |
 
 Spexipedia (the encyclopedia, and the source of base data: spex, revivals, categories, tasks, characters and numbers)
@@ -192,8 +192,7 @@ credentials do little damage:
 | `fgv-content-migration`  | Spexipedia, Spexarkivet, Spexify, Spexflix, Spexgram | `IMPORT` on their clients, `fgv-spexipedia: SYNC` | The migration of FGV's file archive and the MediaWiki |
 | `fgv-spexregister-service`, `fgv-spexify-service`, `fgv-spexflix-service`, `fgv-spexgram-service`, `fgv-archive-service` | Spexipedia | `fgv-spexipedia: SYNC` | The change feed of base data (`baseDataChanges`) |
 | `fgv-revival-service`    | Spexipedia     | `fgv-spexipedia: REVIVAL` | Creating revivals                                                 |
-| `fgv-spexify-service`    | Spexarkivet    | `fgv-archive: LINKS`     | *Sheet music in Spexarkivet* on tracks                            |
-| `fgv-archive-service`    | Spexify        | `fgv-spexify: ARCHIVE`   | *Listen in Spexify* on arrangements                               |
+| `fgv-spexify-service`    | Spexarkivet    | `fgv-archive: SPEXIFY`   | *Sheet music in Spexarkivet* on tracks                            |
 | `fgv-spexify-service`, `fgv-spexflix-service` | each other | `SPEXFLIX`, `SPEXIFY` | Chapter links between videos and tracks              |
 
 Reading base data needs no role: Spexipedia's base data is public.
