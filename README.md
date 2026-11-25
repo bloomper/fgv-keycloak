@@ -45,7 +45,7 @@ Keycloakify can't. That gives it the authenticator icons Keycloak shows next to 
 
 The email theme in `theme/src/email/` is a plain Keycloak theme that extends `base`. It replaces only
 `html/template.ftl`, the layout around every HTML email, so the texts and translations are Keycloak's own. The
-approval emails from `fgv-admin-notification` are plain text and don't use it.
+approval emails now come from Medlemskap.
 
 ## Realm
 
