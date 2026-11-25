@@ -14,20 +14,10 @@ Keycloak image for FGV, published as `bloomper/fgv-keycloak`. It is the stock Ke
 |--------------------------|-----------------|----------------------------------------------------------|
 | `legacy-fgv`             | Password hash   | Verifies passwords migrated from the previous register   |
 | `fgv-approval`           | Required action | Holds new users until an administrator approves them     |
-| `fgv-admin-notification` | Event listener  | Emails administrators and users during approval          |
-| `fgv-turnstile`          | Form action     | Requires a Cloudflare Turnstile challenge on registration |
 
-The event listener reads its recipients from
-`KC_SPI_EVENTS_LISTENER__FGV_ADMIN_NOTIFICATION__RECIPIENTS`.
-
-### Turnstile
-
-`fgv-turnstile` reads its keys from `KC_SPI_FORM_ACTION__FGV_TURNSTILE__SITE_KEY` and
-`KC_SPI_FORM_ACTION__FGV_TURNSTILE__SECRET_KEY`. Without them it logs a warning at start and lets every
-registration through. It uses Turnstile's reCAPTCHA compatibility mode, so the theme renders the widget where it
-would render reCAPTCHA, and failures show the message `recaptchaFailed`. Cloudflare's test site key
-`1x00000000000000000000AA` with the secret key `1x0000000000000000000000000000000AA` always passes, and
-`2x0000000000000000000000000000000AA` always fails.
+Registration, the emails around approval and the Cloudflare Turnstile challenge are not Keycloak's: they belong to
+Medlemskap (`fgv-membership-*`), which creates users through the admin REST API. The login page's *Register* link
+points to `MEMBERSHIP_URL/register` and Keycloak's own registration is switched off.
 
 ### Approval
 
@@ -37,27 +27,9 @@ non-members alike get an account and are approved by being given access to an ap
 `fgv-approval` stops them from logging in to every client in the realm except the account console, and shows a
 page saying the account is awaiting approval.
 
-`fgv-admin-notification` sends the emails around this, through the realm's SMTP settings:
-
-| When                                             | Recipient                    | What happens                               |
-|--------------------------------------------------|------------------------------|--------------------------------------------|
-| A user registers (and verifies their email)      | The configured `recipients`  | The user joins the group `pending-approval` |
-| An administrator assigns a pending user a role   | The user, in their language  | The user leaves the group                  |
-| An administrator gives an approved user their first role on an application | The user, in their language | Nothing else |
-
-An application is a client on which the user holds a client role and which has an absolute base URL, today
-`fgv-spexregister` and `fgv-revival`. The approval email lists every application the user can use, with its name and
-address. If there is none, for example after only a realm role, it just says the account can now be used.
-
-A user who is already approved gets an email naming an application when they get their first role on it, such as
-an existing Spexregister user given `fgv-revival: USER`. The listener tells a first role from another one by
-comparing the roles the user holds on the client with the roles the admin event added. Keycloak passes those to
-listeners even though the realm doesn't store admin event details, so nothing is stored on the user. Another role
-on an application the user already uses sends nothing, and neither do roles given through a group.
-
-Roles assigned in the admin console or through the admin REST API both count. Users who were never in the group,
-such as migrated users, get no approval email. Set `pending-group` on both providers to use another group, e.g.
-`KC_SPI_REQUIRED_ACTION__FGV_APPROVAL__PENDING_GROUP`.
+Medlemskap does the rest of approval: it puts new users in the group `pending-approval` (which stays in the realm),
+takes them out when it gives them access, and sends the emails to administrators and users. Roles assigned in
+Keycloak's admin console still approve a user, but send no email and leave the user in the group.
 
 Build the jar on its own with `./gradlew build` in `providers/`, which also runs the tests. It needs JDK 21 or
 later and the jar ends up in `providers/build/libs/`.
@@ -96,6 +68,8 @@ The clients' names and addresses are read from the environment during the import
 | `SPEXREGISTER_NAME`    | `Spexregister`                  | Name of `fgv-spexregister`, shown in the account console and on login |
 | `SPEXREGISTER_URL`     | `http://localhost:3000`         | Address of Spexregister Web, without a trailing slash            |
 | `SPEXREGISTER_MCP_URL` | `http://localhost:8080/api/mcp` | MCP endpoint, added as audience to tokens for `fgv-spexregister-mcp` |
+| `MEMBERSHIP_NAME`      | `Medlemskap`                    | Name of `fgv-membership`, shown on login and in the approval email |
+| `MEMBERSHIP_URL`       | `http://localhost:3007`         | Address of Medlemskap Web, without a trailing slash; also where the login page's *Register* link goes (set it in Keycloak's environment as well, as the theme reads it) |
 | `REVIVAL_NAME`     | `Nyuppsättning`                 | Name of `fgv-revival`, shown on login and in the approval email  |
 | `REVIVAL_URL`      | `http://localhost:3001`         | Address of Nyuppsättning Web, without a trailing slash           |
 | `REVIVAL_MCP_URL`  | `http://localhost:8081/api/mcp` | MCP endpoint, added as audience to tokens for `fgv-revival-mcp`  |
@@ -149,6 +123,16 @@ roles (`fgv-spexregister`, `fgv-revival`, `fgv-spexify`, `fgv-spexflix`, `fgv-sp
 each other), so that a page and the application switcher link to another application only for users who can open it. Spexify's service account reads
 users and clients, because Subsonic apps log in with app passwords, not Keycloak, and Spexify checks that their owners
 still have `USER`.
+
+Medlemskap (memberships and fees) has two clients:
+
+| Client                   | Type                               | Roles and mappings                                                        |
+|--------------------------|------------------------------------|---------------------------------------------------------------------------|
+| `fgv-membership`         | Confidential, for Medlemskap Web   | Client roles `USER` (access; part of `default-roles-fgv`, like Spexipedia's), `BOARD`, `TREASURER`, `ADMIN`, and `SYNC` (Spexregister's service account) and `REVIVAL` (Nyuppsättning's); a `sub` mapper; scope mappings to the other web clients' `USER`, and theirs to Medlemskap's |
+| `fgv-membership-service` | Confidential, service account only | Service account roles `fgv-spexregister: MEMBERSHIP` and `realm-management: manage-users, view-users, query-users, query-groups, view-clients, view-realm` |
+
+`BOARD`, `TREASURER` and `ADMIN` are given in addition to `USER`, and each also gives the roles below it; Medlemskap's
+user administration does that, since the roles are not composite.
 
 Spexgram (photos and short videos) and Spexarkiv (manuscripts and sheet music) have three clients each:
 
@@ -211,8 +195,9 @@ The realm also has:
 - passkeys, which users add under *Signing in* in the account console and then sign in with instead of a
   password. Signing in with a passkey skips OTP
 - consent required for the MCP clients, so users see which MCP client asks for access
-- the registration flow `fgv registration`, a copy of the built-in one with `fgv-turnstile` added, and a content
-  security policy that lets the Turnstile widget load
+- registration switched off: users register in Medlemskap, which creates them in Keycloak with the service account
+  `fgv-membership-service` (the roles `manage-users`, `view-users`, `query-users`, `query-groups`, `view-clients` and
+  `view-realm` on `realm-management`, nothing more)
 - the browser flow `fgv browser`, a copy of the built-in one that skips OTP when the user signed in with a passkey
 - login and admin events, kept for 30 days
 

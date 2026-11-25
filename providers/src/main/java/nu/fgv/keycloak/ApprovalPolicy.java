@@ -19,28 +19,27 @@ package nu.fgv.keycloak;
 import org.keycloak.Config;
 import org.keycloak.models.ClientModel;
 import org.keycloak.models.Constants;
-import org.keycloak.models.GroupModel;
-import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
-import org.keycloak.models.utils.KeycloakModelUtils;
 
 import java.util.Set;
 
 /**
+ * Decides whether a user has been approved: assigned any role beyond the realm's default role. The roles are assigned
+ * in Medlemskap, which also keeps the group {@code pending-approval}; this only enforces the result at login.
+ *
  * @author Anders Jacobsson
  * @since 2.0
  */
-public record ApprovalPolicy(String pendingGroup) {
+public record ApprovalPolicy() {
 
-    private static final String DEFAULT_PENDING_GROUP = "pending-approval";
     private static final Set<String> EXEMPT_CLIENT_IDS = Set.of(
             Constants.ACCOUNT_MANAGEMENT_CLIENT_ID,
             Constants.ACCOUNT_CONSOLE_CLIENT_ID
     );
 
     public static ApprovalPolicy from(final Config.Scope scope) {
-        return new ApprovalPolicy(scope.get("pending-group", DEFAULT_PENDING_GROUP));
+        return new ApprovalPolicy();
     }
 
     public boolean appliesTo(final ClientModel client) {
@@ -49,33 +48,5 @@ public record ApprovalPolicy(String pendingGroup) {
 
     public boolean isApproved(final RealmModel realm, final UserModel user) {
         return user.getRoleMappingsStream().anyMatch(role -> !role.equals(realm.getDefaultRole()));
-    }
-
-    public boolean markPending(final KeycloakSession session, final RealmModel realm, final UserModel user) {
-        final GroupModel group = pendingGroup(session, realm);
-
-        if (group == null) {
-            return false;
-        }
-
-        user.joinGroup(group);
-
-        return true;
-    }
-
-    public boolean clearPending(final KeycloakSession session, final RealmModel realm, final UserModel user) {
-        final GroupModel group = pendingGroup(session, realm);
-
-        if (group == null || !user.isMemberOf(group)) {
-            return false;
-        }
-
-        user.leaveGroup(group);
-
-        return true;
-    }
-
-    private GroupModel pendingGroup(final KeycloakSession session, final RealmModel realm) {
-        return KeycloakModelUtils.findGroupByPath(session, realm, "/" + pendingGroup);
     }
 }

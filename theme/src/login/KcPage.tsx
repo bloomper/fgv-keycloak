@@ -12,6 +12,17 @@ const UserProfileFormFields = lazy(
 
 const doMakeUserConfirmPassword = true;
 
+/**
+ * Registration is Medlemskap's, not Keycloak's: the realm has registration switched off, and the login page links to
+ * Medlemskap's registration page instead. The address comes from the theme property `membershipUrl`, which
+ * `postBuild` in vite.config.ts sets to `${env.MEMBERSHIP_URL}`. Without a usable address there is no link.
+ */
+function membershipRegistrationUrl(properties: Record<string, string | undefined> | undefined): string | undefined {
+    const base = properties?.membershipUrl;
+
+    return base !== undefined && /^https?:\/\//.test(base) ? `${base.replace(/\/+$/, "")}/register` : undefined;
+}
+
 export default function KcPage(props: { kcContext: KcContext }) {
     const {kcContext} = props;
 
@@ -21,6 +32,25 @@ export default function KcPage(props: { kcContext: KcContext }) {
         <Suspense>
             {(() => {
                 switch (kcContext.pageId) {
+                    case "login.ftl": {
+                        const registrationUrl = membershipRegistrationUrl(kcContext.properties);
+
+                        return (
+                            <DefaultPage
+                                kcContext={registrationUrl === undefined ? kcContext : {
+                                    ...kcContext,
+                                    realm: {...kcContext.realm, registrationAllowed: true},
+                                    url: {...kcContext.url, registrationUrl}
+                                }}
+                                i18n={i18n}
+                                classes={classes}
+                                Template={Template}
+                                doUseDefaultCss={false}
+                                UserProfileFormFields={UserProfileFormFields}
+                                doMakeUserConfirmPassword={doMakeUserConfirmPassword}
+                            />
+                        );
+                    }
                     default:
                         return (
                             <DefaultPage

@@ -43,7 +43,7 @@ import static org.mockito.Mockito.when;
  */
 class ApprovalRequiredActionTest {
 
-    private final ApprovalRequiredAction action = new ApprovalRequiredAction(new ApprovalPolicy("pending-approval"));
+    private final ApprovalRequiredAction action = new ApprovalRequiredAction(new ApprovalPolicy());
     private final RequiredActionContext context = mock(RequiredActionContext.class);
     private final AuthenticationSessionModel authenticationSession = mock(AuthenticationSessionModel.class);
     private final ClientModel client = mock(ClientModel.class);
