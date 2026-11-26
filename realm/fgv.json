@@ -888,14 +888,14 @@
         {
           "id": "229ea655-9d8a-4d8c-bae9-e36df9d5fabd",
           "name": "PAYMENT",
-          "description": "Tells Medlemskap about payments made elsewhere, e.g. in the WordPress shop",
+          "description": "Tells Medlemskap about payments made elsewhere, e.g. in an external shop",
           "composite": false,
           "clientRole": true,
           "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
           "attributes": {}
         }
       ],
-      "fgv-wordpress-service": []
+      "fgv-external-payment-service": []
     }
   },
   "groups": [
@@ -1271,11 +1271,11 @@
     {
       "id": "3281155b-93e6-4b3f-a352-43213f6ab81c",
       "createdTimestamp": 1794560400000,
-      "username": "service-account-fgv-wordpress-service",
+      "username": "service-account-fgv-external-payment-service",
       "enabled": true,
       "totp": false,
       "emailVerified": false,
-      "serviceAccountClientId": "fgv-wordpress-service",
+      "serviceAccountClientId": "fgv-external-payment-service",
       "credentials": [],
       "disableableCredentialTypes": [],
       "requiredActions": [],
@@ -1904,7 +1904,7 @@
         ]
       },
       {
-        "client": "fgv-wordpress-service",
+        "client": "fgv-external-payment-service",
         "roles": [
           "PAYMENT"
         ]
@@ -3610,8 +3610,8 @@
     },
     {
       "id": "53abef8d-d832-47d1-bfc7-7ef6393aa057",
-      "clientId": "fgv-wordpress-service",
-      "name": "WordPress shop service account",
+      "clientId": "fgv-external-payment-service",
+      "name": "External payment service account",
       "description": "Tells Medlemskap that someone paid for a membership online",
       "rootUrl": "",
       "adminUrl": "",
