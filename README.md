@@ -130,6 +130,7 @@ Medlemskap (memberships and fees) has two clients:
 |--------------------------|------------------------------------|---------------------------------------------------------------------------|
 | `fgv-membership`         | Confidential, for Medlemskap Web   | Client roles `USER` (access; part of `default-roles-fgv`, like Spexipedia's), `BOARD`, `TREASURER`, `ADMIN`, and `SYNC` (Spexregister's service account) and `REVIVAL` (Nyuppsättning's); a `sub` mapper; scope mappings to the other web clients' `USER`, and theirs to Medlemskap's |
 | `fgv-membership-service` | Confidential, service account only | Service account roles `fgv-spexregister: MEMBERSHIP` and `realm-management: manage-users, view-users, query-users, query-groups, view-clients, view-realm` |
+| `fgv-wordpress-service` | Confidential, service account only | Service account role `fgv-membership: PAYMENT`, which lets the WordPress shop tell Medlemskap (`POST /api/external-payments`) that someone paid |
 
 `BOARD`, `TREASURER` and `ADMIN` are given in addition to `USER`, and each also gives the roles below it; Medlemskap's
 user administration does that, since the roles are not composite.

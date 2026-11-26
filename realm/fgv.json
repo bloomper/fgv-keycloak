@@ -884,8 +884,18 @@
           "clientRole": true,
           "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
           "attributes": {}
+        },
+        {
+          "id": "229ea655-9d8a-4d8c-bae9-e36df9d5fabd",
+          "name": "PAYMENT",
+          "description": "Tells Medlemskap about payments made elsewhere, e.g. in the WordPress shop",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
+          "attributes": {}
         }
-      ]
+      ],
+      "fgv-wordpress-service": []
     }
   },
   "groups": [
@@ -1253,6 +1263,28 @@
           "query-groups",
           "view-clients",
           "view-realm"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "3281155b-93e6-4b3f-a352-43213f6ab81c",
+      "createdTimestamp": 1794560400000,
+      "username": "service-account-fgv-wordpress-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-wordpress-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "fgv-membership": [
+          "PAYMENT"
         ]
       },
       "notBefore": 0,
@@ -1869,6 +1901,12 @@
         "client": "fgv-spexipedia",
         "roles": [
           "USER"
+        ]
+      },
+      {
+        "client": "fgv-wordpress-service",
+        "roles": [
+          "PAYMENT"
         ]
       }
     ]
@@ -3542,6 +3580,46 @@
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "6EpeZcMH5h4z4EkekAHRq246dQUZSrPo",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "53abef8d-d832-47d1-bfc7-7ef6393aa057",
+      "clientId": "fgv-wordpress-service",
+      "name": "WordPress shop service account",
+      "description": "Tells Medlemskap that someone paid for a membership online",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "3jpMq35JEzdyTSPewQ5OBYRERbf1lhuJ",
       "redirectUris": [],
       "webOrigins": [],
       "notBefore": 0,
