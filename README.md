@@ -101,6 +101,7 @@ Nyuppsättning has three clients:
 | `fgv-revival`         | Confidential, for Nyuppsättning Web    | Client roles `USER` (access), `SUPER_ADMIN`, `OBSERVER`; scope mappings to the other web clients' `USER` |
 | `fgv-revival-mcp`     | Public, for MCP clients, like `fgv-spexregister-mcp` | Scope mapping to all three `fgv-revival` roles    |
 | `fgv-revival-service` | Confidential, service account only     | Service account roles and scope mappings `fgv-spexregister: REVIVAL`, `fgv-spexipedia: REVIVAL` |
+| `fgv-revival-migration` | Confidential, service account only   | Service account roles and scope mappings `fgv-revival: USER, SUPER_ADMIN`, and a `sub` mapper; used by the throw-away `fgv-revival-migration`, which builds the guide's first draft. Disable it when the guide is in |
 
 `REVIVAL` on `fgv-spexregister` is the narrow role Nyuppsättning's server uses to call Spexregister. It reads spex, tasks,
 task categories and spexare, and writes what the sync of a settled revival records, but deletes nothing. Spexregister
@@ -156,6 +157,7 @@ has three clients, and Spexregister gets a service account of its own for its co
 | `fgv-spexipedia-mcp`     | Public, for MCP clients, like `fgv-revival-mcp` | Scope mapping to `fgv-spexipedia: USER, AUTHOR, EDITOR, ADMIN`; the base data tools that were Spexregister's |
 | `fgv-spexregister-service`   | Confidential, service account only  | Service account role and scope mapping `fgv-spexipedia: SYNC`           |
 | `fgv-content-migration`  | Confidential, service account only  | Service account roles and scope mappings `IMPORT` on `fgv-spexipedia`, `fgv-archive`, `fgv-spexify`, `fgv-spexflix` and `fgv-spexgram`, and `fgv-spexipedia: SYNC`; used by the throw-away `fgv-content-migration` |
+| `fgv-spexregister-migration` | Confidential, service account only | Service account roles and scope mappings `IMPORT` on `fgv-spexregister` and `fgv-membership`, and a `sub` mapper; used by the throw-away `spexregister-migration`, which builds Spexregister's first database and Medlemskap's first FGV memberships |
 
 `fgv-archive`, `fgv-spexify`, `fgv-spexflix` and `fgv-spexgram` also carry `IMPORT`, like `fgv-spexipedia`: the import
 API that the migration and Spexipedia's spex packages use (Spexipedia's spec, `docs/content-import.md`).
@@ -175,6 +177,8 @@ credentials do little damage:
 | `fgv-spexipedia-service` | Every consumer | `NOTIFY` on its client   | `POST /api/sync/notify` after a change to base data               |
 | `fgv-spexipedia-service` | Spexarkivet, Spexify, Spexflix, Spexgram | `IMPORT` on their clients | Applying spex packages                         |
 | `fgv-content-migration`  | Spexipedia, Spexarkivet, Spexify, Spexflix, Spexgram | `IMPORT` on their clients, `fgv-spexipedia: SYNC` | The migration of FGV's file archive and the MediaWiki |
+| `fgv-revival-migration`  | Nyuppsättning  | `fgv-revival: USER, SUPER_ADMIN` | The migration of the guide (Word) into Nyuppsättning's first draft; Nyuppsättning must list it in `API_SECURITY_AUTHORIZED_PARTIES` for the run |
+| `fgv-spexregister-migration` | Spexregister, Medlemskap | `IMPORT` on `fgv-spexregister` and `fgv-membership` | The migration of Spexregister 1.x through their import APIs (`spexregister-spec` `docs/migration.md`); both must list it in `API_SECURITY_AUTHORIZED_PARTIES` for the run. Its Keycloak accounts are made with `fgv-admin`. Disable it when the migration is done |
 | `fgv-spexregister-service`, `fgv-spexify-service`, `fgv-spexflix-service`, `fgv-spexgram-service`, `fgv-archive-service` | Spexipedia | `fgv-spexipedia: SYNC` | The change feed of base data (`baseDataChanges`) |
 | `fgv-revival-service`    | Spexipedia     | `fgv-spexipedia: REVIVAL` | Creating revivals                                                 |
 | `fgv-spexify-service`    | Spexarkivet    | `fgv-archive: SPEXIFY`   | *Sheet music in Spexarkivet* on tracks                            |
