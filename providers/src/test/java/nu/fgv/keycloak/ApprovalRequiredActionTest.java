@@ -43,7 +43,7 @@ import static org.mockito.Mockito.when;
  */
 class ApprovalRequiredActionTest {
 
-    private final ApprovalRequiredAction action = new ApprovalRequiredAction(new ApprovalPolicy("pending-approval"));
+    private final ApprovalRequiredAction action = new ApprovalRequiredAction();
     private final RequiredActionContext context = mock(RequiredActionContext.class);
     private final AuthenticationSessionModel authenticationSession = mock(AuthenticationSessionModel.class);
     private final ClientModel client = mock(ClientModel.class);
@@ -85,6 +85,33 @@ class ApprovalRequiredActionTest {
         action.evaluateTriggers(context);
 
         verify(authenticationSession, never()).addRequiredAction(ApprovalRequiredAction.ID);
+    }
+
+    @Test
+    void should_not_require_action_for_account_management() {
+        when(client.getClientId()).thenReturn(Constants.ACCOUNT_MANAGEMENT_CLIENT_ID);
+
+        action.evaluateTriggers(context);
+
+        verify(authenticationSession, never()).addRequiredAction(ApprovalRequiredAction.ID);
+    }
+
+    @Test
+    void should_require_action_when_client_is_unknown() {
+        when(authenticationSession.getClient()).thenReturn(null);
+
+        action.evaluateTriggers(context);
+
+        verify(authenticationSession).addRequiredAction(ApprovalRequiredAction.ID);
+    }
+
+    @Test
+    void should_require_action_for_user_without_roles() {
+        when(user.getRoleMappingsStream()).thenAnswer(_ -> Stream.empty());
+
+        action.evaluateTriggers(context);
+
+        verify(authenticationSession).addRequiredAction(ApprovalRequiredAction.ID);
     }
 
     @Test

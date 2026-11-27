@@ -29,7 +29,7 @@
   "oauth2DevicePollingInterval": 5,
   "enabled": true,
   "sslRequired": "external",
-  "registrationAllowed": true,
+  "registrationAllowed": false,
   "registrationEmailAsUsername": true,
   "rememberMe": false,
   "verifyEmail": true,
@@ -82,6 +82,9 @@
               "manage-account"
             ],
             "fgv-spexipedia": [
+              "USER"
+            ],
+            "fgv-membership": [
               "USER"
             ]
           }
@@ -355,6 +358,15 @@
           "id": "4f25f979-00ce-4f3d-9b54-f887eb2021fc",
           "name": "NOTIFY",
           "description": "Services that tell Spexregister to pull their change feed (/api/sync/notify)",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
+          "attributes": {}
+        },
+        {
+          "id": "e2a362c8-3c91-4987-9959-0a2787044d05",
+          "name": "MEMBERSHIP",
+          "description": "Medlemskap: reads and creates spexare, finds and links the spexare of a Keycloak user, reads FGV memberships for the migration",
           "composite": false,
           "clientRole": true,
           "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
@@ -817,7 +829,73 @@
       ],
       "fgv-archive-mcp": [],
       "fgv-spexify-mcp": [],
-      "fgv-spexflix-mcp": []
+      "fgv-spexflix-mcp": [],
+      "fgv-membership": [
+        {
+          "id": "7a50e719-c3ab-4101-b848-243b16db32d8",
+          "name": "USER",
+          "description": "Access to Medlemskap: own memberships and payments, pays, applies for membership",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
+          "attributes": {}
+        },
+        {
+          "id": "c0f0cdba-8a00-4b51-9c6e-110d11c72b00",
+          "name": "BOARD",
+          "description": "Reads all members and payments, handles applications, sends renewal reminders, exports",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
+          "attributes": {}
+        },
+        {
+          "id": "84ff5084-c4ef-4c4c-bb88-be073a412ff0",
+          "name": "TREASURER",
+          "description": "Imports bank statements, matches, records manual payments and refunds",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
+          "attributes": {}
+        },
+        {
+          "id": "f59ca788-2c02-4093-a81c-011459a8c47e",
+          "name": "ADMIN",
+          "description": "Administers Medlemskap: settings, types, fees, users and access",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
+          "attributes": {}
+        },
+        {
+          "id": "25c532da-8c30-4f3e-8d70-9384599c37a7",
+          "name": "SYNC",
+          "description": "Service account of Spexregister: reads the membership feed",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
+          "attributes": {}
+        },
+        {
+          "id": "59ab2bca-2f4c-4030-bb23-61836c0a1c87",
+          "name": "REVIVAL",
+          "description": "Service account of Nyuppsättning: creates payment requests for the memberships a revival pays",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
+          "attributes": {}
+        },
+        {
+          "id": "229ea655-9d8a-4d8c-bae9-e36df9d5fabd",
+          "name": "PAYMENT",
+          "description": "Tells Medlemskap about payments made elsewhere, e.g. in an external shop",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
+          "attributes": {}
+        }
+      ],
+      "fgv-external-payment-service": []
     }
   },
   "groups": [
@@ -856,15 +934,11 @@
   "localizationTexts": {
     "sv": {
       "fgvApprovalPendingHeader": "Väntar på godkännande",
-      "fgvApprovalPending": "Du får ett e-postmeddelande när en administratör har godkänt ditt konto.",
-      "registrationMessage": "Meddelande till administratören",
-      "recaptchaFailed": "Kontrollen av att du inte är en robot misslyckades. Försök igen."
+      "fgvApprovalPending": "Du får ett e-postmeddelande när en administratör har godkänt ditt konto."
     },
     "en": {
       "fgvApprovalPendingHeader": "Awaiting approval",
-      "fgvApprovalPending": "You will receive an email once an administrator has approved your account.",
-      "registrationMessage": "Message to the administrator",
-      "recaptchaFailed": "Could not verify that you are not a robot. Please try again."
+      "fgvApprovalPending": "You will receive an email once an administrator has approved your account."
     }
   },
   "webAuthnPolicyRpEntityName": "FGV",
@@ -942,6 +1016,9 @@
           "REVIVAL"
         ],
         "fgv-spexipedia": [
+          "REVIVAL"
+        ],
+        "fgv-membership": [
           "REVIVAL"
         ]
       },
@@ -1152,6 +1229,62 @@
       "clientRoles": {
         "fgv-spexipedia": [
           "SYNC"
+        ],
+        "fgv-membership": [
+          "SYNC"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "ebfad25e-0354-4600-aeb3-e61abd02fd87",
+      "createdTimestamp": 1794560400000,
+      "username": "service-account-fgv-membership-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-membership-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "fgv-spexregister": [
+          "MEMBERSHIP",
+          "NOTIFY"
+        ],
+        "realm-management": [
+          "manage-users",
+          "view-users",
+          "query-users",
+          "query-groups",
+          "view-clients",
+          "view-realm"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "3281155b-93e6-4b3f-a352-43213f6ab81c",
+      "createdTimestamp": 1794560400000,
+      "username": "service-account-fgv-external-payment-service",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-external-payment-service",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "fgv-membership": [
+          "PAYMENT"
         ]
       },
       "notBefore": 0,
@@ -1197,6 +1330,17 @@
         "roles": [
           "view-users",
           "view-clients"
+        ]
+      },
+      {
+        "client": "fgv-membership-service",
+        "roles": [
+          "manage-users",
+          "view-users",
+          "query-users",
+          "query-groups",
+          "view-clients",
+          "view-realm"
         ]
       }
     ],
@@ -1266,6 +1410,19 @@
         "roles": [
           "USER"
         ]
+      },
+      {
+        "client": "fgv-membership",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-membership-service",
+        "roles": [
+          "MEMBERSHIP",
+          "NOTIFY"
+        ]
       }
     ],
     "fgv-revival": [
@@ -1309,6 +1466,12 @@
       },
       {
         "client": "fgv-spexipedia",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-membership",
         "roles": [
           "USER"
         ]
@@ -1378,6 +1541,12 @@
         "roles": [
           "IMPORT"
         ]
+      },
+      {
+        "client": "fgv-membership",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-spexflix": [
@@ -1444,6 +1613,12 @@
         "roles": [
           "IMPORT"
         ]
+      },
+      {
+        "client": "fgv-membership",
+        "roles": [
+          "USER"
+        ]
       }
     ],
     "fgv-spexgram": [
@@ -1495,6 +1670,12 @@
         "client": "fgv-content-migration",
         "roles": [
           "IMPORT"
+        ]
+      },
+      {
+        "client": "fgv-membership",
+        "roles": [
+          "USER"
         ]
       }
     ],
@@ -1561,6 +1742,12 @@
         "client": "fgv-content-migration",
         "roles": [
           "IMPORT"
+        ]
+      },
+      {
+        "client": "fgv-membership",
+        "roles": [
+          "USER"
         ]
       }
     ],
@@ -1652,6 +1839,74 @@
         "roles": [
           "IMPORT",
           "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-membership",
+        "roles": [
+          "USER"
+        ]
+      }
+    ],
+    "fgv-membership": [
+      {
+        "client": "fgv-spexregister-service",
+        "roles": [
+          "SYNC"
+        ]
+      },
+      {
+        "client": "fgv-revival-service",
+        "roles": [
+          "REVIVAL"
+        ]
+      },
+      {
+        "client": "fgv-spexregister",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-revival",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexify",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexflix",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexgram",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-archive",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-spexipedia",
+        "roles": [
+          "USER"
+        ]
+      },
+      {
+        "client": "fgv-external-payment-service",
+        "roles": [
+          "PAYMENT"
         ]
       }
     ]
@@ -2079,8 +2334,7 @@
         "acr",
         "profile",
         "roles",
-        "email",
-        "registration-message"
+        "email"
       ],
       "optionalClientScopes": [
         "address",
@@ -2196,8 +2450,7 @@
         "acr",
         "profile",
         "roles",
-        "email",
-        "registration-message"
+        "email"
       ],
       "optionalClientScopes": [
         "address",
@@ -2353,8 +2606,7 @@
         "acr",
         "profile",
         "roles",
-        "email",
-        "registration-message"
+        "email"
       ],
       "optionalClientScopes": [
         "address",
@@ -2461,8 +2713,7 @@
         "acr",
         "profile",
         "roles",
-        "email",
-        "registration-message"
+        "email"
       ],
       "optionalClientScopes": [
         "address",
@@ -2568,8 +2819,7 @@
         "acr",
         "profile",
         "roles",
-        "email",
-        "registration-message"
+        "email"
       ],
       "optionalClientScopes": [
         "address",
@@ -2676,8 +2926,7 @@
         "acr",
         "profile",
         "roles",
-        "email",
-        "registration-message"
+        "email"
       ],
       "optionalClientScopes": [
         "address",
@@ -2784,8 +3033,7 @@
         "acr",
         "profile",
         "roles",
-        "email",
-        "registration-message"
+        "email"
       ],
       "optionalClientScopes": [
         "address",
@@ -3252,6 +3500,153 @@
       "optionalClientScopes": [
         "offline_access"
       ]
+    },
+    {
+      "id": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
+      "clientId": "fgv-membership",
+      "name": "${MEMBERSHIP_NAME:Medlemskap}",
+      "description": "",
+      "rootUrl": "${MEMBERSHIP_URL:http://localhost:3007}",
+      "adminUrl": "",
+      "baseUrl": "${MEMBERSHIP_URL:http://localhost:3007}/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "AhuGc3vm9frqq1hjZslYQX5ZOuwNxW4T",
+      "redirectUris": [
+        "${MEMBERSHIP_URL:http://localhost:3007}/api/auth/callback/keycloak"
+      ],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400",
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "${MEMBERSHIP_URL:http://localhost:3007}##${MEMBERSHIP_URL:http://localhost:3007}/"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ],
+      "protocolMappers": [
+        {
+          "id": "5995aee1-70d9-4462-9f6c-b0d27d41abae",
+          "name": "sub",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "7e9c4f48-b6b7-4010-8f34-d7ef25fe1d94",
+      "clientId": "fgv-membership-service",
+      "name": "Medlemskap service account",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "6EpeZcMH5h4z4EkekAHRq246dQUZSrPo",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles",
+        "kc-admin-api"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "53abef8d-d832-47d1-bfc7-7ef6393aa057",
+      "clientId": "fgv-external-payment-service",
+      "name": "External payment service account",
+      "description": "Tells Medlemskap that someone paid for a membership online",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "3jpMq35JEzdyTSPewQ5OBYRERbf1lhuJ",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": []
     }
   ],
   "clientScopes": [
@@ -3814,17 +4209,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "09282b43-1052-4f36-b6e2-4278890119bc",
-      "name": "registration-message",
-      "description": "Enables the registration message attribute in the user profile",
-      "protocol": "openid-connect",
-      "attributes": {
-        "include.in.token.scope": "false",
-        "display.on.consent.screen": "false",
-        "include.in.openid.provider.metadata": "false"
-      }
     }
   ],
   "defaultDefaultClientScopes": [
@@ -3847,7 +4231,7 @@
     "referrerPolicy": "no-referrer",
     "xRobotsTag": "none",
     "xFrameOptions": "SAMEORIGIN",
-    "contentSecurityPolicy": "frame-src 'self' https://challenges.cloudflare.com; frame-ancestors 'self'; object-src 'none';",
+    "contentSecurityPolicy": "frame-src 'self'; frame-ancestors 'self'; object-src 'none';",
     "xXSSProtection": "1; mode=block",
     "strictTransportSecurity": "max-age=31536000; includeSubDomains"
   },
@@ -3867,8 +4251,7 @@
   "eventsEnabled": true,
   "eventsExpiration": 2592000,
   "eventsListeners": [
-    "jboss-logging",
-    "fgv-admin-notification"
+    "jboss-logging"
   ],
   "enabledEventTypes": [],
   "adminEventsEnabled": true,
@@ -3990,7 +4373,7 @@
         "subComponents": {},
         "config": {
           "kc.user.profile.config": [
-            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"registrationMessage\",\"displayName\":\"${registrationMessage}\",\"validations\":{\"length\":{\"max\":500}},\"annotations\":{\"inputType\":\"textarea\",\"inputTypeRows\":\"4\"},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"user\"]},\"selector\":{\"scopes\":[\"registration-message\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}],\"unmanagedAttributePolicy\":\"ENABLED\"}"
+            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}],\"unmanagedAttributePolicy\":\"ENABLED\"}"
           ]
         }
       }
@@ -4558,67 +4941,6 @@
       ]
     },
     {
-      "id": "8e2f4a61-3c9d-4b7e-a5f0-1d6c9e3b7a24",
-      "alias": "fgv registration",
-      "description": "registration flow",
-      "providerId": "basic-flow",
-      "topLevel": true,
-      "builtIn": false,
-      "authenticationExecutions": [
-        {
-          "authenticator": "registration-page-form",
-          "authenticatorFlow": true,
-          "requirement": "REQUIRED",
-          "priority": 10,
-          "autheticatorFlow": true,
-          "flowAlias": "fgv registration registration form",
-          "userSetupAllowed": false
-        }
-      ]
-    },
-    {
-      "id": "c4a7e1d9-6b2f-4e83-9d5a-7f1b3c8e2a69",
-      "alias": "fgv registration registration form",
-      "description": "registration form",
-      "providerId": "form-flow",
-      "topLevel": false,
-      "builtIn": false,
-      "authenticationExecutions": [
-        {
-          "authenticator": "fgv-turnstile",
-          "authenticatorFlow": false,
-          "requirement": "REQUIRED",
-          "priority": 10,
-          "autheticatorFlow": false,
-          "userSetupAllowed": false
-        },
-        {
-          "authenticator": "registration-user-creation",
-          "authenticatorFlow": false,
-          "requirement": "REQUIRED",
-          "priority": 20,
-          "autheticatorFlow": false,
-          "userSetupAllowed": false
-        },
-        {
-          "authenticator": "registration-password-action",
-          "authenticatorFlow": false,
-          "requirement": "REQUIRED",
-          "priority": 50,
-          "autheticatorFlow": false,
-          "userSetupAllowed": false
-        },
-        {
-          "authenticator": "registration-recaptcha-action",
-          "authenticatorFlow": false,
-          "requirement": "DISABLED",
-          "priority": 60,
-          "autheticatorFlow": false,
-          "userSetupAllowed": false
-        }
-      ]
-    },
-    {
       "id": "7ea619f0-f622-4f24-830c-03a6d5a63e5d",
       "alias": "reset credentials",
       "description": "Reset credentials for a user if they forgot their password or something",
@@ -4795,7 +5117,7 @@
     }
   ],
   "browserFlow": "fgv browser",
-  "registrationFlow": "fgv registration",
+  "registrationFlow": "registration",
   "directGrantFlow": "direct grant",
   "resetCredentialsFlow": "reset credentials",
   "clientAuthenticationFlow": "clients",

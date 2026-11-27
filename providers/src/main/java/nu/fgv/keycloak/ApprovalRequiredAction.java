@@ -18,8 +18,16 @@ package nu.fgv.keycloak;
 
 import org.keycloak.authentication.RequiredActionContext;
 import org.keycloak.authentication.RequiredActionProvider;
+import org.keycloak.models.ClientModel;
+import org.keycloak.models.Constants;
+
+import java.util.Set;
 
 /**
+ * Stops a user from logging in until approved: assigned any role beyond the realm's default role. The roles are assigned
+ * in Medlemskap, which also keeps the group {@code pending-approval}; this only enforces the result at login. The
+ * account console is exempt.
+ *
  * @author Anders Jacobsson
  * @since 2.0
  */
@@ -29,15 +37,14 @@ public class ApprovalRequiredAction implements RequiredActionProvider {
     private static final String HEADER_KEY = "fgvApprovalPendingHeader";
     private static final String MESSAGE_KEY = "fgvApprovalPending";
 
-    private final ApprovalPolicy policy;
-
-    public ApprovalRequiredAction(final ApprovalPolicy policy) {
-        this.policy = policy;
-    }
+    private static final Set<String> EXEMPT_CLIENT_IDS = Set.of(
+            Constants.ACCOUNT_MANAGEMENT_CLIENT_ID,
+            Constants.ACCOUNT_CONSOLE_CLIENT_ID
+    );
 
     @Override
     public void evaluateTriggers(final RequiredActionContext context) {
-        if (policy.appliesTo(context.getAuthenticationSession().getClient()) && !isApproved(context)) {
+        if (appliesTo(context.getAuthenticationSession().getClient()) && !isApproved(context)) {
             context.getAuthenticationSession().addRequiredAction(ID);
         }
     }
@@ -63,7 +70,13 @@ public class ApprovalRequiredAction implements RequiredActionProvider {
     public void close() {
     }
 
+    private boolean appliesTo(final ClientModel client) {
+        return client == null || !EXEMPT_CLIENT_IDS.contains(client.getClientId());
+    }
+
     private boolean isApproved(final RequiredActionContext context) {
-        return policy.isApproved(context.getRealm(), context.getUser());
+        final var defaultRole = context.getRealm().getDefaultRole();
+
+        return context.getUser().getRoleMappingsStream().anyMatch(role -> !role.equals(defaultRole));
     }
 }
