@@ -28,16 +28,13 @@ import org.keycloak.models.KeycloakSessionFactory;
  */
 public class ApprovalRequiredActionFactory implements RequiredActionFactory {
 
-    private ApprovalPolicy policy;
-
     @Override
     public RequiredActionProvider create(final KeycloakSession keycloakSession) {
-        return new ApprovalRequiredAction(policy);
+        return new ApprovalRequiredAction();
     }
 
     @Override
     public void init(final Config.Scope scope) {
-        policy = ApprovalPolicy.from(scope);
     }
 
     @Override
