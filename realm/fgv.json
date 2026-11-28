@@ -371,6 +371,15 @@
           "clientRole": true,
           "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
           "attributes": {}
+        },
+        {
+          "id": "eb40cdf9-81d6-5ea3-b975-f27d656bcdb8",
+          "name": "IMPORT",
+          "description": "Service account of spexregister-migration: the import API that builds the first database",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "90e179a1-7165-4088-a147-9a455f8148ac",
+          "attributes": {}
         }
       ],
       "admin-cli": [],
@@ -893,6 +902,15 @@
           "clientRole": true,
           "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
           "attributes": {}
+        },
+        {
+          "id": "9af0c98d-135f-52bf-a873-66925b739518",
+          "name": "IMPORT",
+          "description": "Service account of spexregister-migration: carries Spexregister 1.x's FGV memberships in",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "bd85ed73-20bc-4e71-9b33-f449e474b5c1",
+          "attributes": {}
         }
       ],
       "fgv-external-payment-service": []
@@ -1213,6 +1231,54 @@
       "groups": []
     },
     {
+      "id": "a9748498-ac8b-526b-8667-fbf4e8b6c3d5",
+      "createdTimestamp": 1794560400000,
+      "username": "service-account-fgv-revival-migration",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-revival-migration",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "fgv-revival": [
+          "USER",
+          "SUPER_ADMIN"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
+      "id": "65ef07e1-9b19-54d9-8fab-f075609c797a",
+      "createdTimestamp": 1794560400000,
+      "username": "service-account-fgv-spexregister-migration",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "serviceAccountClientId": "fgv-spexregister-migration",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-fgv"
+      ],
+      "clientRoles": {
+        "fgv-spexregister": [
+          "IMPORT"
+        ],
+        "fgv-membership": [
+          "IMPORT"
+        ]
+      },
+      "notBefore": 0,
+      "groups": []
+    },
+    {
       "id": "beddb672-06db-4883-b206-922aeb43cdb2",
       "createdTimestamp": 1794560400000,
       "username": "service-account-fgv-spexregister-service",
@@ -1423,6 +1489,12 @@
           "MEMBERSHIP",
           "NOTIFY"
         ]
+      },
+      {
+        "client": "fgv-spexregister-migration",
+        "roles": [
+          "IMPORT"
+        ]
       }
     ],
     "fgv-revival": [
@@ -1474,6 +1546,13 @@
         "client": "fgv-membership",
         "roles": [
           "USER"
+        ]
+      },
+      {
+        "client": "fgv-revival-migration",
+        "roles": [
+          "USER",
+          "SUPER_ADMIN"
         ]
       }
     ],
@@ -1907,6 +1986,12 @@
         "client": "fgv-external-payment-service",
         "roles": [
           "PAYMENT"
+        ]
+      },
+      {
+        "client": "fgv-spexregister-migration",
+        "roles": [
+          "IMPORT"
         ]
       }
     ]
@@ -3134,6 +3219,112 @@
         "roles"
       ],
       "optionalClientScopes": []
+    },
+    {
+      "id": "415e803b-7ecb-5641-b8d3-51552d011604",
+      "clientId": "fgv-revival-migration",
+      "name": "Guide migration",
+      "description": "Throw-away migration of the guide (Word) into Nyuppsättning as its first draft",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "Lvqn1YGQYQSdm6KuRx0agK0JmsGjDtEK",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": [],
+      "protocolMappers": [
+        {
+          "id": "a2992dd5-d67d-5c5c-9e78-3c8fdccec6bd",
+          "name": "sub",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "id": "8690cd9d-6bb4-520b-809d-d5b8e6a9967a",
+      "clientId": "fgv-spexregister-migration",
+      "name": "Spexregister migration",
+      "description": "Throw-away migration of Spexregister 1.x into Spexregister and Medlemskap, through their import APIs",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "3rSE1S2bvveAWwxxvLyRDvH6vZYhS2cP",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "client.secret.creation.time": "1794560400"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "optionalClientScopes": [],
+      "protocolMappers": [
+        {
+          "id": "d30bcc6f-4040-52fa-bad8-393e0ee5fbed",
+          "name": "sub",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "consentRequired": false,
+          "config": {
+            "introspection.token.claim": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ]
     },
     {
       "id": "a6f1c2d8-3b74-4e9a-8c51-7d2e9f0b4a63",
